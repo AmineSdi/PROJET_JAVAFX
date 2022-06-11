@@ -1,0 +1,17 @@
+Date : 11 juin 
+
+1- Doit-on déployer en mobile?
+
+2- Doit-on déployer "en ligne dans un browser micro-services"? Est-ce correct juste en local?
+
+3- Doit-on implémenter de l'authentification?
+
+X. Deux difficultés potentielles: sauvegarde temps réel + multiple utilisateurs sans concurence
+
+X. Décrire une classe en une responsabilité/phrase, séparer les responsabilités selon GRASP
+
+4- Juste développer l'application du côté d'un médecin pour la partie 2?
+
+4.1- Est-ce que la partie 1 doit être exhaustive théoriquement (en sachant que beaucoup ne serait pas implémenté puisque on code juste pour les médecins)?
+
+5. Faire de la Javadoc que pour les méthodes les plus critiques?  
