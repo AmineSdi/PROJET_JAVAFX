@@ -12,6 +12,16 @@ X. Décrire une classe en une responsabilité/phrase, séparer les responsabilit
 
 4- Juste développer l'application du côté d'un médecin pour la partie 2?
 
-4.1- Est-ce que la partie 1 doit être exhaustive théoriquement (en sachant que beaucoup ne serait pas implémenté puisque on code juste pour les médecins)?
+4.1- Est-ce que la partie 1 doit être exhaustive théoriquement (en sachant que beaucoup ne serait pas implémenté puisque on code juste pour les médecins)? Le code doit-il pouvoir être évolutif (donc doit être reflété dans le diagramme de classe)?
 
-5. Faire de la Javadoc que pour les méthodes les plus critiques?  
+5. Faire de la Javadoc que pour les méthodes les plus critiques? 
+
+Date : 13 juin
+
+1. Un seul diagnostic par antécédents? Peut-on avoir plusieurs diagnostics par antécédents?
+
+2. A-t-on besoin que du nom de l'hôpital?
+
+3. Devrait-on ajouter l'interface d'utilisation du logiciel comme une classe dans le diagramme de classe?
+
+4. Est-ce qu'un patient a accès à l'entièreté de son dossier? 

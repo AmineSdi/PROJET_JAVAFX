@@ -1,0 +1,21 @@
+@startuml
+
+:Patient: as P
+
+:Doctor: as D
+
+:HealthProfessionnal: as H
+
+usecase consultFile
+usecase modifyContactInfo
+usecase login
+usecase modifyPatientFile
+usecase cancelModifications
+usecase downloadFile
+
+'Will probably change
+consultFile -- P
+consultFile -- D
+consultFile -- H
+
+@enduml

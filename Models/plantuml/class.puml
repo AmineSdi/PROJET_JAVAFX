@@ -1,0 +1,87 @@
+@startuml
+!include common.style
+title RAMQ Dossier(Structure)
+center footer project #2
+
+
+class PatientFile{
+    -PatientID patientID
+    -MedicalVisits[] medicalVisits
+    -MedicalHistory[] medicalHistory
+    --
+    'PUBLIC METHODS
+    --
+    'PRIVATE METHODS
+}
+
+'abstract class User{
+'}
+'class Patient{
+'}
+abstract class HealthProfessional{
+}
+'class MedicalEstablishment{
+'}
+
+class MedicalHistory{
+    -String diagnostic
+    -String treatment
+    -Doctor treatingDoctor
+    -DatePair datePair
+}
+
+class MedicalVisits{
+    -String medicalEstablishment
+    -Doctor seenDoctor
+    -Date visitDate
+    -String diagnostic
+    -String treatment
+    -String visitResume
+    -String notes
+}
+
+class Doctor{
+    -String lastName
+    -String firstName
+    -String licenceNumber
+    -String specialty
+    -String medicalEstablishment
+}
+
+class PatientID {
+    -RAMQCode ramqCode
+    -String lastName
+    -String firstName
+    -Date date
+    -String cityOfBirth
+    -Gender gender
+    -String[] knownParents
+    -ContactInformation contactInformation
+}
+
+'class Interface{
+'}
+
+class RAMQCode{
+}
+
+class Date{
+}
+
+enum Gender{
+    FEMALE,
+    MALE,
+    OTHER
+}
+
+'Interface -- Doctor
+'Interface -- PatientFile
+HealthProfessional <|-- Doctor
+PatientFile --o Doctor
+PatientFile -- PatientID
+PatientFile -- MedicalHistory
+PatientFile -- MedicalVisits
+PatientID -- Date
+PatientID -- RAMQCode
+PatientID -- Gender
+@enduml
