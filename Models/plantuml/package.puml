@@ -1,0 +1,9 @@
+@startuml
+'DOCUMENTATION
+'PLANTUML (look for instruction about package environment) : https://plantuml.com/fr/deployment-diagram
+'WHAT IS A PACKAGE DIAGRAM : https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-package-diagram/
+title Ramq Dossier (packages)
+center footer project #2 - package diagram
+package patientFile
+package system
+@enduml

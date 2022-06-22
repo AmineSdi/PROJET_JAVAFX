@@ -1,8 +1,9 @@
 @startuml
 !include common.style
 title RAMQ Dossier(Structure)
-center footer project #2
-
+center footer project #2 - class diagram
+'DOCUMENTATION
+'PLANTUML : https://plantuml.com/fr/class-diagram
 
 class PatientFile{
     -PatientID patientID
@@ -14,14 +15,7 @@ class PatientFile{
     'PRIVATE METHODS
 }
 
-'abstract class User{
-'}
-'class Patient{
-'}
-abstract class HealthProfessional{
-}
-'class MedicalEstablishment{
-'}
+
 
 class MedicalHistory{
     -String diagnostic
@@ -30,7 +24,7 @@ class MedicalHistory{
     -DatePair datePair
 }
 
-class MedicalVisits{
+class MedicalVisit{
     -String medicalEstablishment
     -Doctor seenDoctor
     -Date visitDate
@@ -76,11 +70,10 @@ enum Gender{
 
 'Interface -- Doctor
 'Interface -- PatientFile
-HealthProfessional <|-- Doctor
 PatientFile --o Doctor
-PatientFile -- PatientID
-PatientFile -- MedicalHistory
-PatientFile -- MedicalVisits
+PatientFile  --> "1"PatientID
+PatientFile  *-- "0..*"MedicalHistory
+PatientFile  *-- "0..*" MedicalVisit
 PatientID -- Date
 PatientID -- RAMQCode
 PatientID -- Gender

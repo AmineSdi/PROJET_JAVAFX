@@ -1,21 +1,28 @@
 @startuml
-
-:Patient: as P
-
+!include common.style
+'DOCUMENTATION
+'PLANT UML : https://plantuml.com/fr/sequence-diagram
 :Doctor: as D
-
-:HealthProfessionnal: as H
-
+title Ramq Dossier(Use Cases)
+center footer project #2 - sequence diagram
 usecase consultFile
 usecase modifyContactInfo
 usecase login
 usecase modifyPatientFile
 usecase cancelModifications
 usecase downloadFile
-
+usecase searchPatientFile
+usecase addPatientFile
 'Will probably change
-consultFile -- P
+
 consultFile -- D
-consultFile -- H
+modifyContactInfo -- modifyPatientFile
+modifyPatientFile -- D
+cancelModifications -- modifyPatientFile
+login -- D
+downloadFile -- D
+searchPatientFile -- D
+addPatientFile -- D
+
 
 @enduml

@@ -1,0 +1,9 @@
+@startuml
+!include common.style
+'DOCUMENTATION
+'PLANTUML : https://plantuml.com/fr/sequence-diagram
+title Ramq Dossier  (Behavior)
+center footer project #2 - sequence diagram(login)
+actor "Doctor" as D
+participant userInterface as UI
+@enduml

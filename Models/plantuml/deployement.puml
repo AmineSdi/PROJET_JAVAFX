@@ -1,0 +1,25 @@
+@startuml
+'DOCUMENTATION
+'PLANTUML : https://plantuml.com/fr/deployment-diagram
+'WHAT'S A DEPLOYEMENT DIAGRAM : https://www.lucidchart.com/pages/fr/diagramme-de-deploiement-uml
+title RAMQ Dossier (architecture)
+center footer project #2 - deployement diagram
+database RamqData as RD{
+    storage database
+}
+node Back-End as BE {
+}
+
+node Front-End as FE {
+}
+
+node IndividualMachine as IM{
+    component DoctorInterface
+}
+FE -- RD : Reads from >
+BE -- FE
+RD -- BE : Writes to <
+FE -[#red,dashed,thickness=4]- IM : TCP/IP
+
+
+@enduml

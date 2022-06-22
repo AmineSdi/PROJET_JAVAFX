@@ -1,0 +1,11 @@
+@startuml
+'DOCUMENTATION
+'PLANTUML : https://plantuml.com/fr/component-diagram
+'WHATS A COMPONENTS DIAGRAM : https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-component-diagram/
+
+title Ramq Dossier (components)
+center footer project #2 - Components diagram
+component searchPatientFile as SPF
+component FileRepository as FR
+SPF -0)- FR : fileAccessor
+@enduml

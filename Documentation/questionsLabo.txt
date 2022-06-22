@@ -24,4 +24,8 @@ Date : 13 juin
 
 3. Devrait-on ajouter l'interface d'utilisation du logiciel comme une classe dans le diagramme de classe?
 
-4. Est-ce qu'un patient a accès à l'entièreté de son dossier? 
+4. Est-ce qu'un patient a accès à l'entièreté de son dossier?
+
+Date : 22 Juin
+
+X. Que faire avec la non-volatilité de la DB (on doit pouvoir revenir à tout état antérieur possible de la DB)
