@@ -37,7 +37,8 @@ D -> consultPatientFile
 consultPatientFile <-- "extends" cancelModifications
 
 consultPatientFile <- "extends" downloadFile
-searchPatientFile <-- D
+searchPatientFile "include" <-- consultPatientFile
+'searchPatientFile <-- D
 'addPatientFile <-- D
 
 login <-- "include" consultPatientFile
