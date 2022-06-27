@@ -3,9 +3,40 @@
 'DOCUMENTATION
 'PLANTUML : https://plantuml.com/fr/sequence-diagram
 title Ramq Dossier  (Behavior)
-center footer project #2 - sequence diagram(addPatientFile)
+center footer project #2 - sequence diagram (login)
 actor "Doctor" as D
 participant userInterface as UI
-participant patientFile as PF
-database Database
+participant databaseInterface as DI
+database Database as DB
+
+D -> UI: clickLoginButton\n(username: String\npassword: String)
+activate UI
+
+UI -> DI: validateLoginInfo\n(username: String\npassword: String)
+activate DI
+
+DI -> DB: SELECT query
+activate DB
+
+DB --> DI: queryResult
+deactivate DB
+
+create "d: Doctor" as dr
+DI -> dr: this(queryResult)
+
+activate dr
+dr --> DI: d
+deactivate dr
+
+alt d.licenseNumber != null
+    DI --> UI: showDoctorProfile(d)
+    UI --> D: profile
+else
+    DI --> UI: showError()
+    deactivate DI
+    UI --> D: error
+end
+
+deactivate UI
+
 @enduml
