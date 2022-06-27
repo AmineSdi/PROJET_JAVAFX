@@ -30,16 +30,16 @@ class MedicalHistory{
     -String diagnostic
     -String treatment
     -Doctor treatingDoctor
-    -DatePair datePair
+'    -DatePair datePair
 }
 
-class MedicalVisits{
+class MedicalVisit{
     -String medicalEstablishment
     -Doctor seenDoctor
-    -Date visitDate
+'    -Date visitDate
     -String diagnostic
     -String treatment
-    -String visitResume
+    -String visitSummary
     -String notes
 }
 
@@ -52,14 +52,20 @@ class Doctor{
 }
 
 class PatientID {
-    -RAMQCode ramqCode
     -String lastName
     -String firstName
-    -Date date
+'    -Date dateOfBirth
     -String cityOfBirth
-    -Gender gender
     -String[] knownParents
-    -ContactInformation contactInformation
+}
+
+class ContactInformation {
+    - number: int
+    - street: String
+    - postalCode: String
+    - province: String
+    - country: String
+    + modifyContactInfo()
 }
 
 'class Interface{
@@ -80,11 +86,19 @@ enum Gender{
 'Interface -- Doctor
 'Interface -- PatientFile
 HealthProfessional <|-- Doctor
-Doctor o--> "takes charge of\r*" PatientFile
+Doctor o--> "manages\r*" PatientFile
+
 PatientFile --> "1" PatientID
 PatientFile *--> "0..*" MedicalHistory
-PatientFile *--> "0..*" MedicalVisits
+PatientFile *--> "0..*" MedicalVisit
+
 PatientID --> "1" Date
 PatientID --> "1" RAMQCode
 PatientID --> "1" Gender
+
+ContactInformation "1" <- PatientID
+
+MedicalHistory --> "1" Date
+MedicalVisit --> "1" Date
+
 @enduml
