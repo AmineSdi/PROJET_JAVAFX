@@ -15,7 +15,7 @@
 ' a file is saved to the database, change cannot be undone.
 
 :Doctor: as D
-title Ramq Dossier(Use Cases)
+title RAMQ Dossier (Use Cases)
 center footer project #2 - use case diagram
 'usecase modifyContactInfo // Can the doctor do that?
 'usecase modifyPatientFile
@@ -24,7 +24,7 @@ usecase consultPatientFile
 usecase cancelModifications
 usecase downloadFile
 usecase searchPatientFile
-usecase addPatientFile
+'usecase addPatientFile
 usecase addMedicalHistory
 usecase addMedicalVisit
 'Will probably change
@@ -38,10 +38,10 @@ consultPatientFile <-- "extends" cancelModifications
 
 consultPatientFile <- "extends" downloadFile
 searchPatientFile <-- D
-addPatientFile <-- D
+'addPatientFile <-- D
 
-login "include" <-- consultPatientFile
-login "include" <-- searchPatientFile
-login "include" <-- addPatientFile
+login <-- "include" consultPatientFile
+login <-- "include" searchPatientFile
+'login "include" <-- addPatientFile
 
 @enduml

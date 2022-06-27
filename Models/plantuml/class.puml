@@ -7,6 +7,11 @@ center footer project #2
 
 ' Are we keeping HealthProfessional?
 
+'class PatientRegistry {
+'
+'}
+'PatientRegistry o-> "*" PatientFile
+
 class PatientFile{
 '    -PatientID patientID
 '    -MedicalVisits[] medicalVisits
@@ -15,14 +20,16 @@ class PatientFile{
     'PUBLIC METHODS
     --
     'PRIVATE METHODS
+    - downloadPatientFile(): PatientFile
+    - cancelModifications()
 }
 
 'abstract class User{
 '}
 'class Patient{
 '}
-abstract class HealthProfessional{
-}
+'abstract class HealthProfessional{
+'}
 'class MedicalEstablishment{
 '}
 
@@ -49,6 +56,8 @@ class Doctor{
     -String licenceNumber
     -String specialty
     -String medicalEstablishment
+
+'   -searchPatientFile(date: Date): PatientFile[]
 }
 
 class PatientID {
@@ -62,19 +71,26 @@ class PatientID {
 class ContactInformation {
     - number: int
     - street: String
+    - city: String
     - postalCode: String
-    - province: String
-    - country: String
+    - phone: String
+    - email: String
     + modifyContactInfo()
+    - validatePhone(phone: String): boolean
+    - validateEmail(email: String): boolean
+    - validatePostalCode(code: String): boolean
 }
 
 'class Interface{
 '}
 
 class RAMQCode{
+    -validateFormat(code: String): boolean
 }
 
 class Date{
+    -String date
+    -validateFormat(date: String): boolean
 }
 
 enum Gender{
@@ -85,7 +101,8 @@ enum Gender{
 
 'Interface -- Doctor
 'Interface -- PatientFile
-HealthProfessional <|-- Doctor
+'HealthProfessional <|-- Doctor
+
 Doctor o--> "manages\r*" PatientFile
 
 PatientFile --> "1" PatientID
@@ -98,7 +115,7 @@ PatientID --> "1" Gender
 
 ContactInformation "1" <- PatientID
 
-MedicalHistory --> "1" Date
+MedicalHistory --> "1..2" Date
 MedicalVisit --> "1" Date
 
 @enduml
