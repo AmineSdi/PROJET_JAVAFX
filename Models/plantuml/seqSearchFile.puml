@@ -6,5 +6,17 @@ title Ramq Dossier  (Behavior)
 center footer project #2 - sequence diagram(searchPatientFile)
 actor "Doctor" as D
 participant userInterface as UI
-participant patientFile as PF
+participant "p:patientFile" as PF
+D -> UI: enterSearchKeywords(String)
+activate D
+activate UI
+UI -> PF: sendSearchKeywords(String)
+activate PF
+UI <-- PF: sendResult(String)
+deactivate PF
+D <-- UI: showResult(String)
+D -> UI: clickResult(String)
+D <-- UI: showInformation(String)
+deactivate D
+deactivate UI
 @enduml
