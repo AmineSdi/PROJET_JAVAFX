@@ -12,7 +12,7 @@ database Database as DB
 D -> UI: clickSearchButton\n(searchCriteria: String)
 activate UI
 
-UI -> DI: searchPatient\n(searchCriteria: String)
+UI -> DI: searchPatientFile\n(searchCriteria: String)
 activate DI
 
 DI -> DB: SELECT query
@@ -28,7 +28,7 @@ activate pt
 pt --> DI: p
 deactivate pt
 
-alt d.licenseNumber != null
+alt p.patientID != null
     DI --> UI: showPatientFile(p)
     UI --> D: file
 else
