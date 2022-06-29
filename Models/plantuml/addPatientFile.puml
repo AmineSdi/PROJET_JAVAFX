@@ -2,15 +2,20 @@
 !include common.style
 'DOCUMENTATION
 'PLANTUML : https://plantuml.com/fr/sequence-diagram
-title Ramq Dossier (Behavior)
-center footer project #2 - sequence diagram (addMedicalVisit)
+
+title Sequence diagram (addPatientFile)
+center footer sequence diagram (addPatientFile)
 actor "RAMQ" as R
 participant "Centralized\nmedical system" as S
+participant "Data access\nobject" as D
 
 R -> S: clickAddPatientButton\n(p: PatientFile)
 activate S
 
-S -> S: addPatientToDB(p)
+S -> D: insertPatient(p)
+activate D
+D --> S: result
+deactivate D
 
 alt success
     S --> R: showSuccessMessage()
