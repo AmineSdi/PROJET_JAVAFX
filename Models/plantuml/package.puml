@@ -4,6 +4,16 @@
 'WHAT IS A PACKAGE DIAGRAM : https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-package-diagram/
 title Ramq Dossier (packages)
 center footer project #2 - package diagram
-package patientFile
-package system
+package PatientFile{
+    package PatientID
+    package MedicalHistory
+    package MedicalVisit
+}
+package Doctor
+package DataBaseInterface
+package UserInterface
+
+Doctor ..> PatientFile
+Doctor ..> DataBaseInterface
+Doctor ..> UserInterface
 @enduml

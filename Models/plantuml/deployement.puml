@@ -4,22 +4,20 @@
 'WHAT'S A DEPLOYEMENT DIAGRAM : https://www.lucidchart.com/pages/fr/diagramme-de-deploiement-uml
 title RAMQ Dossier (architecture)
 center footer project #2 - deployement diagram
-database RamqData as RD{
+
+database DataBaseServer as DB{
     storage database
 }
-node Back-End as BE {
-}
 
-node Front-End as FE {
+node ApplicationServer as AS{
+    component BackEnd
+    component FrontEnd
 }
 
 node IndividualMachine as IM{
     component DoctorInterface
 }
-FE -- RD : Reads from >
-BE -- FE
-RD -- BE : Writes to <
-FE -[#red,dashed,thickness=4]- IM : TCP/IP
-
+AS -[#red,dashed,thickness=4]- IM : TCP/IP
+AS -- DB
 
 @enduml
