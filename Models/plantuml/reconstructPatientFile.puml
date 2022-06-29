@@ -1,0 +1,26 @@
+@startuml
+!include common.style
+'DOCUMENTATION
+'PLANTUML : https://plantuml.com/fr/sequence-diagram
+
+title Sequence diagram (reconstructPatientFile)
+center footer sequence diagram (reconstructPatientFile)
+actor "RAMQ" as R
+participant "Centralized\nmedical system" as S
+participant "Data access\nobject" as D
+
+R -> S: clickReconstructFileButton\n(p: PatientFile, d: Date)
+activate S
+
+S -> D: updatePatient(p, d)
+activate D
+D --> S: result
+deactivate D
+
+alt success
+    S --> R: showSuccessMessage()
+else error
+    S --> R: showFailureMessage()
+end
+
+@enduml
