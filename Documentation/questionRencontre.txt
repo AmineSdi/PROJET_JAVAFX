@@ -1,0 +1,2 @@
+1- Doit-on implémenter l'historique des modifications et le retour à tout état antérieur de la BD (surtout considérant que ce n'est pas un use-case de l'acteur Doctor, ça rendrait peu pertinent au projet)?
+
