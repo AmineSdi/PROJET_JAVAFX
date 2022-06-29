@@ -1,0 +1,21 @@
+@startuml
+!include common.style
+'DOCUMENTATION
+'PLANTUML : https://plantuml.com/fr/sequence-diagram
+title Ramq Dossier  (Behavior)
+center footer project #2 - sequence diagram (downloadFile)
+actor "Doctor" as D
+participant userInterface as UI
+
+D -> UI: clickDownloadButton()
+activate UI
+create "p: PatientFile" as pt
+UI -> pt: getPrintableFile()
+activate pt
+pt -> pt:consolidateInfo()
+UI <-- pt: returnFile()
+deactivate pt
+D <-- UI: showPrintableFile()
+deactivate UI
+
+@enduml
