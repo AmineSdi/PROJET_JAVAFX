@@ -27,6 +27,7 @@ usecase searchPatientFile
 'usecase addPatientFile
 usecase addMedicalHistory
 usecase addMedicalVisit
+usecase submitModifications
 'Will probably change
 
 consultPatientFile <-- "extends" addMedicalHistory
@@ -41,8 +42,9 @@ searchPatientFile "include" <-- consultPatientFile
 'searchPatientFile <-- D
 'addPatientFile <-- D
 
-login <-- "include" consultPatientFile
-login <-- "include" searchPatientFile
+login "include" <-- consultPatientFile
+'login <-- "include" searchPatientFile
 'login "include" <-- addPatientFile
+submitModifications "extends" --> consultPatientFile
 
 @enduml
