@@ -2,41 +2,27 @@
 !include common.style
 'DOCUMENTATION
 'PLANTUML : https://plantuml.com/fr/sequence-diagram
-title Ramq Dossier  (Behavior)
-center footer project #2 - sequence diagram (login)
-actor "Doctor" as D
-participant userInterface as UI
-participant databaseInterface as DI
-database Database as DB
+title Sequence diagram (login)
+center footer sequence diagram (login)
+actor "User" as U
+participant "Centralized\nmedical system" as S
+participant "Data access\nobject" as D
 
-D -> UI: clickLoginButton\n(username: String\npassword: String)
-activate UI
+U -> S: clickLoginButton\n(username: String\npassword: String)
+activate S
 
-UI -> DI: validateLoginInfo\n(username: String\npassword: String)
-activate DI
+S -> D: selectUser\n(username: String\npassword: String)
+activate D
+D --> S: result
+deactivate D
 
-DI -> DB: SELECT query
-activate DB
-
-DB --> DI: queryResult
-deactivate DB
-
-create "d: Doctor" as dr
-DI -> dr: this(queryResult)
-
-activate dr
-dr --> DI: d
-deactivate dr
-
-alt d.licenseNumber != null
-    DI --> UI: showDoctorProfile(d)
-    UI --> D: profile
-else
-    DI --> UI: showError()
-    deactivate DI
-    UI --> D: error
+alt success
+    S --> U: profile
+else error
+    deactivate D
+    S --> U: error
 end
 
-deactivate UI
+deactivate S
 
 @enduml
