@@ -1,0 +1,21 @@
+@startuml
+!include common.style
+'DOCUMENTATION
+'PLANTUML : https://plantuml.com/fr/sequence-diagram
+title Ramq Dossier (Behavior)
+center footer project #2 - sequence diagram (addMedicalVisit)
+actor "RAMQ" as R
+participant "Centralized\nmedical system" as S
+
+R -> S: clickAddPatientButton\n(p: PatientFile)
+activate S
+
+S -> S: addPatientToDB(p)
+
+alt success
+    S --> R: showSuccessMessage()
+else error
+    S --> R: showFailureMessage()
+end
+
+@enduml
