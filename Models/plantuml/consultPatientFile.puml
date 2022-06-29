@@ -2,142 +2,27 @@
 !include common.style
 'DOCUMENTATION
 'PLANTUML : https://plantuml.com/fr/sequence-diagram
-title Ramq Dossier  (Behavior)
-center footer project #2 - sequence diagram (searchPatientFile)
+title Sequence diagram (consultPatientFile)
+center footer Sequence diagram (consultPatientFile)
 actor "Doctor" as D
-participant userInterface as UI
-'participant databaseInterface as DI
-'database Database as DB
+participant "Centralized\nmedical system" as S
 
-D -> UI: clickSearchButton\n(searchCriteria: String)
+D -> S: clickPatientID(p: PatientFile)
+activate S
+S -> S: getPatientID(p)
+S --> D: display id
+deactivate S
 
-create "p: PatientFile" as pt
-activate UI
-UI -> pt: this()
-'D -> pt: searchPatientFile()
-activate pt
+D -> S: clickMedicalHistory(p: PatientFile)
+activate S
+S -> S: getMedicalHistory(p)
+S --> D: display history
+deactivate S
 
-create "id: PatientID" as id
-pt -> id: this()
-activate id
-id --> pt: id
-deactivate id
-
-create "h: MedicalHistory" as h
-pt -> h: this()
-activate h
-h --> pt: h
-deactivate h
-
-create "v: MedicalVisit" as v
-pt -> v: this()
-activate v
-v --> pt: v
-deactivate v
-
-pt --> UI: p
-deactivate pt
-UI --> D: display p
-deactivate UI
-
-' clickPatientID()
-
-D -> UI: clickPatientID()
-
-UI -> pt: getPatientID()
-activate pt
-
-pt -> id: getPatientID()
-activate id
-
-id --> pt: id
-deactivate id
-
-pt --> UI: id
-
-deactivate pt
-
-UI --> D: display id
-
-
-
-D -> UI: clickMedicalHistory()
-
-UI -> pt: getMedicalHistory()
-activate pt
-
-pt -> h: getMedicalHistory()
-activate h
-
-h --> pt: h
-deactivate h
-
-pt --> UI: h
-
-deactivate pt
-
-UI --> D: display h
-
-
-D -> UI: clickMedicalVisits()
-
-UI -> pt: getMedicalVisits()
-activate pt
-
-pt -> v: getMedicalVisits()
-activate v
-
-v --> pt: v
-deactivate v
-
-pt --> UI: v
-
-deactivate pt
-
-UI --> D: display v
-
-
-
-' clickMedicalHistory()
-
-' clickMedicalVisits()
-
-
-
-
-'activate DB
-'create "p: PatientFile" as pt
-'DI -> pt: this()
-'DB --> D : p
-'deactivate DB
-
-'D -> UI: clickSearchButton\n(searchCriteria: String)
-'activate UI
-'
-'UI -> DI: searchPatientFile\n(searchCriteria: String)
-'activate DI
-
-'DI -> DB: SELECT query
-'activate DB
-
-'DB --> DI: queryResult
-'deactivate DB
-
-
-
-'activate pt
-'pt --> DI: p
-'deactivate pt
-
-'alt p.patientID != null
-'    DI --> UI: showPatientFile(p)
-'    UI --> D: file
-'else
-'    DI --> UI: showError()
-'    deactivate DI
-'    UI --> D: error
-'end
-
-deactivate UI
+D -> S: clickMedicalVisits(p: PatientFile)
+activate S
+S -> S: getMedicalVisits()
+S --> D: display visits
+deactivate S
 
 @enduml
