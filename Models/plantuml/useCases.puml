@@ -3,48 +3,56 @@
 'DOCUMENTATION
 'PLANT UML : https://plantuml.com/fr/sequence-diagram
 
-' Thought : A Doctor can consult a patient file, and
-' optionally download it or modifiy it.
-
-' Every action requires the doctor to login.
-
-' Brainstorm : A Doctor (technically) shouldn't be able to
-' modify a patient file after it has been definitely saved,
-' can cause ethical problems (falsifying medical records).
-' Therefore, automatic saving can be done locally, but once
-' a file is saved to the database, change cannot be undone.
-
 :Doctor: as D
+:RAMQ: as R
+:Patient: as P
+:HealthProfessional: as H
+:OtherHealthProfessional: as O
+
+H <|-- D
+H <|- O
+
 title RAMQ Dossier (Use Cases)
-center footer project #2 - use case diagram
-'usecase modifyContactInfo // Can the doctor do that?
-'usecase modifyPatientFile
-usecase login
-usecase consultPatientFile
-usecase cancelModifications
-usecase downloadFile
-usecase searchPatientFile
-'usecase addPatientFile
-usecase addMedicalHistory
-usecase addMedicalVisit
-usecase submitModifications
-'Will probably change
+center footer use case diagram
 
-consultPatientFile <-- "extends" addMedicalHistory
-consultPatientFile <-- "extends" addMedicalVisit
-'modifyPatientFile --> "extends" consultPatientFile
-'modifyContactInfo --> "extends" consultPatientFile
-D -> consultPatientFile
-consultPatientFile <-- "extends" cancelModifications
+rectangle "Medical record management system" {
 
-consultPatientFile <- "extends" downloadFile
-searchPatientFile "include" <-- consultPatientFile
-'searchPatientFile <-- D
-'addPatientFile <-- D
+    usecase login
 
-login "include" <-- consultPatientFile
-'login <-- "include" searchPatientFile
-'login "include" <-- addPatientFile
-submitModifications "extends" --> consultPatientFile
+    ' HealthProfessionals
+    usecase consultPatientFile
+
+    ' Doctor
+    usecase cancelModifications
+    usecase modifyPatientFile
+
+    ' Patient
+    usecase modifyContactInfo
+
+    ' RAMQ
+    usecase addPatientFile
+    usecase reconstructPatientFile
+
+    ' includes
+    consultPatientFile --> "include" login
+    modifyContactInfo --> login
+}
+
+' Doctor
+D --> modifyPatientFile
+D --> cancelModifications
+
+' HealthProfessional
+H --> consultPatientFile
+
+' Patient
+P --> consultPatientFile
+P --> modifyContactInfo
+
+' RAMQ
+reconstructPatientFile <-- R
+addPatientFile <- R
+
+
 
 @enduml
