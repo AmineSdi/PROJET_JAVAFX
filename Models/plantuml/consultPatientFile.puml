@@ -4,25 +4,25 @@
 'PLANTUML : https://plantuml.com/fr/sequence-diagram
 title Sequence diagram (consultPatientFile)
 center footer Sequence diagram (consultPatientFile)
-actor "Doctor" as D
+actor "User" as U
 participant "Centralized\nmedical system" as S
 
-D -> S: clickPatientID(p: PatientFile)
+U -> S: clickPatientID(p: PatientFile)
 activate S
 S -> S: getPatientID(p)
-S --> D: display id
+S --> U: display id
 deactivate S
 
-D -> S: clickMedicalHistory(p: PatientFile)
+U -> S: clickMedicalHistory(p: PatientFile)
 activate S
 S -> S: getMedicalHistory(p)
-S --> D: display history
+S --> U: display history
 deactivate S
 
-D -> S: clickMedicalVisits(p: PatientFile)
+U -> S: clickMedicalVisits(p: PatientFile)
 activate S
 S -> S: getMedicalVisits()
-S --> D: display visits
+S --> U: display visits
 deactivate S
 
 @enduml
