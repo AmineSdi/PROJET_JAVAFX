@@ -2,25 +2,27 @@
 !include common.style
 'DOCUMENTATION
 'PLANTUML : https://plantuml.com/fr/sequence-diagram
-
-title Sequence diagram (addPatientFile)
-center footer sequence diagram (addPatientFile)
-actor "RAMQ" as R
+title Sequence diagram (login)
+center footer sequence diagram (login)
+actor "Patient" as P
 participant "Centralized\nmedical system" as S
 participant "Data access\nobject" as D
 
-R -> S: clickAddPatientButton\n(p: PatientFile)
+P -> S: clickUpdateContactInfoButton\n(p: PatientFile)
 activate S
 
-S -> D: insertPatient(p)
+S -> D: updateUser\n(p: PatientFile)
 activate D
 D --> S: result
 deactivate D
 
 alt success
-    S --> R: display success
+    S --> P: display success
 else error
-    S --> R: display error
+    deactivate D
+    S --> P: display error
 end
+
+deactivate S
 
 @enduml

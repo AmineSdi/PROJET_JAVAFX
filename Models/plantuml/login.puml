@@ -17,10 +17,10 @@ D --> S: result
 deactivate D
 
 alt success
-    S --> U: profile
+    S --> U: display profile
 else error
     deactivate D
-    S --> U: error
+    S --> U: display error
 end
 
 deactivate S
