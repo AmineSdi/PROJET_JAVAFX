@@ -1,0 +1,26 @@
+@startuml
+!include common.style
+'DOCUMENTATION
+'PLANTUML : https://plantuml.com/fr/sequence-diagram
+title Ramq Dossier  (Behavior)
+center footer project #2 - sequence diagram (addMedicalHistory)
+actor "Doctor" as D
+participant userInterface as UI
+'database Database as DB
+
+D -> UI: clickAddMedicalHistoryButton()
+activate UI
+create "p: PatientFile" as pt
+UI -> pt: medicalHistoryInformation()\n(medicalHistory:String)
+activate pt
+create "h: MedicalHistory" as h
+pt -> h: addMedicalHistory()\n(medicalHistory:String)
+activate h
+h --> pt: h
+deactivate h
+UI <-- pt: h
+deactivate pt
+D <-- UI: display h
+deactivate UI
+
+@enduml
