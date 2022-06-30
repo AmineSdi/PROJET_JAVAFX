@@ -1,16 +1,29 @@
 @startuml
-!include common.style
-title RAMQ Dossier (Structure)
-center footer project #2
+title Centralized medical management system - Class diagram
+center footer Centralized medical management system - Class diagram
 
 ' TODO : Methods for each class.
+' TODO : Add responsibilities? interfaces?
+' TODO : clean up
 
-' Are we keeping HealthProfessional?
+class PatientRegistry {
 
-'class PatientRegistry {
-'
-'}
-'PatientRegistry o-> "*" PatientFile
+}
+PatientRegistry o-> "*" PatientFile
+
+class "CentralizedMedicalSystem" {
+}
+"CentralizedMedicalSystem" --> PatientRegistry
+"CentralizedMedicalSystem" --> "*" DoctorRegistry
+
+interface Searchable {
+}
+Searchable <|-- DoctorRegistry
+Searchable <|-- PatientRegistry
+
+class DoctorRegistry {
+}
+DoctorRegistry o--> "*" Doctor
 
 class PatientFile{
 '    -PatientID patientID
@@ -24,14 +37,26 @@ class PatientFile{
     - cancelModifications()
 }
 
-'abstract class User{
-'}
-'class Patient{
-'}
-'abstract class HealthProfessional{
-'}
-'class MedicalEstablishment{
-'}
+abstract class User{
+}
+
+class Patient{
+}
+PatientFile <- Patient
+
+User <|-- Patient
+
+
+
+abstract class HealthProfessional{
+}
+User <|-- HealthProfessional
+
+class MedicalEstablishment{
+
+}
+MedicalEstablishment -> ContactInformation
+Doctor -> MedicalEstablishment
 
 class MedicalHistory{
     -String diagnostic
@@ -75,7 +100,7 @@ class ContactInformation {
     - postalCode: String
     - phone: String
     - email: String
-    + modifyContactInfo()
+'    + modifyContactInfo()
     - validatePhone(phone: String): boolean
     - validateEmail(email: String): boolean
     - validatePostalCode(code: String): boolean
@@ -101,7 +126,7 @@ enum Gender{
 
 'Interface -- Doctor
 'Interface -- PatientFile
-'HealthProfessional <|-- Doctor
+HealthProfessional <|-- Doctor
 
 Doctor o--> "manages\r*" PatientFile
 
