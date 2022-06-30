@@ -35,7 +35,12 @@ rectangle "Medical record management system" {
 
     ' includes
     consultPatientFile --> "include" login
-    modifyContactInfo --> login
+    modifyContactInfo --> "include" login
+    modifyPatientFile --> "include" login
+    cancelModifications --> "include" login
+    addPatientFile --> "include" login
+    reconstructPatientFile --> "include" login
+
 }
 
 ' Doctor
@@ -50,7 +55,7 @@ P --> consultPatientFile
 P --> modifyContactInfo
 
 ' RAMQ
-reconstructPatientFile <-- R
+reconstructPatientFile <- R
 addPatientFile <- R
 
 
