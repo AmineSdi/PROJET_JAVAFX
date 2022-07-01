@@ -9,8 +9,9 @@
 :HealthProfessional: as H
 :OtherHealthProfessional: as O
 
-H <|-- D
-H <|- O
+D --|> H
+
+O -|> H
 
 title RAMQ Dossier (Use Cases)
 center footer use case diagram
@@ -23,41 +24,33 @@ rectangle "Medical record management system" {
     usecase consultPatientFile
 
     ' Doctor
-    usecase cancelModifications
     usecase modifyPatientFile
 
     ' Patient
     usecase modifyContactInfo
 
     ' RAMQ
-    usecase addPatientFile
     usecase reconstructPatientFile
 
     ' includes
-    consultPatientFile --> "include" login
-    modifyContactInfo --> "include" login
-    modifyPatientFile --> "include" login
-    cancelModifications --> "include" login
-    addPatientFile --> "include" login
-    reconstructPatientFile --> "include" login
-
+     reconstructPatientFile  ..> "include" login
+    modifyPatientFile ..> "include" consultPatientFile
+    consultPatientFile .> "include" login
+    login "include" <. modifyContactInfo
+    modifyPatientFile ..> "include" login
 }
 
 ' Doctor
-D --> modifyPatientFile
-D --> cancelModifications
+D -> modifyPatientFile
 
 ' HealthProfessional
-H --> consultPatientFile
+H -> " " consultPatientFile
 
 ' Patient
-P --> consultPatientFile
-P --> modifyContactInfo
+consultPatientFile <- P
+modifyContactInfo <- P
 
 ' RAMQ
 reconstructPatientFile <- R
-addPatientFile <- R
-
-
 
 @enduml
