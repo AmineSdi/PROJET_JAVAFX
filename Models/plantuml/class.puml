@@ -7,21 +7,18 @@ center footer Centralized medical management system - Class diagram
 ' TODO : clean up
 
 class PatientRegistry {
-
++ search(idpatient : PatientID) : PatientFile
 }
 PatientRegistry o-> "*" PatientFile
 
-class "CentralizedMedicalSystem" {
-}
-"CentralizedMedicalSystem" --> PatientRegistry
-"CentralizedMedicalSystem" --> "*" DoctorRegistry
-
 interface Searchable {
++ search()
 }
-Searchable <|-- DoctorRegistry
-Searchable <|-- PatientRegistry
+Searchable <|.. DoctorRegistry
+Searchable <|.. PatientRegistry
 
 class DoctorRegistry {
++ search(licenceNumber: String ) : Doctor
 }
 DoctorRegistry o--> "*" Doctor
 
@@ -33,30 +30,37 @@ class PatientFile{
     'PUBLIC METHODS
     --
     'PRIVATE METHODS
-    - downloadPatientFile(): PatientFile
+    - consultPatientFile(): PatientFile
     - cancelModifications()
 }
 
 abstract class User{
+- String LastName
+- String FirstName
 }
 
 class Patient{
+{method}
 }
 PatientFile <- Patient
 
 User <|-- Patient
+User -->"1" ContactInformation
 
 
-
-abstract class HealthProfessional{
+class HealthProfessional{
 }
+
 User <|-- HealthProfessional
 
 class MedicalEstablishment{
 
+- String IdEstablishment
+- String EstablishmentName
+
 }
-MedicalEstablishment -> ContactInformation
-Doctor -> MedicalEstablishment
+MedicalEstablishment ->"1" ContactInformation
+Doctor ->"1" MedicalEstablishment
 
 class MedicalHistory{
     -String diagnostic
@@ -76,8 +80,6 @@ class MedicalVisit{
 }
 
 class Doctor{
-    -String lastName
-    -String firstName
     -String licenceNumber
     -String specialty
     -String medicalEstablishment
@@ -126,9 +128,9 @@ enum Gender{
 
 'Interface -- Doctor
 'Interface -- PatientFile
-HealthProfessional <|-- Doctor
 
 Doctor o--> "manages\r*" PatientFile
+Doctor -|> User
 
 PatientFile --> "1" PatientID
 PatientFile *--> "0..*" MedicalHistory
