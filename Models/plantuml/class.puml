@@ -40,7 +40,8 @@ abstract class User{
 }
 
 class Patient{
-{method}
+{method}- add(info : ContactInformation)
+-delete(info : ContactInformation)
 }
 PatientFile <- Patient
 
@@ -67,24 +68,29 @@ class MedicalHistory{
     -String treatment
     -Doctor treatingDoctor
 '    -DatePair datePair
+{method} + getMedicalHistory()
 }
 
 class MedicalVisit{
-    -String medicalEstablishment
+    -MedicalEstablishment medicalEstablishment
     -Doctor seenDoctor
-'    -Date visitDate
+'   -Date visitDate
     -String diagnostic
     -String treatment
     -String visitSummary
     -String notes
+{method} +getMedicalVisit()
 }
 
 class Doctor{
     -String licenceNumber
     -String specialty
     -String medicalEstablishment
+{method}- add(visit : MedicalVisit)
+- add(history : MedicalHistory)
+-delete(visit : MedicalHistory)
+- delete(history :MedicalHistory)
 
-'   -searchPatientFile(date: Date): PatientFile[]
 }
 
 class PatientID {
@@ -119,6 +125,15 @@ class Date{
     -String date
     -validateFormat(date: String): boolean
 }
+
+interface Modification {
++ Date date
+{method}+ add()
++ delete()
++ cancel()
+
+}
+Modification <|. PatientFile
 
 enum Gender{
     FEMALE,
