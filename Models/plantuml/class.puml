@@ -23,21 +23,41 @@ class DoctorRegistry {
 DoctorRegistry o--> "*" Doctor
 
 class PatientFile{
+     -String socialInsuranceNumber
+     -int InsuranceNumberCode
 '    -PatientID patientID
 '    -MedicalVisits[] medicalVisits
 '    -MedicalHistory[] medicalHistory
-    --
-    'PUBLIC METHODS
-    --
+
     'PRIVATE METHODS
-    - consultPatientFile(): PatientFile
+    - consultPatientFile(user : User): PatientFile
     - cancelModifications()
 }
 
 abstract class User{
 - String LastName
 - String FirstName
+{method} - getGender()
 }
+
+class RAMQ {
+{method} +search(insurancenum : SocialInsuranceNumber)
+- rebuildPatientFile(date : Date)
+
+}
+
+class SocialInsuranceNumber {
+- String number
+- Date birthday
+- String lastName
+- String firstName
+{method} + getNumber()
+}
+
+RAMQ *->"*" SocialInsuranceNumber
+Searchable <|... RAMQ
+RAMQ ->"*" RAMQCode
+RAMQ -->"*"PatientFile
 
 class Patient{
 {method}- add(info : ContactInformation)
@@ -50,6 +70,7 @@ User -->"1" ContactInformation
 
 
 class HealthProfessional{
+{method} - applyprescription()
 }
 
 User <|-- HealthProfessional
@@ -86,10 +107,8 @@ class Doctor{
     -String licenceNumber
     -String specialty
     -String medicalEstablishment
-{method}- add(visit : MedicalVisit)
-- add(history : MedicalHistory)
--delete(visit : MedicalHistory)
-- delete(history :MedicalHistory)
+{method}-modify(file : PatientFile)
+-cancel( file : PatientFile)
 
 }
 
@@ -118,7 +137,8 @@ class ContactInformation {
 '}
 
 class RAMQCode{
-    -validateFormat(code: String): boolean
+- String code
+{method}-validateFormat(code: String): boolean
 }
 
 class Date{
@@ -128,8 +148,7 @@ class Date{
 
 interface Modification {
 + Date date
-{method}+ add()
-+ delete()
+{method}+modify()
 + cancel()
 
 }
@@ -153,7 +172,7 @@ PatientFile *--> "0..*" MedicalVisit
 
 PatientID --> "1" Date
 PatientID --> "1" RAMQCode
-PatientID --> "1" Gender
+User --> "1" Gender
 
 ContactInformation "1" <- PatientID
 
