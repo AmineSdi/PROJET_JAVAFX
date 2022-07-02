@@ -1,13 +1,52 @@
 # PAGE PRÉSENTATION
-TODO
+<p style="text-align: center;">Rapport de conception projet de session
+
+<p style="text-align: center;">Présenté au professeur Gagnely Serge Dogny
+
+<p style="text-align: center;">dans le cadre du cours INF5153 Génie Logiciel: Conception
+
+<p style="text-align: center;"> par
+
+<p style="text-align: center;">Steven Chia Ah-Lan - AHLS12109105 
+<p style="text-align: center;">Alexandre Filion - FILA09128609 
+<p style="text-align: center;">Mohand Amine Saïdi - TODO
+<p style="text-align: center;">Nicolas Goulet - GOUN12109401
+<p style="text-align: center;">Travail remis le dimanche 3 juillet 2022
+<div style="page-break-after: always"></div>
 
 # TABLE DES MATIÈRES
-TODO
+1. Page Présentation...........................................1
+2. Table des matières..........................................2
+3. Introduction................................................3
+4. Diagramme de classes........................................4
+5. Diagramme de cas d'utilisations
+6. Les diagrammes de séquence
 
-# Justifications GRASP
+    6.1 Login
 
-## Classes
+    6.2 ConsultPatientFile
 
+    6.3 ModifyPatientFile
+
+   6.4 ReconstructPatientFile
+
+    6.5 modifyContactInfo
+7. Diagramme de package
+8. Diagramme de composantes
+9. Diagramme de déploiement
+<div style="page-break-after: always"></div>
+
+
+# Introduction
+
+
+
+# Diagramme de classes
+EXPLICATION DIAGRAMME DE CLASSE TODO
+
+![Diagramme de classes](../Models/pngs/class-Centralized_medical_management_system___Class_diagram.png)
+
+## Justfications GRASP 
 ### PatientFile
 
 #### Justification d'instanciation :
@@ -27,3 +66,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ### MedicalVisit
 
 ###Date
+
+# Diagramme des cas d'utilisation 
+
+# Diagrammes de séquences 
+
+## Login
