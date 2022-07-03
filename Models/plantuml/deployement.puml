@@ -2,8 +2,8 @@
 'DOCUMENTATION
 'PLANTUML : https://plantuml.com/fr/deployment-diagram
 'WHAT'S A DEPLOYEMENT DIAGRAM : https://www.lucidchart.com/pages/fr/diagramme-de-deploiement-uml
-title RAMQ Dossier (architecture)
-center footer project #2 - deployement diagram
+title Deployment diagram
+center footer Deployement diagram
 
 database DataBaseServer as DB{
     storage database
@@ -11,13 +11,22 @@ database DataBaseServer as DB{
 
 node ApplicationServer as AS{
     component BackEnd
+
+}
+
+node WebServer as WS {
     component FrontEnd
 }
 
 node IndividualMachine as IM{
-    component DoctorInterface
+    component UserInterface
 }
-AS -[#red,dashed,thickness=4]- IM : TCP/IP
+
+
+IM -- "TCP/IP" WS
+WS -- AS
+
+'AS -[#red,dashed,thickness=4]- IM : TCP/IP
 AS -- DB
 
 @enduml
