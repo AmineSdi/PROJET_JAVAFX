@@ -1,0 +1,47 @@
+@startuml
+!include common.style
+'DOCUMENTATION
+'PLANTUML : https://plantuml.com/fr/sequence-diagram
+title Patient File  (modifyPatientFile)
+center footer project #2 - sequence diagram (modifyPatientFile)
+actor "Doctor" as D
+participant "Centralized\nmedical system" as S
+participant "Data access\nobject" as DI
+database Database as DB
+
+
+loop until Doctor remains on Patient File
+else Doctor selects Medical History
+D -> S: modifyMedicalHistory()
+activate S
+S -> S:saveModification()
+D <-- S: returnMessage()
+deactivate S
+
+else Doctor selects Medical Visit
+D -> S: modifyMedicalVisit()
+activate S
+S -> S:saveModification()
+D <-- S: returnMessage()
+deactivate S
+end
+
+D -> S: closePatientFile()
+activate S
+alt keepModification?
+else No
+S -> S:discardModification()
+else Yes
+activate DI
+S -> DI: sendModification()
+activate DB
+DI -> DB: storeModification()
+DI <-- DB: returnMessage()
+deactivate DB
+S <-- DI: returnMessage()
+deactivate DI
+end
+D <-- S: showMessage()
+deactivate S
+
+@enduml
