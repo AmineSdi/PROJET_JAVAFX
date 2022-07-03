@@ -49,18 +49,14 @@ EXPLICATION DIAGRAMME DE CLASSE TODO
 ## Justfications GRASP
 
 ### PatientRegistry et DoctorRegistry
-Ces deux classes jouent le rôle de conteneurs d'information ; `PatientRegistry` est composé de dossiers de patients, 
-et `DoctorRegistry` est composé de médecins. Nous utilisons le patron *Créateur* vu que nous observons 
-une relation de composition. Par conséquent, `PatientRegistry` et `DoctorRegistry` ont la responsabilité
-d'instancier les dossiers des patients et les médecins, respectivement. <br />
+Ces deux classes représentent des conteneurs d'information dans le système. Par exemple, elles pourraient 
+faire partie d'une base de données. `PatientRegistry` contient les dossiers des patients, 
+et `DoctorRegistry` contient les informations sur les docteurs. Nous utilisons le patron *Créateur* vu 
+que nous observons une relation de composition. En implémentant l'interface `Registry`, les clases `PatientRegistry` 
+et `DoctorRegistry` permettent l'instanciation des dossiers patients et des médecins, respectivement. 
+L'implémentation de l'interface `Searchable` permet aussi la recherche dans une collection de données.
 
 ### PatientFile
-
-Nous utilisons le patron de *Spécialiste de l'information* pour justifier l'instanciation de la classe PatientFile. 
-Cette classe a pour responsabilité d'aller récupérer toutes les informations pertinentes relatives au dossier d'un patient, 
-notamment les visites et antécédents médicaux de ce dernier. Nous évitons ainsi un gros BLOB.
-
-ou sinon
 
 Nous utilisons le patron *Créateur* pour justifier l'instanciation de la classe PatientFile. Étant
 composé de visites médicaux et d'antécédents médicaux, cette classe a pour responsabilité de créer des
@@ -71,69 +67,69 @@ Nous utilisons le patron de *Spécialiste de l'information* pour justifier l'ins
 deux classes. `MedicalHistory` et `MedicalVisit` ont pour responsabilité d'aller récupérer toutes
 les informations par rapport aux visites médicales et aux antécédents médicaux, respectivement. 
 En encapsulant ces informations dans deux classes distinctes, nous évitons ainsi de créer un gros BLOB.
+ 
+`MedicalHistory` et `MedicalVisit` contiennent chacune une méthode publique (accesseur) qui retourne
+le `MedicalHistory` et `MedicalVisit` respectivement à des fins de consultation. Vu que ces dernières 
+ne contiennent pas de référence vers d'autres objets (faible couplage), ces accesseurs retournent 
+l'information sans créer de problèmes de fuite de données ou d'intimité inappropriée. 
 
 ### User
 -`User` englobe les utilisateurs qui auraient accès au système centralisé de gestion des dossiers médicaux.
 Le patron *Polymorphisme* est utilisé ici, car les classes qui héritent de `User` possèdent des comportements
-dont leur implémentation diffère selon la sous-classe. Un patient ne modifie pas le dossier de la même
-façon qu'un médecin, par exemple.
+dont leur implémentation diffère selon la sous-classe. Un patient ne consulte pas le dossier de la même
+façon qu'un médecin, par exemple. Les détails de l'implémentation restent cachés dans les sous-classes
+de `User`. 
 
 
 ### Doctor
--`Doctor` a le devoir de gérer le dossier médical, par exemple en ajoutant des visites ou des antécédents. 
-Le patron *Faible couplage* justifie son instanciation, car le `Doctor` possède un couplage faible avec
-le `PatientFile`. Effectivement, le `PatientFile` est passé en tant que paramètre dans les méthodes
-privées de `Doctor` au lieu d'avoir une relation directe avec ce dernier, ce qui affaiblit le couplage entre ces
-deux classes. 
+-`Doctor` a le devoir de gérer le dossier médical. Par conséquent, cette classe se comporte en 
+consultant le dossier ou en y apportant des modifications. Le patron *Faible couplage* justifie son 
+instanciation, car le `Doctor` possède un couplage faible avec le `PatientFile`. Effectivement, le 
+`PatientFile` est passé en tant que paramètre dans les méthodes privées de `Doctor` au lieu d'avoir 
+une relation directe avec ce dernier, ce qui affaiblit le couplage entre ces deux classes. 
 
-
+La méthode `modify()` est publique car `Doctor` implémente l'interface `Modifiable`, qui permet
+aux classes qui la réalisent d'apporter des modifications à des objets. Les détails de ces 
+modifications sont cachés dans l'implémentation spécifique de `modify()` propre à chaque classe.
+Par exemple, un `Doctor` sait modifier un `PatientFile` en y ajoutant des visites médicales, 
+un `Patient` sait modifier le `PatientFile` en modifier ses coordonnées, et le `RAMQEmployee`
+sait modifier le `PatientFile` en le reconstruisant à partir d'une date donnée. 
 
 ### HealthProfessional
 -`HealthProfessional` est une classe abstraite qui respecte le principe ouvert/fermé. Cette classe
-contient une implémentation de la méthode `consult()` permet la consultation d'un dossier médical.
+contient une implémentation de la méthode `consult()` qui permet la consultation d'un dossier médical.
 L'ajout d'un travailleur de la santé en tant que sous-classe de `HealthProfessional` permettrait
 à cette classe d'hériter du comportement de lecture du dossier médical d'un patient. Par conséquent, 
 le patron utilisé est le *Polymorphisme*. 
 
-### Patient
--`Patient` est une classe dont l'instanciation est justifiée par le patron *Forte cohésion*. En effet,
-cette classe contient un petit nombre de méthodes qui ont des responsabilités liées entre elles ; 
-la consultation et la modification sont toutes deux des fonctions liées à la gestion de certaines
-données du patient dans le système (dans ce cas-ci, les coordonnées du patient). 
+### Patient et RAMQEmployee
+-`Patient` et `RAMQEmployee` sont des classes qui héritent de `User` et qui implémentent `Modifiable`. 
+Leur instanciation est justifiée par le patron *Forte cohésion*. En effet, ces classes contiennent par 
+héritage un petit nombre de méthodes avec des responsabilités spécifiques mais cohésives. Notamment,
+pour apporter des modifications à un dossier, il faut d'abord pouvoir le consulter, en partie ou
+en totalité. Les détails des modifications que le `Patient` et le `RAMQEmployee` peuvent apporter
+sont cachés dans l'implémentation de la méthode `modify()`, qui demeure publique à cause de 
+la réalisation du contrat `Modifiable`. 
 
-ou sinon
+### RAMQEmployee
+-`RAMQEmployee` est une classe qui hérite de `User` et qui implémente `Modifiable`. Son instanciation 
+est justifiée par le patron *Forte cohésion*. En effet, cette classe contient par héritage un petit 
+nombre de méthodes qui ont des responsabilités liées entre elles ; la consultation et la modification 
+sont toutes deux des fonctions liées à la gestion de certaines données du patient dans le système 
+(dans ce cas-ci, les coordonnées du patient). 
 
--`Patient` est une classe dont l'instanciation est justifiée par le patron *Spécialiste de l'information*. 
-En effet, cette classe encapsule les données du patient dans le système et inclut des méthodes pour gérer certaines 
-de ces données. Notamment, `Patient` connaît `ContactInformation`, et la consultation et la modification sont 
-toutes deux des fonctions qui permettent au patient de voir et de modifier ses coordonnées dans le système. 
 
 ### MedicalEstablishment
 -`MedicalEstablishment` est une classe qui contient les informations liées à un établissement
 médical. L'information étant encapsulée dans `MedicalEstablishment`, cette classe joue le rôle
 de *Spécialiste de l'information*, car elle permet de maintenir un faible couplage dans le code.
 
-public String getAddress()?
-Pour avoir accès aux coordonnées sans les modifier. 
-
 ### ContactInformation
 `ContactInformation` est une classe dont l'instanciation est justifiée par le patron *Fabrication pure*. 
 Effectivement, c'est une classe créée artificiellement pour gérer les informations relatives aux 
-coordonnées (d'un patient ou d'un établissement médical par exemple). 
-
-
-### Searchable
-L'interface `Searchable` permet de faire une recherche dans une collection de données en passant
-un critère de données. 
-
-
-### Modifiable
-
-
-
-#### Justification de la méthode public X
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+coordonnées (d'un patient ou d'un établissement médical par exemple). Cette classe contient un
+accesseur publique qui retourne les informations de contact sans exposer des objets de manière
+inappropriée, car `ContactInformation` ne contient pas de référence vers d'autres objets.
 
 
 # Diagramme des cas d'utilisation 

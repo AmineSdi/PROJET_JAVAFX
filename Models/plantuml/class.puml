@@ -2,13 +2,9 @@
 title Centralized medical management system - Class diagram
 center footer Centralized medical management system - Class diagram
 
-' TODO : Methods for each class.
-' TODO : Add responsibilities? interfaces?
-' TODO : clean up
-
 class PatientRegistry {
-+ search(RAMQCode : String) : PatientFile
-+ add(p: PatientFile)
+    + search(RAMQCode : String) : PatientFile
+    + add(p: PatientFile)
 }
 PatientRegistry o--> "*" PatientFile
 
@@ -20,46 +16,41 @@ Registry <|.. PatientRegistry
 
 
 interface Searchable {
-+ search(t: T)
+    + search(t: T)
 }
 Searchable <|.. DoctorRegistry
 Searchable <|.. PatientRegistry
 
 class DoctorRegistry {
-+ search(licenceNumber: String ) : Doctor
-+ add(d: Doctor)
+    + search(licenceNumber: String ) : Doctor
+    + add(d: Doctor)
 }
 DoctorRegistry o--> "*" Doctor
 
 class PatientFile{
      -String RAMQCode
-     - String firstName
-     - String lastName
+     -String firstName
+     -String lastName
      -Date dateOfBirth
      -String cityOfBirth
      -String[] knownParents
-'     -int InsuranceNumberCode
-'    -PatientID patientID
-'    -MedicalVisits[] medicalVisits
-'    -MedicalHistory[] medicalHistory
-
-    'PRIVATE METHODS
     - addVisit(v: MedicalVisit)
     - addHistory(h: MedicalHistory)
 }
+PatientFile *--> "0..*" MedicalHistory
+PatientFile *--> "0..*" MedicalVisit
+PatientFile --> "1" ContactInformation
 
 abstract class User{
-- String firstName
-- String lastName
-'- String username
-'- String password
-- consult(p: PatientFile)
-'- modify()
+    - String firstName
+    - String lastName
+    - consult(p: PatientFile)
 }
 
 class RAMQEmployee {
-+ modify(p: PatientFile)
-- reconstruct(p: PatientFile)
+    - consult(p: PatienFile)
+    + modify(p: PatientFile)
+    - reconstruct(p: PatientFile)
 }
 RAMQEmployee --|> User
 
@@ -67,34 +58,19 @@ Patient ..|> Modifiable
 Doctor .|> Modifiable
 Modifiable <|.. RAMQEmployee
 
-'class Patient{
-'{method}
-'}
-
-'User <|-- Patient
-'User ->"1" PatientFile : manages
-'User -->"1" ContactInformation
-
-
 abstract class HealthProfessional{
--consult(p: PatientFile)
-'-modify()
+    -consult(p: PatientFile)
 }
-
-
-
 Doctor --|> HealthProfessional
 HealthProfessional -|> User
 
 class MedicalEstablishment{
-
-- String idEstablishment
-- String establishmentName
-- addContactInformation(c: ContactInformation)
+    - String idEstablishment
+    - String establishmentName
+    - addContactInformation(c: ContactInformation)
 }
 MedicalEstablishment ->"1" ContactInformation
 MedicalEstablishment "1" <- Doctor
-
 
 
 class MedicalHistory{
@@ -103,9 +79,7 @@ class MedicalHistory{
     -String doctorName
     -Date startDisease
     -Date endDisease
-'   -DatePair datePair
-{method} + getMedicalHistory(): MedicalHistory
-'    +getDoctorName(): String
+    + getMedicalHistory(): MedicalHistory
 }
 
 class MedicalVisit{
@@ -117,28 +91,17 @@ class MedicalVisit{
     -String visitSummary
     -String notes
     +getMedicalVisit(): MedicalVisit
-'    +getDoctorName(): String
-'    +getEstablishmentName(): String
 }
 
 class Doctor{
     -String licenceNumber
     -String specialty
-'    -String medicalEstablishment
-
     -consult(p: PatientFile)
     +modify(p: PatientFile)
 }
 
 class Patient {
-'    -String lastName
-'    -String firstName
-'    -Date dateOfBirth
-'    -String cityOfBirth
-'    -String[] knownParents
     -consult(p: PatientFile)
-'    +modify(p: PatientFile)
-'    -consult(c: ContactInformation)
     +modify(c: ContactInformation)
 }
 
@@ -149,49 +112,23 @@ class ContactInformation {
     - postalCode: String
     - phone: String
     - email: String
-'    + modifyContactInfo()
     - validatePhone(phone: String): boolean
     - validateEmail(email: String): boolean
     - validatePostalCode(code: String): boolean
     + getContactInformation(): ContactInformation
 }
 
-'class Interface{
-'}
-
-
-
 interface Modifiable {
-'    + Date date
-    {method}+modify(t: T)
-
+    +modify(t: T)
 }
-'PatientFile   .|> Modifiable
 
 enum Gender{
     FEMALE,
     MALE,
     OTHER
 }
-
-'Interface -- Doctor
-'Interface -- PatientFile
-
-
-'Doctor -|> User
-
-'PatientFile --> "\t\t\tconcerns\r1" Patient
-PatientFile *--> "0..*" MedicalHistory
-'MedicalHistory <-* "0..*" PatientFile
-PatientFile *--> "0..*" MedicalVisit
-
-User <|- Patient
-
-'Patient -> Gender
 PatientFile -> Gender
 
-'Patient --> "1" ContactInformation
-PatientFile --> "1" ContactInformation
-
+User <|- Patient
 
 @enduml
