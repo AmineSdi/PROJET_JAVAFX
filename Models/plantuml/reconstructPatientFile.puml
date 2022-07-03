@@ -8,15 +8,18 @@ center footer sequence diagram (reconstructPatientFile)
 actor "RAMQ" as R
 participant "Centralized\nmedical system" as S
 participant "Data access\nobject" as D
+database Database as DB
 
-R -> S: clickReconstructFileButton\n(p: PatientFile, d: Date)
+R -> S: reconstructPatientFile()
 activate S
-
-S -> D: updatePatient(p, d)
+S -> D: reconstructPatientFile()
 activate D
-D --> S: result
+D -> DB: getPatientFile()
+activate DB
+D <-- DB: returnPatientFile()
+deactivate DB
+D --> S: resultPatientFile()
 deactivate D
-
 alt success
     S --> R: showSuccessMessage()
 else error
