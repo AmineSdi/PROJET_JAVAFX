@@ -196,4 +196,14 @@ sont envoyées dans la base de données, sinon elles sont éliminées.
 ![Diagramme de séquence](../Models/pngs/Sequence-Diagram-modifyPatientFile.png)
 
 
-## Login
+# Diagramme de packages
+![Diagramme de packages](../Models/pngs/packages.png)
+
+Le diagramme de packages est une représentation haut niveau (sans attributs ni méthodes) qui regroupe 
+les classes de notre système. Les paquets sont nommés afin de catégoriser les classes qui y sont contenues. 
+Par exemple, le paquet `User` regroupe les utilisateurs du système, comme les médecins et les patients.
+Un paquet supplémentaire (`UserInterface`) est représenté dans ce diagramme pour regrouper les
+classes qui se chargeront d'implémenter l'interface utilisateur. La séparation entre les paquets se
+fait naturellement à partir du diagramme de classes. Effectivement, les paquets se lient par leurs
+classes de la même manière que les classes se lient entre elles dans le diagramme de classes.
+
