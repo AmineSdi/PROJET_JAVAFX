@@ -2,27 +2,25 @@
 !include common.style
 'DOCUMENTATION
 'PLANTUML : https://plantuml.com/fr/sequence-diagram
-title Sequence diagram (login)
-center footer sequence diagram (login)
+title Sequence diagram (modifyContactInfo)
+center footer Sequence diagram (modifyContactInfo)
 actor "Patient" as P
 participant "Centralized\nmedical system" as S
 participant "Data access\nobject" as D
+database Database as DB
 
-P -> S: clickUpdateContactInfoButton\n(p: PatientFile)
-activate S
-
-S -> D: updateUser\n(p: PatientFile)
-activate D
-D --> S: result
-deactivate D
-
-alt success
-    S --> P: display success
-else error
-    deactivate D
-    S --> P: display error
+P -> S: udatePatientContactInfo()
+S -> D: updatePatientContactInfo()
+activate DB
+D -> DB: updatePatientContactInfo()
+D <- DB: returnMessage()
+deactivate DB
+D --> S: showResult()
+alt error fails to update
+    S --> P: displayError()
+else success
+    S --> P: displaySuccess()
 end
 
-deactivate S
 
 @enduml
