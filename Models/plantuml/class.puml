@@ -23,6 +23,7 @@ class DoctorRegistry {
 DoctorRegistry o--> "*" Doctor
 
 class PatientFile{
+     -String RAMQCode
      -String socialInsuranceNumber
      -int InsuranceNumberCode
 '    -PatientID patientID
@@ -40,24 +41,8 @@ abstract class User{
 {method} - getGender()
 }
 
-class RAMQ {
-{method} +search(insurancenum : SocialInsuranceNumber)
-- rebuildPatientFile(date : Date)
 
-}
 
-class SocialInsuranceNumber {
-- String number
-- Date birthday
-- String lastName
-- String firstName
-{method} + getNumber()
-}
-
-RAMQ *->"*" SocialInsuranceNumber
-Searchable <|... RAMQ
-RAMQ ->"*" RAMQCode
-RAMQ -->"*"PatientFile
 
 class Patient{
 {method}- add(info : ContactInformation)
@@ -88,14 +73,16 @@ class MedicalHistory{
     -String diagnostic
     -String treatment
     -Doctor treatingDoctor
-'    -DatePair datePair
+    -Date startDisease
+    -Date endDisease
+'   -DatePair datePair
 {method} + getMedicalHistory()
 }
 
 class MedicalVisit{
     -MedicalEstablishment medicalEstablishment
     -Doctor seenDoctor
-'   -Date visitDate
+    -Date visitDate
     -String diagnostic
     -String treatment
     -String visitSummary
@@ -115,7 +102,7 @@ class Doctor{
 class PatientID {
     -String lastName
     -String firstName
-'    -Date dateOfBirth
+    -Date dateOfBirth
     -String cityOfBirth
     -String[] knownParents
 }
@@ -136,15 +123,7 @@ class ContactInformation {
 'class Interface{
 '}
 
-class RAMQCode{
-- String code
-{method}-validateFormat(code: String): boolean
-}
 
-class Date{
-    -String date
-    -validateFormat(date: String): boolean
-}
 
 interface Modification {
 + Date date
@@ -170,13 +149,12 @@ PatientFile --> "1" PatientID
 PatientFile *--> "0..*" MedicalHistory
 PatientFile *--> "0..*" MedicalVisit
 
-PatientID --> "1" Date
-PatientID --> "1" RAMQCode
-User --> "1" Gender
+
+
+PatientID -> "1" Gender
 
 ContactInformation "1" <- PatientID
 
-MedicalHistory --> "1..2" Date
-MedicalVisit --> "1" Date
+
 
 @enduml
