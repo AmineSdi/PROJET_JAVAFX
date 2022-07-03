@@ -15,7 +15,7 @@ interface Searchable {
 + search()
 }
 Searchable <|.. DoctorRegistry
-Searchable <|.. PatientRegistry
+Searchable <|. PatientRegistry
 
 class DoctorRegistry {
 + search(licenceNumber: String ) : Doctor
@@ -24,7 +24,6 @@ DoctorRegistry o--> "*" Doctor
 
 class PatientFile{
      -String RAMQCode
-     -String socialInsuranceNumber
      -int InsuranceNumberCode
 '    -PatientID patientID
 '    -MedicalVisits[] medicalVisits
@@ -35,9 +34,9 @@ class PatientFile{
 }
 
 abstract class User{
-- String LastName
-- String FirstName
-{method} - getGender()
+- String Username
+- String Password
+
 }
 
 
@@ -46,17 +45,18 @@ abstract class User{
 class Patient{
 {method}
 }
-PatientFile <- Patient
 
 User <|-- Patient
+User ->"1" PatientFile : manages
 User -->"1" ContactInformation
 
 
-class HealthProfessional{
-{method} - applyprescription()
+abstract class HealthProfessional{
+{method}
 }
 
-User <|-- HealthProfessional
+HealthProfessional ^--- Doctor
+HealthProfessional -|> User
 
 class MedicalEstablishment{
 
@@ -128,7 +128,7 @@ interface Modifiable {
 +rebuild()
 
 }
-Modifiable  <|. PatientFile
+PatientFile   .|> Modifiable
 
 enum Gender{
     FEMALE,
@@ -139,7 +139,7 @@ enum Gender{
 'Interface -- Doctor
 'Interface -- PatientFile
 
-Doctor o--> "manages\r*" PatientFile
+
 Doctor -|> User
 
 PatientFile --> "1" PatientID
