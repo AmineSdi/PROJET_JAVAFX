@@ -32,7 +32,6 @@ class PatientFile{
 
     'PRIVATE METHODS
     - consultPatientFile(user : User): PatientFile
-    - cancelModifications()
 }
 
 abstract class User{
@@ -45,8 +44,7 @@ abstract class User{
 
 
 class Patient{
-{method}- add(info : ContactInformation)
--delete(info : ContactInformation)
+{method}
 }
 PatientFile <- Patient
 
@@ -94,8 +92,7 @@ class Doctor{
     -String licenceNumber
     -String specialty
     -String medicalEstablishment
-{method}-modify(file : PatientFile)
--cancel( file : PatientFile)
+{method}
 
 }
 
@@ -125,13 +122,13 @@ class ContactInformation {
 
 
 
-interface Modification {
+interface Modifiable {
 + Date date
 {method}+modify()
-+ cancel()
++rebuild()
 
 }
-Modification <|. PatientFile
+Modifiable  <|. PatientFile
 
 enum Gender{
     FEMALE,
@@ -151,7 +148,7 @@ PatientFile *--> "0..*" MedicalVisit
 
 
 
-PatientID -> "1" Gender
+PatientID --> "1" Gender
 
 ContactInformation "1" <- PatientID
 
