@@ -7,20 +7,23 @@ center footer sequence diagram (login)
 actor "User" as U
 participant "Centralized\nmedical system" as S
 participant "Data access\nobject" as D
+database Database as DB
 
-U -> S: clickLoginButton\n(username: String\npassword: String)
+U -> S: login()
 activate S
-
-S -> D: selectUser\n(username: String\npassword: String)
+S -> D: authentication()
 activate D
-D --> S: result
+D -> DB: getUserProfile()
+activate DB
+D <-- DB:returnUserProfile()
+deactivate DB
+D --> S: returnUserProfile()
 deactivate D
-
 alt success
-    S --> U: display profile
+    S --> U: displayProfile()
 else error
     deactivate D
-    S --> U: display error
+    S --> U: displayError()
 end
 
 deactivate S
