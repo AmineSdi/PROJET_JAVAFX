@@ -9,29 +9,63 @@ center footer project #2 - Components diagram
 'component FileRepository as FR
 'SPF -0)- FR : fileAccessor
 
-component Doctor {
-
-}
-View --> Doctor
-
-component View {
-    [UserInterface Files]
-}
-Database --> PatientFile
-PatientFile --> View
-
-component Database {
-    [DatabaseInterface Files]
+component Front-End as FE{
+    portin p1
+    portin p2
+    portin p3
+    () userInterface as UI
+    component readWriteBackEnd as PU
+    component readProdDB as RP
 }
 
-component PatientFile {
-    [PatientID]
-    [MedicalHistory]
-    [MedicalVisits]
+()  User as U
+
+
+component Back-End as BE{
+    portin p4
+    portin p5
+    portin p6
+    component readWriteFrontEnd as RWFE
+    component readWriteDB as RWDB
+    component readWriteDW as RWDW
+
 }
 
-component WebApplication{
+component ProductionDatabase as DB{
+    portin p7
+    portin p8
+    component readWriteBackEnd1 as RWBE1
+    component sqlServer1 as SS1
+    component writeFrontEnd as WF
 }
-WebApplication --> View
-Database <-- WebApplication
+
+component Data-Warehouse as DW{
+    portin p9
+    component readWriteBackEnd2 as RWBE2
+    component sqlServer2 as SS2
+}
+
+
+FE -[hidden]-> BE
+BE -[hidden]> DB
+BE -[hidden]> DW
+U )-- p1
+p1 -- UI
+UI -right0)- PU
+PU -0)- p2
+RP -- p3
+p2 -(0)- p4
+p4 -right- RWFE
+RWFE -(0)- RWDB
+RWFE -(0)- RWDW
+RWDW -(0)- p6
+RWDB -- p5
+p5 -(0)- p7
+p6 -(0)- p9
+p9 -(0)- RWBE2
+RWBE2 -(0)- SS2
+p3 -(0)- p8
+p7 -(0)- RWBE1
+p8 -(0)- WF
+RWBE1 -(0)- SS1
 @enduml
