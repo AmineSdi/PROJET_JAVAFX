@@ -121,6 +121,16 @@ Pour avoir accès aux coordonnées sans les modifier.
 Effectivement, c'est une classe créée artificiellement pour gérer les informations relatives aux 
 coordonnées (d'un patient ou d'un établissement médical par exemple). 
 
+
+### Searchable
+L'interface `Searchable` permet de faire une recherche dans une collection de données en passant
+un critère de données. 
+
+
+### Modifiable
+
+
+
 #### Justification de la méthode public X
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 

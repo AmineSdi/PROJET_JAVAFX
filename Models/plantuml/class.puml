@@ -7,101 +7,139 @@ center footer Centralized medical management system - Class diagram
 ' TODO : clean up
 
 class PatientRegistry {
-+ search(idpatient : PatientID) : PatientFile
++ search(RAMQCode : String) : PatientFile
++ add(p: PatientFile)
 }
-PatientRegistry o-> "*" PatientFile
+PatientRegistry o--> "*" PatientFile
+
+interface Registry{
+    +add(t:T)
+}
+Registry <|.. DoctorRegistry
+Registry <|.. PatientRegistry
+
 
 interface Searchable {
-+ search()
++ search(t: T)
 }
 Searchable <|.. DoctorRegistry
-Searchable <|. PatientRegistry
+Searchable <|.. PatientRegistry
 
 class DoctorRegistry {
 + search(licenceNumber: String ) : Doctor
++ add(d: Doctor)
 }
 DoctorRegistry o--> "*" Doctor
 
 class PatientFile{
      -String RAMQCode
-     -int InsuranceNumberCode
+     - String firstName
+     - String lastName
+     -Date dateOfBirth
+     -String cityOfBirth
+     -String[] knownParents
+'     -int InsuranceNumberCode
 '    -PatientID patientID
 '    -MedicalVisits[] medicalVisits
 '    -MedicalHistory[] medicalHistory
 
     'PRIVATE METHODS
-    - consultPatientFile(user : User): PatientFile
+    - addVisit(v: MedicalVisit)
+    - addHistory(h: MedicalHistory)
 }
 
 abstract class User{
-- String Username
-- String Password
-
+- String firstName
+- String lastName
+'- String username
+'- String password
+- consult(p: PatientFile)
+'- modify()
 }
 
-
-
-
-class Patient{
-{method}
+class RAMQEmployee {
++ modify(p: PatientFile)
+- reconstruct(p: PatientFile)
 }
+RAMQEmployee --|> User
 
-User <|-- Patient
-User ->"1" PatientFile : manages
-User -->"1" ContactInformation
+Patient ..|> Modifiable
+Doctor .|> Modifiable
+Modifiable <|.. RAMQEmployee
+
+'class Patient{
+'{method}
+'}
+
+'User <|-- Patient
+'User ->"1" PatientFile : manages
+'User -->"1" ContactInformation
 
 
 abstract class HealthProfessional{
-{method}
+-consult(p: PatientFile)
+'-modify()
 }
 
-HealthProfessional ^--- Doctor
+
+
+Doctor --|> HealthProfessional
 HealthProfessional -|> User
 
 class MedicalEstablishment{
 
-- String IdEstablishment
-- String EstablishmentName
-
+- String idEstablishment
+- String establishmentName
+- addContactInformation(c: ContactInformation)
 }
 MedicalEstablishment ->"1" ContactInformation
-Doctor ->"1" MedicalEstablishment
+MedicalEstablishment "1" <- Doctor
+
+
 
 class MedicalHistory{
     -String diagnostic
     -String treatment
-    -Doctor treatingDoctor
+    -String doctorName
     -Date startDisease
     -Date endDisease
 '   -DatePair datePair
-{method} + getMedicalHistory()
+{method} + getMedicalHistory(): MedicalHistory
+'    +getDoctorName(): String
 }
 
 class MedicalVisit{
-    -MedicalEstablishment medicalEstablishment
-    -Doctor seenDoctor
+    -String establishmentName
+    -String doctorName
     -Date visitDate
     -String diagnostic
     -String treatment
     -String visitSummary
     -String notes
-{method} +getMedicalVisit()
+    +getMedicalVisit(): MedicalVisit
+'    +getDoctorName(): String
+'    +getEstablishmentName(): String
 }
 
 class Doctor{
     -String licenceNumber
     -String specialty
-    -String medicalEstablishment
-{method}
+'    -String medicalEstablishment
 
+    -consult(p: PatientFile)
+    +modify(p: PatientFile)
 }
 
-class PatientID {
-    -String lastName
-    -String firstName
-    -Date dateOfBirth
-    -String cityOfBirth
-    -String[] knownParents
+class Patient {
+'    -String lastName
+'    -String firstName
+'    -Date dateOfBirth
+'    -String cityOfBirth
+'    -String[] knownParents
+    -consult(p: PatientFile)
+'    +modify(p: PatientFile)
+'    -consult(c: ContactInformation)
+    +modify(c: ContactInformation)
 }
 
 class ContactInformation {
@@ -115,6 +153,7 @@ class ContactInformation {
     - validatePhone(phone: String): boolean
     - validateEmail(email: String): boolean
     - validatePostalCode(code: String): boolean
+    + getContactInformation(): ContactInformation
 }
 
 'class Interface{
@@ -123,12 +162,11 @@ class ContactInformation {
 
 
 interface Modifiable {
-+ Date date
-{method}+modify()
-+rebuild()
+'    + Date date
+    {method}+modify(t: T)
 
 }
-PatientFile   .|> Modifiable
+'PatientFile   .|> Modifiable
 
 enum Gender{
     FEMALE,
@@ -140,18 +178,20 @@ enum Gender{
 'Interface -- PatientFile
 
 
-Doctor -|> User
+'Doctor -|> User
 
-PatientFile --> "1" PatientID
+'PatientFile --> "\t\t\tconcerns\r1" Patient
 PatientFile *--> "0..*" MedicalHistory
+'MedicalHistory <-* "0..*" PatientFile
 PatientFile *--> "0..*" MedicalVisit
 
+User <|- Patient
 
+'Patient -> Gender
+PatientFile -> Gender
 
-PatientID --> "1" Gender
-
-ContactInformation "1" <- PatientID
-
+'Patient --> "1" ContactInformation
+PatientFile --> "1" ContactInformation
 
 
 @enduml
