@@ -6,23 +6,25 @@ title Sequence diagram (consultPatientFile)
 center footer Sequence diagram (consultPatientFile)
 actor "User" as U
 participant "Centralized\nmedical system" as S
+participant "Data access\nobject" as D
+'database Database as DB
 
-U -> S: clickPatientID(p: PatientFile)
+alt until in Patient File
+U -> S: selectPatientID()
 activate S
-S -> S: getPatientID(p)
-S --> U: display id
+S -> S: getPatientID()
+S --> U: showPatientID()
 deactivate S
-
-U -> S: clickMedicalHistory(p: PatientFile)
+U -> S: selectMedicalHistory()
 activate S
-S -> S: getMedicalHistory(p)
-S --> U: display history
+S -> S: getMedicalHistory()
+S --> U: showPatientMedicalHistory()
 deactivate S
-
-U -> S: clickMedicalVisits(p: PatientFile)
+U -> S: selectMedicalVisits()
 activate S
 S -> S: getMedicalVisits()
-S --> U: display visits
+S --> U: showPatientMedicalVisit()
 deactivate S
+end
 
 @enduml
