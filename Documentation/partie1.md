@@ -146,40 +146,48 @@ Chaque diagramme de séquence représente un cas d'utilisation à
 haut niveau. Nous faisons abstraction des détails d'implémentation afin
 d'illustrer la fonctionnalité à une haute granularité.
 
+Définition  
+User : tout utilisateur du système (sauf si spécifié)  
+Centralized medical system : le système qui permet de naviguer dans un dossier médical d'un patient  
+Data access object : interface qui communique avec la base de données  
+Database : la base de données qui centralise tous les dossiers médicaux des patient
 
-login
+login  
 Ce diagramme illustre la fonctionnalité d'authentification à haut niveau.
-L'utilisateur (qui peut être un professionnel de la santé ou un patient)
-interagit avec le système en entrant ses identifiants. Le système communique
+L'utilisateur interagit avec le système en entrant ses identifiants. Le système communique
 par la suite avec la base de données pour valider l'authentification. Le profile
-de l'utilisateur est affiché en cas de succès. En cas d'échec, un message d'erreur
-est affiché.
+de l'utilisateur est affiché en cas de succès. En cas d'échec, un message d'erreur est affiché.
+![Diagramme de séquence](../Models/pngs/Sequence-Diagram-login.png)
 
-
-modifyContactInfo
-Le patient peut modifier ses coordonnées en entrant dans le système les nouvelles
-données. Le système s'occupe de mettre-à-jour les coordonnées du patient dans la
-base de données. En cas de succès, un message de succès et affiché. En cas d'échec,
+modifyContactInfo  
+Ce diagramme illustre la fonctionnalité de modification des coordonnées d'un patient par lui-même. Le patient peut
+modifier ses coordonnées en entrant dans le système les nouvelles coordonnées. Le système s'occupe de mettre-à-jour
+les coordonnées du patient dans la base de données. En cas de succès, un message de succès et affiché. En cas d'échec,
 un message d'erreur est affiché.
+![Diagramme de séquence](../Models/pngs/Sequence-Diagram-modifyContactInfo.png)
 
+reconstructPatientFile  
+Ce diagramme illustre la fonctionnalité de reconstruire le dossier médical d'un patient à partir d'une date donnée ou
+d'une modification faite dans le passé. L'utilisateur RAMQ entre les informations nécessaires dans le système et
+ce dernier envoie ces informations à l'interface. En cas de succès, un message de succès et affiché.
+En cas d'échec, un message d'erreur est affiché.
+![Diagramme de séquence](../Models/pngs/Sequence-Diagram-reconstructPatientFile.png)
 
-reconstructPatientFile
-Un travailleur de la RAMQ peut interagir avec le système afin de reconstruire un dossier de patient à partir
-d'une date antérieure. Le système s'occupe de reconstruire le dossier approprié dans la base de données.
-En cas de succès, un message de succès et affiché. En cas d'échec, un message d'erreur est affiché.
+consultPatientFile  
+Ce diagramme illustre la fonctionnalité de consultation d'un dossier médical d'un patient par un utilisateur.
+La consultation inclus les informations suivantes du patient : son identité, ses antécédents médicaux
+et ses visites médicales. L'utilisateur demande au système quel aspect du dossier médical il désire consulter
+et cela va s'afficher à l'écran.
+![Diagramme de séquence](../Models/pngs/Sequence-Diagram-consultPatientFile.png)
 
-consultPatientFile
-Un travailleur de la santé peut consulter un dossier de patients, c'est-à-dire les informations par rapport
-à son identité, ses antécédents médicaux et ses visites médicales. L'utilisateur demande au système quel
-aspect du dossier médical il désire consulter, et cela va s'afficher à l'écran.
+modifyPatientFile  
+Ce diagramme illustre la fonctionnalité de modification d'un dossier médical d'un patient par le docteur. Selon le
+choix du docteur, il peut ajouter ou retirer une modification d'un dossier médical d'un patient.
+Lors d'une modification, le système la garde en mémoire jusqu'à temps que le docteur quitte le dossier du patient. 
+Par  la suite le système affiche un message au docteur s'il veut sauvegarder ou non les modifications. Si oui, elles
+sont envoyées dans la base de données, sinon elles sont éliminées.
 
-
-**DAO dans diagramme de séquence consultPatientFile?
-
-
-
-modifyPatientFile
-...TODO...
+![Diagramme de séquence](../Models/pngs/Sequence-Diagram-modifyPatientFile.png)
 
 
 ## Login
