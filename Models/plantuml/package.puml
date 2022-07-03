@@ -2,18 +2,59 @@
 'DOCUMENTATION
 'PLANTUML (look for instruction about package environment) : https://plantuml.com/fr/deployment-diagram
 'WHAT IS A PACKAGE DIAGRAM : https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-package-diagram/
-title Ramq Dossier (packages)
-center footer project #2 - package diagram
-package PatientFile{
-    package PatientID
-    package MedicalHistory
-    package MedicalVisit
-}
-package Doctor
-package DataBaseInterface
-package UserInterface
+title Package Diagram - Centralized medical management system
+center footer Package Diagram - Centralized medical management system
 
-Doctor ..> PatientFile
-Doctor ..> DataBaseInterface
-Doctor ..> UserInterface
+package PatientFile {
+    class PatientFile
+    class MedicalHistory
+    class MedicalVisit
+    enum Gender
+}
+PatientFile *--> MedicalHistory
+PatientFile *--> MedicalVisit
+PatientFile -> Gender
+
+package Registry {
+    interface Searchable
+    interface Registry
+    class PatientRegistry
+    class DoctorRegistry
+}
+Searchable <|.. PatientRegistry
+Searchable <|.. DoctorRegistry
+Registry <|.. PatientRegistry
+Registry <|.. DoctorRegistry
+PatientRegistry o--> PatientFile
+
+package ContactInformation {
+    class MedicalEstablishment
+    class ContactInformation
+}
+MedicalEstablishment --> ContactInformation
+PatientFile --> ContactInformation
+
+package User {
+    class Doctor
+    class RAMQEmployee
+    class Patient
+    abstract HealthProfessional
+    abstract User
+    interface Modifiable
+}
+DoctorRegistry o--> Doctor
+MedicalEstablishment <-- Doctor
+Doctor --|> HealthProfessional
+Doctor .|> Modifiable
+Modifiable <|.. RAMQEmployee
+RAMQEmployee --|> User
+HealthProfessional -|> User
+User <- Patient
+Modifiable <|.. Patient
+
+package UserInterface {
+    class UserInterface
+}
+User <-- UserInterface
+
 @enduml
