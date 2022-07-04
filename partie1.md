@@ -75,7 +75,7 @@
 
 ![Diagramme de classes](./Models/pngs/ClassDiagram.png)
 
-##1.1 Justfications des patrons GRASP
+## 1.1 Justifications des patrons GRASP
 
 ### PatientRegistry et DoctorRegistry
 -Ces deux classes représentent des conteneurs d'information dans le système, puisqu'elles pourraient 
