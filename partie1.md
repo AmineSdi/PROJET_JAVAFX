@@ -1,51 +1,81 @@
-# PAGE PRÉSENTATION
+# PAGE DE PRÉSENTATION
+<br><br>
+<br><br>
+<br><br>
+<br><br>
 <p style="text-align: center;">Rapport de conception projet de session
 
 <p style="text-align: center;">Présenté au professeur Gagnely Serge Dogny
 
 <p style="text-align: center;">dans le cadre du cours INF5153 Génie Logiciel: Conception
-
+<br><br>
+<br><br>
+<br><br>
+<br><br>
 <p style="text-align: center;"> par
-
-<p style="text-align: center;">Steven Chia Ah-Lan - AHLS12109105 
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<p style="text-align: center;">Steven Chia Ah-Lan - AHLS12109105
 <p style="text-align: center;">Alexandre Filion - FILA09128609 
 <p style="text-align: center;">Mohand Amine Saïdi - SAIM15029603
 <p style="text-align: center;">Nicolas Goulet - GOUN12109401
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
 <p style="text-align: center;">Travail remis le dimanche 3 juillet 2022
 <div style="page-break-after: always"></div>
 
 # TABLE DES MATIÈRES
-1. Page Présentation...........................................1
-2. Table des matières..........................................2
-3. Introduction................................................3
-4. Diagramme de classes........................................4
-5. Diagramme de cas d'utilisations
-6. Les diagrammes de séquence
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+1. Diagramme de classes
+   <br><br>
+   1.1 Justifications des patrons GRASP   
+   <br><br>
+   <br><br>
+   
+2. Diagramme de cas d'utilisations
+   <br><br>
+   <br><br>
 
-    6.1 Login
-
-    6.2 ConsultPatientFile
-
-    6.3 ModifyPatientFile
-
-   6.4 ReconstructPatientFile
-
-    6.5 modifyContactInfo
-7. Diagramme de package
-8. Diagramme de composantes
-9. Diagramme de déploiement
+3. Les diagrammes de séquence
+   <br><br>
+    3.1 login
+   <br><br>
+    3.2 modifyContactInfo
+   <br><br>
+    3.3 reconstructPatientFile
+   <br><br>
+    3.4 consultPatientFile
+   <br><br>
+    3.5 modifyPatientFile
+   <br><br>
+   <br><br>
+4. Diagramme de package
+   <br><br>
+   <br><br>
+5. Diagramme de composantes
+   <br><br>
+   <br><br>
+6. Diagramme de déploiement
 <div style="page-break-after: always"></div>
-
-
-# Introduction
 
 
 
 # Diagramme de classes
 
-![Diagramme de classes](../Models/pngs/ClassDiagram.png)
+![Diagramme de classes](./Models/pngs/ClassDiagram.png)
 
-## Justfications GRASP
+## Justfications des patrons GRASP
 
 ### PatientRegistry et DoctorRegistry
 -Ces deux classes représentent des conteneurs d'information dans le système. Par exemple, elles pourraient 
@@ -58,7 +88,7 @@ L'implémentation de l'interface `Searchable` permet aussi la recherche dans une
 ### PatientFile
 
 -Nous utilisons le patron *Créateur* pour justifier l'instanciation de la classe PatientFile. Étant
-composé de visites médicaux et d'antécédents médicaux, cette classe a pour responsabilité de créer des
+composé de visites médicales et d'antécédents médicaux, cette classe a pour responsabilité de créer des
 instances des classes `MedicalHistory` et `MedicalVisit`. 
 
 ### MedicalHistory et MedicalVisit
@@ -103,7 +133,7 @@ le patron utilisé est le *Polymorphisme*.
 ### Patient et RAMQEmployee
 -`Patient` et `RAMQEmployee` sont des classes qui héritent de `User` et qui implémentent `Modifiable`. 
 Leur instanciation est justifiée par le patron *Forte cohésion*. En effet, ces classes contiennent par 
-héritage un petit nombre de méthodes avec des responsabilités spécifiques mais cohésives. Notamment,
+héritage un petit nombre de méthodes avec des responsabilités spécifiques, mais cohésives. Notamment,
 pour apporter des modifications à un dossier, il faut d'abord pouvoir le consulter, en partie ou
 en totalité. Les détails des modifications que le `Patient` et le `RAMQEmployee` peuvent apporter
 sont cachés dans l'implémentation de la méthode `modify()`, qui demeure publique à cause de 
@@ -132,7 +162,7 @@ inappropriée, car `ContactInformation` ne contient pas de référence vers d'au
 
 # Diagramme des cas d'utilisation 
 
-![Diagramme de cas d'utilisation](../Models/pngs/UseCasesDiagram.png)
+![Diagramme de cas d'utilisation](./Models/pngs/UseCasesDiagram.png)
 
 ### Explication du diagramme des cas d'utilisation pour le système de gestion de dossiers médicaux :
 -Le patient peut consulter son dossier (de manière limitée) ainsi que modifier
@@ -157,38 +187,41 @@ haut niveau. Nous faisons abstraction des détails d'implémentation afin
 d'illustrer la fonctionnalité à une haute granularité.
 
 ## Définitions  
--User : tout utilisateur du système (sauf si spécifié)  
--Centralized medical system : le système qui permet de naviguer dans un dossier médical d'un patient  
--Data access object : interface qui communique avec la base de données  
--Database : la base de données qui centralise tous les dossiers médicaux des patient
+- User : tout utilisateur du système (sauf si spécifié)  
+- Centralized medical system : le système qui permet de naviguer dans un dossier médical d'un patient  
+- Data access object (DAO) : interface qui communique avec la base de données. Le DAO est une couche qui gère l'accès à la base de données, afin de ne pas coupler les requêtes
+  SQL avec l'application. L'application demande au DAO de lui fournir les informations qui se trouvent dans la base de données. C'est donc la DAO qui se charge de faire les requêtes vers la base de données, de sorte que si on change de système de base de données,
+  l'application en tant que telle n'est pas affectée. 
+- Database : la base de données qui centralise tous les dossiers médicaux des patients
+
 
 ## login  
 Ce diagramme illustre la fonctionnalité d'authentification à haut niveau.
 L'utilisateur interagit avec le système en entrant ses identifiants. Le système communique
 par la suite avec la base de données pour valider l'authentification. Le profile
 de l'utilisateur est affiché en cas de succès. En cas d'échec, un message d'erreur est affiché.
-![Diagramme de séquence](../Models/pngs/SequenceDiagram-login.png)
+![Diagramme de séquence](./Models/pngs/SequenceDiagram-login.png)
 
 ## modifyContactInfo  
 Ce diagramme illustre la fonctionnalité de modification des coordonnées d'un patient par lui-même. Le patient peut
 modifier ses coordonnées en entrant dans le système les nouvelles coordonnées. Le système s'occupe de mettre-à-jour
 les coordonnées du patient dans la base de données. En cas de succès, un message de succès et affiché. En cas d'échec,
 un message d'erreur est affiché.
-![Diagramme de séquence](../Models/pngs/SequenceDiagram-modifyContactInfo.png)
+![Diagramme de séquence](./Models/pngs/SequenceDiagram-modifyContactInfo.png)
 
 ## reconstructPatientFile  
 Ce diagramme illustre la fonctionnalité de reconstruire le dossier médical d'un patient à partir d'une date donnée ou
 d'une modification faite dans le passé. L'utilisateur RAMQ entre les informations nécessaires dans le système et
 ce dernier envoie ces informations à l'interface. En cas de succès, un message de succès et affiché.
 En cas d'échec, un message d'erreur est affiché.
-![Diagramme de séquence](../Models/pngs/SequenceDiagram-reconstructPatientFile.png)
+![Diagramme de séquence](./Models/pngs/SequenceDiagram-reconstructPatientFile.png)
 
 ## consultPatientFile  
 Ce diagramme illustre la fonctionnalité de consultation d'un dossier médical d'un patient par un utilisateur.
 La consultation inclus les informations suivantes du patient : son identité, ses antécédents médicaux
 et ses visites médicales. L'utilisateur demande au système quel aspect du dossier médical il désire consulter
 et cela va s'afficher à l'écran.
-![Diagramme de séquence](../Models/pngs/SequenceDiagram-consultPatientFile.png)
+![Diagramme de séquence](./Models/pngs/SequenceDiagram-consultPatientFile.png)
 
 ## modifyPatientFile  
 Ce diagramme illustre la fonctionnalité de modification d'un dossier médical d'un patient par le docteur. Selon le
@@ -197,11 +230,11 @@ Lors d'une modification, le système la garde en mémoire jusqu'à temps que le 
 Par  la suite le système affiche un message au docteur s'il veut sauvegarder ou non les modifications. Si oui, elles
 sont envoyées dans la base de données, sinon elles sont éliminées.
 
-![Diagramme de séquence](../Models/pngs/SequenceDiagram-modifyPatientFile.png)
+![Diagramme de séquence](./Models/pngs/SequenceDiagram-modifyPatientFile.png)
 
 
 # Diagramme de packages
-![Diagramme de packages](../Models/pngs/PackageDiagram.png)
+![Diagramme de packages](./Models/pngs/PackageDiagram.png)
 
 Le diagramme de packages est une représentation haut niveau (sans attributs ni méthodes) qui regroupe 
 les classes de notre système. Les paquets sont nommés afin de catégoriser les classes qui y sont contenues. 
@@ -212,11 +245,45 @@ fait naturellement à partir du diagramme de classes. Effectivement, les paquets
 classes de la même manière que les classes se lient entre elles dans le diagramme de classes.
 
 # Diagramme de composantes
-![Diagramme de composantes](../Models/pngs/ComponentsDiagram.png)
+![Diagramme de composantes](./Models/pngs/ComponentsDiagram.png)
 
-TODO BLA BLA BLA
+Il est à noter pour ce diagramme que nous avons fait le choix de représenter les interfaces entre les composantes comme se consommant
+des deux côtés, puisque doubler le nombre de ports dans le diagramme (un pour chaque entrée, un pour chaque sortie)
+rendait vraiment lourd et difficile la lecture du diagramme.
+
+Notre application sera composée des composantes suivantes :
+
+- Le front-end, qui traite l'information fournie par l'utilisateur. Selon les besoins, le front-end 
+fera des requêtes en lecture à la base de données ou des requêtes au back-end, et affichera
+à l'utilisateur l'information fournie par le back-end.
+
+- Le back-end, qui traite les requêtes fournies par le front-end. Selon les requêtes, le back-end fera des requêtes 
+en écriture ou en lecture à la base de données ou à la data warehouse. Le back-end pourra ensuite fournir les résultats
+des requêtes au front-end pour affichage à l'utilisateur. Une copie de chaque requête en écriture fait à la base de données
+est envoyé à la data warehouse.
+
+- La base de données, qui traite les requêtes en écriture et lecture du back-end ainsi que les requêtes du front-end en 
+lecture du front-end. C'est elle qui contient l'état actuel des dossiers médicaux des patients.
+
+- La data warehouse, qui contient l'historique des modifications de la base de données. Elle peut fournir au back-end
+l'information nécessaire pour faire basculer à un état antérieur la base de données.
 
 # Diagramme de déploiement
-![Diagramme de déploiement](../Models/pngs/DeployementDiagram.png)
+![Diagramme de déploiement](./Models/pngs/DeployementDiagram.png)
 
-TODO BLA BLA BLA
+Pour le déploiement de notre application, nous devrons garder actif au moins quatre serveurs 
+(front-end, back-end, base de données, data warehouse). Ces serveurs assureront
+un service en continu aux utilisateurs, qu'ils soient sur leur téléphone intelligent ou leur ordinateur.
+
+Le déploiement de notre application sera assuré par :
+
+1. La machine individuelle d'un utilisateur, qu'il s'agisse d'un téléphone intelligent
+   ou d'un ordinateur pourvu que la machine soit munie d'un fureteur.
+
+2. Le front-end, qui permet l'utilisation de notre application par l'utilisateur au travers d'une interface.
+
+3. Le back-end, qui assure la communication avec les bases de données.
+
+4. La base de données, qui contient les dossiers médicaux des patients.
+
+5. La data warehouse, qui contient l'historique des modifications de la base de données.
