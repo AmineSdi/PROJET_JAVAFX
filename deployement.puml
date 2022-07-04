@@ -2,8 +2,8 @@
 'DOCUMENTATION
 'PLANTUML : https://plantuml.com/fr/deployment-diagram
 'WHAT'S A DEPLOYEMENT DIAGRAM : https://www.lucidchart.com/pages/fr/diagramme-de-deploiement-uml
-title Deployment diagram
-center footer Centralized medical management system - Sequence Diagram
+title Centralized medical management system - Deployment diagram
+center footer Centralized medical management system - Deployment Diagram
 
 database DataWarehouseServer as DW{
     storage dataWarehouse

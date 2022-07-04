@@ -3,11 +3,11 @@
 <br><br>
 <br><br>
 <br><br>
-<p style="text-align: center;">Rapport de conception projet de session
+<p style="text-align: center;">Rapport de conception projet de session</p>
 
-<p style="text-align: center;">Présenté au professeur Gagnely Serge Dogny
+<p style="text-align: center;">Présenté au professeur Gagnely Serge Dogny</p>
 
-<p style="text-align: center;">dans le cadre du cours INF5153 Génie Logiciel: Conception
+<p style="text-align: center;">dans le cadre du cours INF5153 Génie Logiciel: Conception</p>
 <br><br>
 <br><br>
 <br><br>
@@ -17,10 +17,10 @@
 <br><br>
 <br><br>
 <br><br>
-<p style="text-align: center;">Steven Chia Ah-Lan - AHLS12109105
-<p style="text-align: center;">Alexandre Filion - FILA09128609 
-<p style="text-align: center;">Mohand Amine Saïdi - SAIM15029603
-<p style="text-align: center;">Nicolas Goulet - GOUN12109401
+<p style="text-align: center;">Steven Chia Ah-Lan - AHLS12109105</p>
+<p style="text-align: center;">Alexandre Filion - FILA09128609</p>
+<p style="text-align: center;">Mohand Amine Saïdi - SAIM15029603</p>
+<p style="text-align: center;">Nicolas Goulet - GOUN12109401</p>
 <br><br>
 <br><br>
 <br><br>
@@ -71,15 +71,15 @@
 
 
 
-# Diagramme de classes
+# 1. Diagramme de classes
 
 ![Diagramme de classes](./Models/pngs/ClassDiagram.png)
 
-## Justfications des patrons GRASP
+##1.1 Justfications des patrons GRASP
 
 ### PatientRegistry et DoctorRegistry
--Ces deux classes représentent des conteneurs d'information dans le système. Par exemple, elles pourraient 
-faire partie d'une base de données.`PatientRegistry` contient les dossiers des patients, 
+-Ces deux classes représentent des conteneurs d'information dans le système, puisqu'elles pourraient 
+faire partie d'une base de données par exemple.`PatientRegistry` contient les dossiers des patients, 
 et `DoctorRegistry` contient les informations sur les docteurs. Nous utilisons le patron *Créateur* vu 
 que nous observons une relation de composition. En implémentant l'interface `Registry`, les clases `PatientRegistry` 
 et `DoctorRegistry` permettent l'instanciation des dossiers patients et des médecins, respectivement. 
@@ -113,7 +113,7 @@ de `User`.
 -`Doctor` a le devoir de gérer le dossier médical. Par conséquent, cette classe se comporte en 
 consultant le dossier ou en y apportant des modifications. Le patron *Faible couplage* justifie son 
 instanciation, car le `Doctor` possède un couplage faible avec le `PatientFile`. Effectivement, le 
-`PatientFile` est passé en tant que paramètre dans les méthodes privées de `Doctor` au lieu d'avoir 
+`PatientFile` est passé en tant que paramètre dans les méthodes de `Doctor` au lieu d'avoir 
 une relation directe avec ce dernier, ce qui affaiblit le couplage entre ces deux classes. 
 
 -La méthode `modify()` est publique car `Doctor` implémente l'interface `Modifiable`, qui permet
@@ -160,7 +160,7 @@ accesseur publique qui retourne les informations de contact sans exposer des obj
 inappropriée, car `ContactInformation` ne contient pas de référence vers d'autres objets.
 
 
-# Diagramme des cas d'utilisation 
+# 2. Diagramme des cas d'utilisation 
 
 ![Diagramme de cas d'utilisation](./Models/pngs/UseCasesDiagram.png)
 
@@ -180,7 +180,7 @@ médecin, la modification d'un dossier doit être obligatoirement précédée pa
 -L'acteur 'OtherHealthProfessionals' est inclus pour illustrer le fait que les autres
 professionnels de la santé (pharmacien, infirmiers, etc.) peuvent consulter le dossier du patient.
 
-# Diagrammes de séquences 
+# 3. Diagrammes de séquences 
 
 Chaque diagramme de séquence représente un cas d'utilisation à
 haut niveau. Nous faisons abstraction des détails d'implémentation afin
@@ -195,35 +195,35 @@ d'illustrer la fonctionnalité à une haute granularité.
 - Database : la base de données qui centralise tous les dossiers médicaux des patients
 
 
-## login  
+## 3.1 login  
 Ce diagramme illustre la fonctionnalité d'authentification à haut niveau.
 L'utilisateur interagit avec le système en entrant ses identifiants. Le système communique
 par la suite avec la base de données pour valider l'authentification. Le profile
 de l'utilisateur est affiché en cas de succès. En cas d'échec, un message d'erreur est affiché.
 ![Diagramme de séquence](./Models/pngs/SequenceDiagram-login.png)
 
-## modifyContactInfo  
+## 3.2 modifyContactInfo  
 Ce diagramme illustre la fonctionnalité de modification des coordonnées d'un patient par lui-même. Le patient peut
 modifier ses coordonnées en entrant dans le système les nouvelles coordonnées. Le système s'occupe de mettre-à-jour
 les coordonnées du patient dans la base de données. En cas de succès, un message de succès et affiché. En cas d'échec,
 un message d'erreur est affiché.
 ![Diagramme de séquence](./Models/pngs/SequenceDiagram-modifyContactInfo.png)
 
-## reconstructPatientFile  
+## 3.3 reconstructPatientFile  
 Ce diagramme illustre la fonctionnalité de reconstruire le dossier médical d'un patient à partir d'une date donnée ou
 d'une modification faite dans le passé. L'utilisateur RAMQ entre les informations nécessaires dans le système et
 ce dernier envoie ces informations à l'interface. En cas de succès, un message de succès et affiché.
 En cas d'échec, un message d'erreur est affiché.
 ![Diagramme de séquence](./Models/pngs/SequenceDiagram-reconstructPatientFile.png)
 
-## consultPatientFile  
+## 3.4 consultPatientFile  
 Ce diagramme illustre la fonctionnalité de consultation d'un dossier médical d'un patient par un utilisateur.
 La consultation inclus les informations suivantes du patient : son identité, ses antécédents médicaux
-et ses visites médicales. L'utilisateur demande au système quel aspect du dossier médical il désire consulter
-et cela va s'afficher à l'écran.
+et ses visites médicales. L'utilisateur choisit quel aspect du dossier sera affiché à l'écran par le système. 
+
 ![Diagramme de séquence](./Models/pngs/SequenceDiagram-consultPatientFile.png)
 
-## modifyPatientFile  
+## 3.5 modifyPatientFile  
 Ce diagramme illustre la fonctionnalité de modification d'un dossier médical d'un patient par le docteur. Selon le
 choix du docteur, il peut ajouter ou retirer une modification d'un dossier médical d'un patient.
 Lors d'une modification, le système la garde en mémoire jusqu'à temps que le docteur quitte le dossier du patient. 
@@ -233,7 +233,7 @@ sont envoyées dans la base de données, sinon elles sont éliminées.
 ![Diagramme de séquence](./Models/pngs/SequenceDiagram-modifyPatientFile.png)
 
 
-# Diagramme de packages
+# 4. Diagramme de packages
 ![Diagramme de packages](./Models/pngs/PackageDiagram.png)
 
 Le diagramme de packages est une représentation haut niveau (sans attributs ni méthodes) qui regroupe 
@@ -244,12 +244,12 @@ classes qui se chargeront d'implémenter l'interface utilisateur. La séparation
 fait naturellement à partir du diagramme de classes. Effectivement, les paquets se lient par leurs
 classes de la même manière que les classes se lient entre elles dans le diagramme de classes.
 
-# Diagramme de composantes
+# 5. Diagramme de composantes
 ![Diagramme de composantes](./Models/pngs/ComponentsDiagram.png)
 
 Il est à noter pour ce diagramme que nous avons fait le choix de représenter les interfaces entre les composantes comme se consommant
 des deux côtés, puisque doubler le nombre de ports dans le diagramme (un pour chaque entrée, un pour chaque sortie)
-rendait vraiment lourd et difficile la lecture du diagramme.
+rendait lourde et difficile la lecture du diagramme.
 
 Notre application sera composée des composantes suivantes :
 
@@ -268,7 +268,7 @@ lecture du front-end. C'est elle qui contient l'état actuel des dossiers médic
 - La data warehouse, qui contient l'historique des modifications de la base de données. Elle peut fournir au back-end
 l'information nécessaire pour faire basculer à un état antérieur la base de données.
 
-# Diagramme de déploiement
+# 6. Diagramme de déploiement
 ![Diagramme de déploiement](./Models/pngs/DeployementDiagram.png)
 
 Pour le déploiement de notre application, nous devrons garder actif au moins quatre serveurs 

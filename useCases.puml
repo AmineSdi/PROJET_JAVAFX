@@ -13,8 +13,8 @@ D --|> H
 
 O -|> H
 
-title RAMQ Dossier (Use Cases)
-center footer Centralized medical management system - Sequence Diagram
+title Centralized medical management system - Use Cases
+center footer Centralized medical management system - Use Cases Diagram
 
 rectangle "Medical record management system" {
 
