@@ -7,16 +7,12 @@ center footer Centralized medical management system - Sequence Diagram
 actor "User" as U
 participant "Centralized\nmedical system" as S
 participant "Data access\nobject" as D
-database Database as DB
 
 U -> S: login()
 activate S
 S -> D: authentication()
 activate D
-D -> DB: getUserProfile()
-activate DB
-D <-- DB:returnUserProfile()
-deactivate DB
+
 D --> S: returnUserProfile()
 deactivate D
 alt success

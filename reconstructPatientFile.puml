@@ -8,17 +8,12 @@ center footer sequence diagram Centralized medical management system - Sequence 
 actor "RAMQ" as R
 participant "Centralized\nmedical system" as S
 participant "Data access\nobject" as D
-database Database as DB
 
 R -> S: reconstructPatientFile()
 activate S
 S -> D: reconstructPatientFile()
 activate D
-D -> DB: getPatientFile()
-activate DB
-D <-- DB: returnPatientFile()
-deactivate DB
-D --> S: resultPatientFile()
+D --> S: returnPatientFile()
 deactivate D
 alt success
     S --> R: showSuccessMessage()
