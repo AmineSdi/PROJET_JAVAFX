@@ -4,7 +4,7 @@
 'PLANTUML : https://plantuml.com/fr/sequence-diagram
 
 title Sequence diagram (reconstructPatientFile)
-center footer sequence diagram (reconstructPatientFile)
+center footer sequence diagram Centralized medical management system - Sequence Diagram
 actor "RAMQ" as R
 participant "Centralized\nmedical system" as S
 participant "Data access\nobject" as D

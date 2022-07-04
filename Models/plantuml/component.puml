@@ -2,12 +2,9 @@
 'DOCUMENTATION
 'PLANTUML : https://plantuml.com/fr/component-diagram
 'WHATS A COMPONENTS DIAGRAM : https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-component-diagram/
-
+!include common.style
 title Ramq Dossier (components)
-center footer project #2 - Components diagram
-'component searchPatientFile as SPF
-'component FileRepository as FR
-'SPF -0)- FR : fileAccessor
+center footer Centralized medical management system - Sequence Diagram
 
 component Front-End as FE{
     portin p1
@@ -28,7 +25,6 @@ component Back-End as BE{
     component readWriteFrontEnd as RWFE
     component readWriteDB as RWDB
     component readWriteDW as RWDW
-
 }
 
 component ProductionDatabase as DB{
@@ -55,7 +51,7 @@ UI -right0)- PU
 PU -0)- p2
 RP -- p3
 p2 -(0)- p4
-p4 -right- RWFE
+p4 -right(0)- RWFE
 RWFE -(0)- RWDB
 RWFE -(0)- RWDW
 RWDW -(0)- p6

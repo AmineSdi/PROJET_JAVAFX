@@ -3,17 +3,15 @@
 'DOCUMENTATION
 'PLANTUML : https://plantuml.com/fr/sequence-diagram
 title Sequence diagram (consultPatientFile)
-center footer Sequence diagram (consultPatientFile)
+center footer Centralized medical management system - Sequence Diagram
 actor "User" as U
 participant "Centralized\nmedical system" as S
-participant "Data access\nobject" as D
-'database Database as DB
 
-alt until in Patient File
-U -> S: selectPatientID()
+alt while in Patient File
+U -> S: selectContactInformation()
 activate S
-S -> S: getPatientID()
-S --> U: showPatientID()
+S -> S: getContactInformation()
+S --> U: showContactInformation()
 deactivate S
 U -> S: selectMedicalHistory()
 activate S

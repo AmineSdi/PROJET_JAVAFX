@@ -4,7 +4,7 @@
 'WHAT IS A PACKAGE DIAGRAM : https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-package-diagram/
 title Package Diagram - Centralized medical management system
 center footer Package Diagram - Centralized medical management system
-
+!include common.style
 package PatientFile {
     class PatientFile
     class MedicalHistory

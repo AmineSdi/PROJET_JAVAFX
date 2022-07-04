@@ -1,4 +1,5 @@
 @startuml
+!include common.style
 title Centralized medical management system - Class diagram
 center footer Centralized medical management system - Class diagram
 
@@ -53,7 +54,6 @@ class RAMQEmployee {
     - reconstruct(p: PatientFile)
 }
 RAMQEmployee --|> User
-
 Patient ..|> Modifiable
 Doctor .|> Modifiable
 Modifiable <|.. RAMQEmployee
@@ -71,7 +71,6 @@ class MedicalEstablishment{
 }
 MedicalEstablishment ->"1" ContactInformation
 MedicalEstablishment "1" <- Doctor
-
 
 class MedicalHistory{
     -String diagnostic
@@ -128,7 +127,5 @@ enum Gender{
     OTHER
 }
 PatientFile -> Gender
-
 User <|- Patient
-
 @enduml

@@ -3,7 +3,7 @@
 'DOCUMENTATION
 'PLANTUML : https://plantuml.com/fr/sequence-diagram
 title Sequence diagram (login)
-center footer sequence diagram (login)
+center footer Centralized medical management system - Sequence Diagram
 actor "User" as U
 participant "Centralized\nmedical system" as S
 participant "Data access\nobject" as D

@@ -3,13 +3,13 @@
 'DOCUMENTATION
 'PLANTUML : https://plantuml.com/fr/sequence-diagram
 title Sequence diagram (modifyContactInfo)
-center footer Sequence diagram (modifyContactInfo)
+center footer Centralized medical management system - Sequence Diagram
 actor "Patient" as P
 participant "Centralized\nmedical system" as S
 participant "Data access\nobject" as D
 database Database as DB
 
-P -> S: udatePatientContactInfo()
+P -> S: updatePatientContactInfo()
 S -> D: updatePatientContactInfo()
 activate DB
 D -> DB: updatePatientContactInfo()

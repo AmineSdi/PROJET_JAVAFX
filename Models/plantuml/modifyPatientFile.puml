@@ -3,14 +3,14 @@
 'DOCUMENTATION
 'PLANTUML : https://plantuml.com/fr/sequence-diagram
 title Patient File  (modifyPatientFile)
-center footer project #2 - sequence diagram (modifyPatientFile)
+center footer Centralized medical management system - Sequence Diagram
 actor "Doctor" as D
 participant "Centralized\nmedical system" as S
 participant "Data access\nobject" as DI
 database Database as DB
 
 
-loop until Doctor remains on Patient File
+loop while Doctor remains on Patient File
 else Doctor selects Medical History
 D -> S: modifyMedicalHistory()
 activate S
