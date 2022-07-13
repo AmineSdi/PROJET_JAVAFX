@@ -5,12 +5,13 @@ module centralizedmedicalsystem {
 
     opens Application to javafx.fxml;
     exports Application;
-    exports PatientFile;
-    opens PatientFile to javafx.fxml;
-    exports User;
-    opens User to javafx.fxml;
-    exports ContactInformation;
-    opens ContactInformation to javafx.fxml;
-    exports GUI;
-    opens GUI to javafx.fxml;
+
+    exports Model.User;
+    opens Model.User to javafx.fxml;
+    exports Model.ContactInformation;
+    opens Model.ContactInformation to javafx.fxml;
+    exports Controller;
+    opens Controller to javafx.fxml;
+    exports Model.PatientFile;
+    opens Model.PatientFile to javafx.fxml;
 }

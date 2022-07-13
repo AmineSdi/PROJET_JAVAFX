@@ -1,6 +1,6 @@
-package User;
+package Model.User;
 
-import ContactInformation.MedicalEstablishment;
+import Model.ContactInformation.MedicalEstablishment;
 
 public class Doctor extends HealthProfessional {
 

@@ -1,4 +1,4 @@
-package User;
+package Model.User;
 
 public abstract class HealthProfessional extends User {
 

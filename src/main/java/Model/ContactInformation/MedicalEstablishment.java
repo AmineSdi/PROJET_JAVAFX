@@ -1,4 +1,4 @@
-package ContactInformation;
+package Model.ContactInformation;
 
 public class MedicalEstablishment {
 

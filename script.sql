@@ -5,7 +5,7 @@ DROP Table IF EXISTS MedicalEstablishments;
 DROP Table IF EXISTS HealthProfessionals;
 DROP Table IF EXISTS PatientFiles;
 DROP Table IF EXISTS Users;
-DROP Table IF EXISTS ContactInformation;
+DROP Table IF EXISTS Model.ContactInformation;
 
 
 CREATE Table Users (
@@ -22,7 +22,7 @@ CREATE Table HealthProfessionals (
    FOREIGN KEY (userID) REFERENCES Users(id)
 );
 
-CREATE Table ContactInformation (
+CREATE Table Model.ContactInformation (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     number INTEGER NOT NULL,
     street varchar(30),
@@ -36,7 +36,7 @@ CREATE Table MedicalEstablishments(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name varchar(150) NOT NULL, 
     contactInfoId INTEGER NOT NULL, 
-    FOREIGN KEY (contactInfoId) REFERENCES ContactInformation(id)    
+    FOREIGN KEY (contactInfoId) REFERENCES Model.ContactInformation(id)
 );
 
 CREATE Table Doctors (
@@ -57,7 +57,7 @@ CREATE Table PatientFiles (
    birthDate text NOT NULL,
    parentsName varchar(80) NOT NULL,
    contactInfoId INTEGER NOT NULL, 
-   FOREIGN KEY (contactInfoId) REFERENCES ContactInformation(id)
+   FOREIGN KEY (contactInfoId) REFERENCES Model.ContactInformation(id)
 );
 
 CREATE Table MedicalHistories (

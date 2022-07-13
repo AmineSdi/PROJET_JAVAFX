@@ -1,14 +1,14 @@
-package Application;
+package Controller;
 
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
 import java.util.Date;
-import PatientFile.Gender;
+import Model.PatientFile.Gender;
 
-import ContactInformation.ContactInformation;
-import PatientFile.PatientFile;
+import Model.ContactInformation.ContactInformation;
+import Model.PatientFile.PatientFile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

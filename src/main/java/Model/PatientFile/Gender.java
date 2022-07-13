@@ -1,4 +1,4 @@
-package PatientFile;
+package Model.PatientFile;
 
 public enum Gender {
     MALE,

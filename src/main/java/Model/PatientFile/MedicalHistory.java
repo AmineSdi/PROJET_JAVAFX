@@ -1,4 +1,4 @@
-package PatientFile;
+package Model.PatientFile;
 
 import java.util.Date;
 

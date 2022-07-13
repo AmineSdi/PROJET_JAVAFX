@@ -1,6 +1,6 @@
-package PatientFile;
+package Model.PatientFile;
 
-import ContactInformation.ContactInformation;
+import Model.ContactInformation.ContactInformation;
 
 import java.util.ArrayList;
 import java.util.Date;
