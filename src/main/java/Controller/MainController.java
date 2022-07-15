@@ -93,7 +93,7 @@ public class MainController implements Initializable {
                         new Date(),
                         resultSet.getString("birthCity"),
                         resultSet.getString("parentsName"),
-                        new ContactInformation());
+                        new ContactInformation(1, null, null, null, null, null)); // Todo: fix
                 patientFiles.add(file);
             }
 
