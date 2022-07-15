@@ -1,11 +1,12 @@
 package Model.PatientFile;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class MedicalVisit {
-    public MedicalVisit(String establishmentName, String doctorName, Date visitDate, String diagnosis, String treatment, String visitSummary, String notes) {
+    public MedicalVisit(String establishmentName, String doctorName, int doctorLicense, LocalDate visitDate, String diagnosis, String treatment, String visitSummary, String notes) {
         this.establishmentName = establishmentName;
         this.doctorName = doctorName;
+        this.doctorLicense = doctorLicense;
         this.visitDate = visitDate;
         this.diagnosis = diagnosis;
         this.treatment = treatment;
@@ -14,8 +15,9 @@ public class MedicalVisit {
     }
 
     String establishmentName;
-    String doctorName;
-    Date visitDate;
+    String doctorName; // not in Database
+    int doctorLicense;
+    LocalDate visitDate;
     String diagnosis;
     String treatment;
     String visitSummary;
@@ -37,11 +39,19 @@ public class MedicalVisit {
         this.doctorName = doctorName;
     }
 
-    public Date getVisitDate() {
+    public int getDoctorLicense() {
+        return doctorLicense;
+    }
+
+    public void setDoctorLicense(int doctorLicense) {
+        this.doctorLicense = doctorLicense;
+    }
+
+    public LocalDate getVisitDate() {
         return visitDate;
     }
 
-    public void setVisitDate(Date visitDate) {
+    public void setVisitDate(LocalDate visitDate) {
         this.visitDate = visitDate;
     }
 
@@ -76,4 +86,5 @@ public class MedicalVisit {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
 }

@@ -2,6 +2,7 @@ package Controller;
 
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import java.util.Date;
@@ -90,7 +91,7 @@ public class MainController implements Initializable {
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
                         Gender.FEMALE,
-                        new Date(),
+                        LocalDate.parse(resultSet.getString("birthDate")),
                         resultSet.getString("birthCity"),
                         resultSet.getString("parentsName"),
                         new ContactInformation(1, null, null, null, null, null)); // Todo: fix

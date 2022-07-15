@@ -2,6 +2,7 @@ package Model.PatientFile;
 
 import Model.ContactInformation.ContactInformation;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public class PatientFile {
 
     public PatientFile(String ramqCode, String firstName, String lastName, Gender gender,
-                       Date birthDate, String birthCity, String knownParents,
+                       LocalDate birthDate, String birthCity, String knownParents,
                        ContactInformation contactInformation) {
         this.ramqCode = ramqCode;
         this.firstName = firstName;
@@ -25,7 +26,7 @@ public class PatientFile {
     String firstName;
     String lastName;
     Gender gender;
-    Date birthDate;
+    LocalDate birthDate;
     String birthCity;
     String knownParents;
     ContactInformation contactInformation;
@@ -72,11 +73,11 @@ public class PatientFile {
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
