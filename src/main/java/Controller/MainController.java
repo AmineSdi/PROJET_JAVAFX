@@ -26,6 +26,10 @@ public class MainController implements Initializable {
     @FXML
     private TextField tfRamqCode;
     @FXML
+    private TextField userName;
+    @FXML
+    private TextField password;
+    @FXML
     private TextField tfFirstName;
     @FXML
     private TextField tfLastName;
@@ -33,16 +37,18 @@ public class MainController implements Initializable {
     private TableView<PatientFile> tvPatientFile;
     @FXML
     private TableColumn<PatientFile, String> colRamqCode;
-    @FXML
-    private TableColumn<PatientFile, String> colFirstName;
-    @FXML
-    private TableColumn<PatientFile, String> colLastName;
+    // @FXML
+    // private TableColumn<PatientFile, String> colFirstName;
+    // @FXML
+    // private TableColumn<PatientFile, String> colLastName;
     @FXML
     private Button btnInsert;
     @FXML
     private Button btnUpdate;
     @FXML
     private Button btnDelete;
+    @FXML
+    private Button btnSubmit;
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -53,6 +59,8 @@ public class MainController implements Initializable {
             updateRecord();
         }else if(event.getSource() == btnDelete){
             deleteButton();
+        } else if(event.getSource() == btnSubmit) {
+            submitButton();
         }
 
     }
@@ -107,9 +115,9 @@ public class MainController implements Initializable {
     public void showPatientFiles(){
         ObservableList<PatientFile> list = getPatientFiles();
 
-        colRamqCode.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("ramqCode"));
-        colLastName.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("firstName"));
-        colFirstName.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("lastName"));
+        // colRamqCode.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("ramqCode"));
+        // colLastName.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("firstName"));
+        // colFirstName.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("lastName"));
 
         tvPatientFile.setItems(list);
     }
@@ -125,6 +133,13 @@ public class MainController implements Initializable {
     }
     private void deleteButton(){
         String query = "DELETE FROM PatientFiles WHERE ramqCode =" + tfRamqCode.getText() + "";
+        executeQuery(query);
+        showPatientFiles();
+    }
+
+    private void submitButton(){
+       
+        String query = "SELECT FROM PatientFiles WHERE ramqCode =" + tfRamqCode.getText() + "";
         executeQuery(query);
         showPatientFiles();
     }
