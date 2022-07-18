@@ -6,13 +6,12 @@ import Model.PatientFile.MedicalVisit;
 
 import java.time.LocalDate;
 
-public class Doctor extends HealthProfessional {
+public class Doctor extends User {
 
     public Doctor(int userId, String firstName, String lastName, String userName, String password,
-                  int healthProfessionalId,
                   int license, String specialty,
                   MedicalEstablishment medicalEstablishment) {
-        super(userId, firstName, lastName, userName, password, healthProfessionalId);
+        super(userId, firstName, lastName, userName, password);
         validateLicense(license);
         this.specialty = specialty;
         this.medicalEstablishment = medicalEstablishment;

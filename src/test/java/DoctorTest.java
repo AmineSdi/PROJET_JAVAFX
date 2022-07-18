@@ -3,8 +3,6 @@ import Model.ContactInformation.MedicalEstablishment;
 import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import Model.User.Doctor;
-import Model.User.HealthProfessional;
-import Model.User.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,13 +31,11 @@ public class DoctorTest {
 
         // Valid Doctor
         d1 = new Doctor(1, "Gregory", "House", "houseMD",
-                "aaa", 1, 11111, "Internal Medicine",
-                establishment);
+                "aaa", 11111, "Internal Medicine", establishment);
 
         // Invalid Doctor License
         d2 = new Doctor(1, "Gregory", "House", "houseMD",
-                "aaa", 1, 1, "Internal Medicine",
-                establishment);
+                "aaa", 1, "Internal Medicine", establishment);
     }
 
     @Test public void validateLicenseTest_Valid() {
