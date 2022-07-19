@@ -1,3 +1,4 @@
+*.orig*
 .idea
 *.iml
 *_t_*
