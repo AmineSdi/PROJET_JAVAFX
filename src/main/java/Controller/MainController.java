@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import java.util.Date;
 import Model.PatientFile.Gender;
-
+import Model.PatientFile.MedicalHistory;
 import Model.ContactInformation.ContactInformation;
 import Model.PatientFile.PatientFile;
 import javafx.collections.FXCollections;
@@ -23,53 +23,128 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MainController implements Initializable {
 
-    @FXML
-    private TextField tfRamqCode;
+    // FXML textfield variables
+    
     @FXML
     private TextField userName;
+
     @FXML
     private TextField password;
+    
     @FXML
     private TextField tfFirstName;
+
     @FXML
     private TextField tfLastName;
+   
     @FXML
-    private TableView<PatientFile> tvPatientFile;
+    private TextField tfRamqCode;
+
     @FXML
-    private TableColumn<PatientFile, String> colRamqCode;
+    private TextField tfBirthDate;
+
+    @FXML
+    private TextField tfKnownParents;
+
+    @FXML
+    private TextField tfStreet;
+
+    @FXML
+    private TextField tfPostalCode;
+
+    @FXML
+    private TextField tfCity;
+
+    @FXML
+    private TextField tfPhone;
+
+    @FXML
+    private TextField tfEmail;
+
+    @FXML
+    private TextField tfDoctor;
+
+    @FXML
+    private TextField tfDiagnostic;
+
+    @FXML
+    private TextField tfTreatment;
+
+    @FXML
+    private TextField tfSummary;
+
+    @FXML
+    private TextField tfNote;
+
+    @FXML
+    private TextField tfDate;
+
+
+    // FXML TableView variables
+
+    //TODO
+
     // @FXML
-    // private TableColumn<PatientFile, String> colFirstName;
+    // private TableView<MedicalHistory> tvMedicalHistory;
+
     // @FXML
-    // private TableColumn<PatientFile, String> colLastName;
+    // private TableColumn<MedicalHistory, String> asas ;
+    // @FXML
+    // private TableColumn<MedicalHistory, String> colFirstName;
+    // @FXML
+    // private TableColumn<MedicalHistory, String> colLastName;
+    
+    
+    
+    // FXML button variables
+
     @FXML
-    private Button btnInsert;
+    private Button btnLogOut; 
+
     @FXML
-    private Button btnUpdate;
+    private Button btnMedicalVisit; 
+
     @FXML
-    private Button btnDelete;
+    private Button btnMedicalHistory; 
+
+    @FXML
+    private Button btnAddMedicalVisit;
+
+    @FXML
+    private Button btnAddMedicalHistory;
+
+    @FXML
+    private Button btnSave;
+
+    @FXML
+    private Button btnCancel;
+
+    @FXML
+    private Button btnBack;
+
     @FXML
     private Button btnSubmit;
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
 
-        if(event.getSource() == btnInsert){
-            insertRecord();
-        }else if (event.getSource() == btnUpdate){
-            updateRecord();
-        }else if(event.getSource() == btnDelete){
-            deleteButton();
-        } else if(event.getSource() == btnSubmit) {
-            submitButton();
-        }
+        // if(event.getSource() == btnInsert){
+        //     insertRecord();
+        // }else if (event.getSource() == btnUpdate){
+        //     updateRecord();
+        // }else if(event.getSource() == btnDelete){
+        //     deleteButton();
+        // } else if(event.getSource() == btnSubmit) {
+        //     submitButton();
+        // }
 
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        showPatientFiles();
-    }
+    // @Override
+    // public void initialize(URL url, ResourceBundle rb) {
+    
+    //     showPatientFiles();
+    // }
 
     public Connection getConnection() {
         String jdbcUrl = "jdbc:sqlite:MedicalSystem.db";
@@ -112,37 +187,37 @@ public class MainController implements Initializable {
         return patientFiles;
     }
 
-    public void showPatientFiles(){
-        ObservableList<PatientFile> list = getPatientFiles();
+    // public void showPatientFiles(){
+    //     ObservableList<PatientFile> list = getPatientFiles();
 
-        // colRamqCode.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("ramqCode"));
-        // colLastName.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("firstName"));
-        // colFirstName.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("lastName"));
+    //     // colRamqCode.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("ramqCode"));
+    //     // colLastName.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("firstName"));
+    //     // colFirstName.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("lastName"));
 
-        tvPatientFile.setItems(list);
-    }
-    private void insertRecord(){
-        String query = "INSERT INTO PatientFiles VALUES (" + tfRamqCode.getText() + ",'" + tfFirstName.getText() + "','" + tfLastName.getText() + "')";
-        executeQuery(query);
-        showPatientFiles();
-    }
-    private void updateRecord(){
-        String query = "UPDATE PatientFiles SET firstName  = '" + tfFirstName.getText() + "', lastName = '" + tfLastName.getText() + "' WHERE ramqCode = " + tfRamqCode.getText() + "";
-        executeQuery(query);
-        showPatientFiles();
-    }
-    private void deleteButton(){
-        String query = "DELETE FROM PatientFiles WHERE ramqCode =" + tfRamqCode.getText() + "";
-        executeQuery(query);
-        showPatientFiles();
-    }
+    //     tvPatientFile.setItems(list);
+    // }
+    // private void insertRecord(){
+    //     String query = "INSERT INTO PatientFiles VALUES (" + tfRamqCode.getText() + ",'" + tfFirstName.getText() + "','" + tfLastName.getText() + "')";
+    //     executeQuery(query);
+    //     showPatientFiles();
+    // }
+    // private void updateRecord(){
+    //     String query = "UPDATE PatientFiles SET firstName  = '" + tfFirstName.getText() + "', lastName = '" + tfLastName.getText() + "' WHERE ramqCode = " + tfRamqCode.getText() + "";
+    //     executeQuery(query);
+    //     showPatientFiles();
+    // }
+    // private void deleteButton(){
+    //     String query = "DELETE FROM PatientFiles WHERE ramqCode =" + tfRamqCode.getText() + "";
+    //     executeQuery(query);
+    //     showPatientFiles();
+    // }
 
-    private void submitButton(){
+    // private void submitButton(){
        
-        String query = "SELECT FROM PatientFiles WHERE ramqCode =" + tfRamqCode.getText() + "";
-        executeQuery(query);
-        showPatientFiles();
-    }
+    //     String query = "SELECT FROM PatientFiles WHERE ramqCode =" + tfRamqCode.getText() + "";
+    //     executeQuery(query);
+    //     showPatientFiles();
+    // }
 
     private void executeQuery(String query) {
         Connection conn = getConnection();
