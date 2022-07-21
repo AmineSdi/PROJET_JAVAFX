@@ -9,27 +9,27 @@
    <children>
       <Button layoutX="481.0" layoutY="21.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="93.0" text="Logout" />
       <Text layoutX="28.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RAMQ pt :" />
-      <TextField disable="true" layoutX="95.0" layoutY="22.0" prefHeight="26.0" prefWidth="265.0" />
-      <Button layoutX="32.0" layoutY="340.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Medical Visit" />
-      <Button layoutX="171.0" layoutY="340.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Medical History" />
+      <TextField fx:id="tfRamqCode"d isable="true" layoutX="95.0" layoutY="22.0" prefHeight="26.0" prefWidth="265.0" />
+      <Button fx:id="btnMedicalVisit" onAction="#handleButtonAction" layoutX="32.0" layoutY="340.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Medical Visit" />
+      <Button fx:id="btnMedicalHistory" onAction="#handleButtonAction" layoutX="171.0" layoutY="340.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Medical History" />
       <Text layoutX="35.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FirstName" />
-      <TextField layoutX="113.0" layoutY="101.0" prefHeight="26.0" prefWidth="170.0" />
+      <TextField fx:id="tfFirstName" layoutX="113.0" layoutY="101.0" prefHeight="26.0" prefWidth="170.0" />
       <Text layoutX="35.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LastName" />
-      <TextField layoutX="113.0" layoutY="149.0" prefHeight="26.0" prefWidth="170.0" />
+      <TextField  fx:id="tfLastName" layoutX="113.0" layoutY="149.0" prefHeight="26.0" prefWidth="170.0" />
       <Text layoutX="39.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birthdate" />
-      <TextField layoutX="113.0" layoutY="193.0" prefHeight="26.0" prefWidth="170.0" />
+      <TextField fx:id="tfBirthDate" layoutX="113.0" layoutY="193.0" prefHeight="26.0" prefWidth="170.0" />
       <Text layoutX="320.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City" />
-      <TextField layoutX="391.0" layoutY="193.0" prefHeight="26.0" prefWidth="163.0" />
+      <TextField fx:id="tfCity" layoutX="391.0" layoutY="193.0" prefHeight="26.0" prefWidth="163.0" />
       <Text layoutX="35.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Known Parents" />
-      <TextField layoutX="146.0" layoutY="245.0" prefHeight="26.0" prefWidth="138.0" />
+      <TextField fx:id="tfKnownParents" layoutX="146.0" layoutY="245.0" prefHeight="26.0" prefWidth="138.0" />
       <Text layoutX="314.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Street" />
-      <TextField layoutX="394.0" layoutY="101.0" prefHeight="26.0" prefWidth="163.0" />
+      <TextField fx:id="tfStreet" layoutX="394.0" layoutY="101.0" prefHeight="26.0" prefWidth="163.0" />
       <Text layoutX="298.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PostalCode" />
-      <TextField layoutX="394.0" layoutY="148.0" prefHeight="26.0" prefWidth="163.0" />
+      <TextField fx:id="tfPostalCode" layoutX="394.0" layoutY="148.0" prefHeight="26.0" prefWidth="163.0" />
       <Text layoutX="314.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone" />
-      <TextField layoutX="394.0" layoutY="245.0" prefHeight="26.0" prefWidth="170.0" />
+      <TextField fx:id="tfPhone" layoutX="394.0" layoutY="245.0" prefHeight="26.0" prefWidth="170.0" />
       <Text layoutX="314.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-      <TextField layoutX="394.0" layoutY="288.0" prefHeight="26.0" prefWidth="170.0" />
+      <TextField fx:id="tfEmail" layoutX="394.0" layoutY="288.0" prefHeight="26.0" prefWidth="170.0" />
 
    </children>
 </AnchorPane>

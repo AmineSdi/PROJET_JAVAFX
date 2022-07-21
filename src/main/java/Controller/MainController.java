@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import java.util.Date;
 import Model.PatientFile.Gender;
-import Model.PatientFile.MedicalHistory;
+import Model.PatientFile.MedicalHistory.MedicalVisit;
 import Model.ContactInformation.ContactInformation;
 import Model.PatientFile.PatientFile;
 import javafx.collections.FXCollections;
@@ -23,13 +23,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MainController implements Initializable {
 
+
     // FXML textfield variables
     
     @FXML
-    private TextField userName;
+    private TextField tfUserName;
 
     @FXML
-    private TextField password;
+    private TextField tfPassword;
     
     @FXML
     private TextField tfFirstName;
@@ -80,20 +81,35 @@ public class MainController implements Initializable {
     private TextField tfDate;
 
 
-    // FXML TableView variables
 
-    //TODO
+    // FXML tableView and columns variables (MedicalHistory)
 
-    // @FXML
-    // private TableView<MedicalHistory> tvMedicalHistory;
-
-    // @FXML
-    // private TableColumn<MedicalHistory, String> asas ;
-    // @FXML
-    // private TableColumn<MedicalHistory, String> colFirstName;
-    // @FXML
-    // private TableColumn<MedicalHistory, String> colLastName;
     
+    private TableView<MedicalHistory> tvMedicalHistory;
+
+    private TableColumn<MedicalHistory,String> tcDoctorName;
+    
+    private TableColumn<MedicalHistory,String> tcDiagnosis;
+    
+    private TableColumn<MedicalHistory,String> tcTreatment;
+
+    private TableColumn<MedicalHistory,String>  tcStartDate;
+
+    private TableColumn<MedicalHistory,String>  tcEndDate;
+
+
+    @FXML 
+    private TableColumn<MedicalHistory, String> tcFirstName;
+    // FXML TableView variables (TODO)
+
+    
+
+    // FXML tableView and columns variables (MedicalVisit)
+
+    private TableView<MedicalVisit> tvMedicalVisit;
+
+    private TableColumn<MedicalVisit,String> tcDoctorName2;
+
     
     
     // FXML button variables
@@ -140,11 +156,11 @@ public class MainController implements Initializable {
 
     }
 
-    // @Override
-    // public void initialize(URL url, ResourceBundle rb) {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
     
-    //     showPatientFiles();
-    // }
+        // showPatientFiles();
+    }
 
     public Connection getConnection() {
         String jdbcUrl = "jdbc:sqlite:MedicalSystem.db";
@@ -219,16 +235,16 @@ public class MainController implements Initializable {
     //     showPatientFiles();
     // }
 
-    private void executeQuery(String query) {
-        Connection conn = getConnection();
-        Statement st;
-        try{
-            st = conn.createStatement();
-            st.executeUpdate(query);
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
-    }
+    // private void executeQuery(String query) {
+    //     Connection conn = getConnection();
+    //     Statement st;
+    //     try{
+    //         st = conn.createStatement();
+    //         st.executeUpdate(query);
+    //     }catch(Exception ex){
+    //         ex.printStackTrace();
+    //     }
+    // }
 
 
 }
