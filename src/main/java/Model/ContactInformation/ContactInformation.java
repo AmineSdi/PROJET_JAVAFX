@@ -1,11 +1,12 @@
 package Model.ContactInformation;
-
+import  java.util.regex.*;
 public class ContactInformation {
 
-    public ContactInformation(int number, String street, String city, String postalCode, String phone, String email) {
-        this.number = number;
-        this.street = street;
-        this.city = city;
+    public ContactInformation(int number, String street, String city, String postalCode,
+                              String phone, String email) {
+        validateNumber(number);
+        validateStreet(street);
+        validateCity(city);
         validatePhone(phone);
         validateEmail(email);
         validatePostalCode(postalCode);
@@ -40,6 +41,45 @@ public class ContactInformation {
 
     public String getEmail() {
         return email;
+    }
+
+    private void validateNumber(int number) {
+        // Valid number example : 201
+        // Invalid number examples : 201A, 201 room 1, 201-B
+        if (number >= 100 && number <= 9999)
+            this.number = number;
+        else
+            this.number = 0;
+    }
+
+    private void validateStreet(String street) {
+        // Valid street example : President-Kennedy, de la Commune
+        // Invalid street example : 201 President-Kennedy
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z-\\s])*$";
+
+        if (street.matches(validFormat))
+            isValid = true;
+
+        if (!isValid)
+            this.street = null;
+        else
+            this.street = street;
+    }
+
+    private void validateCity(String city) {
+        // Valid street example : Montreal
+        // Invalid street example : Montréal
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z-\\s])*$";
+        //"^\\w+( \\w+)*$";
+        if (city.matches(validFormat))
+            isValid = true;
+
+        if (!isValid)
+            this.city = null;
+        else
+            this.city = city;
     }
 
     private void validatePhone(String phone) {
