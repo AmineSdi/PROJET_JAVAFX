@@ -16,10 +16,16 @@ public class DataAccessObject {
      */
     public ObservableList<PatientFile> getPatientFiles(){
         ObservableList<PatientFile> patientFiles = FXCollections.observableArrayList();
-        Connection conn = DBConnection.getInstance().getConnection();
         String query = "SELECT * FROM PatientFiles";
+        patientFiles = getPatientFileDB(query);
+        return patientFiles;
+    }
+
+    private ObservableList<PatientFile> getPatientFileDB(String query){
         Statement statement;
         ResultSet resultSet;
+        ObservableList<PatientFile> patientFiles = FXCollections.observableArrayList();
+        Connection conn = DBConnection.getInstance().getConnection();
         try{
             statement = conn.createStatement();
             resultSet = statement.executeQuery(query);
