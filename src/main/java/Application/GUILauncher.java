@@ -10,7 +10,7 @@ import java.io.IOException;
 public class GUILauncher extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("session.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("addHistory.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800.0, 416.0);
         stage.setTitle("Contacts");
         stage.setScene(scene);
