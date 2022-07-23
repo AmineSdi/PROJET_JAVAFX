@@ -7,7 +7,8 @@ import java.util.ResourceBundle;
 
 import java.util.Date;
 import Model.PatientFile.Gender;
-import Model.PatientFile.MedicalHistory.MedicalVisit;
+import Model.PatientFile.MedicalHistory;
+import Model.PatientFile.MedicalVisit;
 import Model.ContactInformation.ContactInformation;
 import Model.PatientFile.PatientFile;
 import javafx.collections.FXCollections;
@@ -18,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -72,43 +74,61 @@ public class MainController implements Initializable {
     private TextField tfTreatment;
 
     @FXML
-    private TextField tfSummary;
+    private TextArea tfSummary;
 
     @FXML
-    private TextField tfNote;
+    private TextArea tfNote;
 
     @FXML
     private TextField tfDate;
+
+    @FXML
+    private TextField tfStartDate;
+
+
+    @FXML
+    private TextField tfEndDate;
+
+    @FXML
+    private TextField tfDoctorLicense;
 
 
 
     // FXML tableView and columns variables (MedicalHistory)
 
     
-    private TableView<MedicalHistory> tvMedicalHistory;
+    // private TableView<MedicalHistory> tvMedicalHistory;
 
-    private TableColumn<MedicalHistory,String> tcDoctorName;
+    // private TableColumn<MedicalHistory,String> tcDoctorName;
     
-    private TableColumn<MedicalHistory,String> tcDiagnosis;
+    // private TableColumn<MedicalHistory,String> tcDiagnosis;
     
-    private TableColumn<MedicalHistory,String> tcTreatment;
+    // private TableColumn<MedicalHistory,String> tcTreatment;
 
-    private TableColumn<MedicalHistory,String>  tcStartDate;
+    // private TableColumn<MedicalHistory,String>  tcStartDate;
 
-    private TableColumn<MedicalHistory,String>  tcEndDate;
+    // private TableColumn<MedicalHistory,String>  tcEndDate;
 
 
-    @FXML 
-    private TableColumn<MedicalHistory, String> tcFirstName;
-    // FXML TableView variables (TODO)
 
-    
 
-    // FXML tableView and columns variables (MedicalVisit)
+    // // FXML tableView and columns variables (MedicalVisit)
 
-    private TableView<MedicalVisit> tvMedicalVisit;
+    // private TableView<MedicalVisit> tvMedicalVisit;
 
-    private TableColumn<MedicalVisit,String> tcDoctorName2;
+    // // private TableColumn<MedicalVisit,String> tcDoctorName2;
+
+    // private TableColumn<MedicalVisit,String> tcDate;
+
+    // // private TableColumn<MedicalVisit,String> tcDiagnosis2;
+
+    // // private TableColumn<MedicalVisit,String> tcTreatment2;
+
+    // private TableColumn<MedicalVisit,String> tcSummary;
+
+    // private TableColumn<MedicalVisit,String> tcNote;
+
+
 
     
     
@@ -203,14 +223,14 @@ public class MainController implements Initializable {
         return patientFiles;
     }
 
-    // public void showPatientFiles(){
-    //     ObservableList<PatientFile> list = getPatientFiles();
+    // public void showMedicalVisit(){
+    //     ObservableList<MedicalVisit> list = getPatientFiles();
 
-    //     // colRamqCode.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("ramqCode"));
-    //     // colLastName.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("firstName"));
-    //     // colFirstName.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("lastName"));
+    //     colRamqCode.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("ramqCode"));
+    //     colLastName.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("firstName"));
+    //     colFirstName.setCellValueFactory(new PropertyValueFactory<PatientFile, String>("lastName"));
 
-    //     tvPatientFile.setItems(list);
+    //     tvMedicalVisit.setItems(list);
     // }
     // private void insertRecord(){
     //     String query = "INSERT INTO PatientFiles VALUES (" + tfRamqCode.getText() + ",'" + tfFirstName.getText() + "','" + tfLastName.getText() + "')";
