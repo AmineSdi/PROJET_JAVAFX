@@ -9,21 +9,6 @@ import java.time.LocalDate;
 
 public class DataAccessObject {
 
-    /**
-     * This method gets a connection to the database
-     * @return a connection to the dataBase
-     */
-    public Connection getConnection() {
-        String jdbcUrl = "jdbc:sqlite:MedicalSystem.db";
-
-        try {
-            Connection connection = DriverManager.getConnection(jdbcUrl);
-            return connection;
-        } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
-            return null;
-        }
-    }
 
     /**
      * This method makes a query to the in order to get all patient files
@@ -31,7 +16,7 @@ public class DataAccessObject {
      */
     public ObservableList<PatientFile> getPatientFiles(){
         ObservableList<PatientFile> patientFiles = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = DBConnection.getInstance().getConnection();
         String query = "SELECT * FROM PatientFiles";
         Statement statement;
         ResultSet resultSet;
@@ -118,10 +103,10 @@ public class DataAccessObject {
      * @param query
      */
     private void executeQuery(String query) {
-        Connection conn = getConnection();
+        Connection connection = DBConnection.getInstance().getConnection();
         Statement st;
         try{
-            st = conn.createStatement();
+            st = connection.createStatement();
             st.executeUpdate(query);
         }catch(Exception ex){
             ex.printStackTrace();
