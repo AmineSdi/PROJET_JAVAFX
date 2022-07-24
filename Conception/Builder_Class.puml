@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+!include _common.style
+
+'Controller creates director...
+class Director {
+    +construct()
+}
+
+interface Builder {
+    +buildPart()
+    +result(): PatientFile
+}
+
+class PatientFileBuilder {
+    +buildVisits()
+    +buildHistories()
+    +buildContactInfo()
+    +build()
+    +result(): PatientFile
+}
+
+class PatientFile {
+}
+
+Director -> Builder
+Builder . PatientFile
+Builder <|.. PatientFileBuilder
+
+@enduml
