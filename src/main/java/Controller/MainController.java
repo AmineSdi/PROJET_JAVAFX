@@ -5,10 +5,8 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import java.util.Date;
 import Model.PatientFile.Gender;
 
-import Model.ContactInformation.ContactInformation;
 import Model.PatientFile.PatientFile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,7 +52,6 @@ public class MainController implements Initializable {
         }else if(event.getSource() == btnDelete){
             deleteButton();
         }
-
     }
 
     @Override
@@ -91,10 +88,9 @@ public class MainController implements Initializable {
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
                         Gender.FEMALE,
-                        LocalDate.parse(resultSet.getString("birthDate")),
                         resultSet.getString("birthCity"),
-                        resultSet.getString("parentsName"),
-                        new ContactInformation(1, null, null, null, null, null)); // Todo: fix
+                        LocalDate.parse(resultSet.getString("birthDate")),
+                        resultSet.getString("parentsName"));
                 patientFiles.add(file);
             }
 
