@@ -1,0 +1,98 @@
+@startuml
+!include _common.style
+
+title Builder sequence diagram
+center footer Builder sequence diagram
+
+'Probablement que le directeur se trouve dans le Controller...
+participant ": Director" as D
+participant "builder: PatientFileBuilder" as builder
+-> D:
+
+activate D
+'Va falloir se connecter a la BD qqpart dans une des fcts...
+D -> builder: buildVisits()
+'va falloir une boucle pour chercher toutes les MedicalVisits
+'(Rappel, c'est une collection de visites).
+activate builder
+
+create "v: List<MedicalVisit>" as visits
+builder -> visits: new()
+activate visits
+visits --> builder
+deactivate visits
+'loop ∀ MedicalVisit for this patient in Database
+'    create "mv: MedicalVisits" as mv
+'    builder -> mv: new()
+'    activate mv
+'    mv --> builder
+'    deactivate mv
+'    builder -> visits: add(mv)
+'    activate visits
+'    visits --> builder
+'    deactivate visits
+'end loop
+builder --> D
+deactivate builder
+
+D -> builder: buildHistories()
+activate builder
+create "h: List<MedicalHistory>" as histories
+builder -> histories: new()
+activate histories
+histories --> builder
+deactivate histories
+'loop ∀ MedicalHistory for this patient in Database
+'    create "mh: MedicalHistories" as mh
+'    builder -> mh: new()
+'    activate mh
+'    mh --> builder
+'    deactivate mh
+'    builder -> histories: add(mv)
+'    activate histories
+'    histories --> builder
+'    deactivate histories
+'end loop
+builder --> D
+deactivate builder
+
+D -> builder: buildContactInfo()
+activate builder
+create "c: ContactInformation" as C
+builder -> C: new()
+activate C
+C --> builder
+deactivate C
+builder --> D
+deactivate builder
+
+D -> builder: build()
+activate builder
+create "p: PatientFile" as P
+builder -> P: new()
+activate P
+P --> builder
+deactivate P
+
+builder -> P: setVisits(visits)
+activate P
+P --> builder
+deactivate P
+
+builder -> P: setHistories(histories)
+activate P
+P --> builder
+deactivate P
+
+builder -> P: setContactInformation(c)
+activate P
+P --> builder
+deactivate P
+
+builder --> D
+deactivate builder
+
+<-- D
+deactivate D
+
+@enduml
