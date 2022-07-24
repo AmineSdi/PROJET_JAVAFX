@@ -1,0 +1,37 @@
+@startuml
+!include _common.style
+
+title Singleton sequence diagram
+center footer Singleton sequence diagram
+
+participant ": MainController" as C
+
+-> C:
+
+activate C
+create "Database Access Object" as DAO
+C -> DAO: new()
+activate DAO
+DAO --> C
+deactivate DAO
+
+participant "dbc: DBConnection" as DBC
+
+C -> DAO: getInfoFromDB(sqlQuery: String)
+activate DAO
+DAO -> DBC: getDBConnection()
+activate DBC
+
+alt \tuniqueConnection == null\t\t
+    DBC -> DBC: uniqueConnection = new Connection()
+end
+
+DBC --> DAO: uniqueConnection
+deactivate DBC
+DAO --> C: queryResult
+deactivate DAO
+
+<-- C
+deactivate C
+
+@enduml
