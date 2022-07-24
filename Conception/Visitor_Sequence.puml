@@ -1,0 +1,46 @@
+@startuml
+!include _common.style
+
+title Visitor sequence diagram
+center footer Visitor sequence diagram
+
+participant ": Controller" as C
+
+-> C:
+
+activate C
+create "d: Doctor" as dr
+C -> dr: new()
+activate dr
+dr --> C
+deactivate dr
+
+participant "mv: MedicalVisit" as mv
+participant "mh: MedicalHistory" as mh
+
+C -> mv: accept(d)
+activate mv
+mv -> dr: visitMedicalVisit()
+activate dr
+dr -> mv: modifyVisit()
+mv --> dr
+dr --> mv
+deactivate dr
+mv --> C
+deactivate mv
+
+C -> mh: accept(d)
+activate mh
+mh -> dr: visitMedicalHistory()
+activate dr
+dr -> mh: modifyHistory()
+mh --> dr
+dr --> mh
+deactivate dr
+mh --> C
+deactivate mh
+
+<-- C
+deactivate C
+
+@enduml

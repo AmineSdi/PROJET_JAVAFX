@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/class-diagram
+!include _common.style
+
+title "Visitor class diagram"
+center footer "Visitor class diagram"
+
+class Controller
+
+class Doctor {
+    + visitMedicalFile(mf: MedicalFile)
+    + visitMedicalVisit(mv: MedicalVisit)
+}
+
+class MedicalVisit {
+    + accept(Visitor)
+    + modifyVisit()
+}
+
+class MedicalHistory{
+    + accept(Visitor)
+    + modifyHistory()
+}
+
+interface Visitor {
+    + visitMedicalFile(mf: MedicalFile)
+    + visitMedicalVisit(mv: MedicalVisit)
+}
+
+interface Visitable {
+    + accept(Visitor)
+}
+
+Controller . Visitor
+Controller .. Visitable
+
+'Visitable . Visitor
+
+Visitor <|.. Doctor
+
+Visitable <|.. MedicalVisit
+Visitable <|.. MedicalHistory
+
+
+@enduml
