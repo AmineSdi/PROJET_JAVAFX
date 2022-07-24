@@ -1,8 +1,11 @@
 package Model.PatientFile;
 
+import Model.Visitor.Visitable;
+import Model.Visitor.Visitor;
+
 import java.time.LocalDate;
 
-public class MedicalVisit {
+public class MedicalVisit implements Visitable {
     public MedicalVisit(String establishmentName, String doctorName, int doctorLicense,
                         LocalDate visitDate, String diagnosis, String treatment,
                         String visitSummary, String notes) {
@@ -178,4 +181,22 @@ public class MedicalVisit {
                 this.notes = notes;
         }
     }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitMedicalVisit(this);
+    }
+
+    /**
+     * Sets the diagnosis, treatment, visitSummary and notes for this medical visit.
+     * */
+    public void modifyVisit(String diagnosis, String treatment,
+                              String visitSummary, String notes){
+        validateDiagnosis(diagnosis);
+        validateTreatment(treatment);
+        validateVisitSummary(visitSummary);
+        validateNotes(notes);
+    }
+
+
 }

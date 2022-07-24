@@ -1,8 +1,11 @@
 package Model.PatientFile;
 
+import Model.Visitor.Visitable;
+import Model.Visitor.Visitor;
+
 import java.time.LocalDate;
 
-public class MedicalHistory {
+public class MedicalHistory implements Visitable {
     public MedicalHistory(String diagnosis, String treatment, String doctorName, int doctorLicense,
                           LocalDate startDate, LocalDate endDate) {
         this.diagnosis = diagnosis;
@@ -65,6 +68,23 @@ public class MedicalHistory {
     }
 
     public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitMedicalHistory(this);
+    }
+
+    /**
+     * Sets the diagnosis, treatment, and endDate this medical history.
+     *
+     * TODO : Manage if endDate is null??
+     * TODO : Validators?
+     * */
+    public void modifyHistory(String diagnosis, String treatment, LocalDate endDate){
+        this.diagnosis = diagnosis;
+        this.treatment = treatment;
         this.endDate = endDate;
     }
 }

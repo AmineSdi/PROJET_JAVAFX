@@ -8,7 +8,7 @@ center footer "Visitor class diagram"
 class Controller
 
 class Doctor {
-    + visitMedicalFile(mf: MedicalFile)
+    + visitMedicalHistory(mh: MedicalHistory)
     + visitMedicalVisit(mv: MedicalVisit)
 }
 
@@ -23,7 +23,7 @@ class MedicalHistory{
 }
 
 interface Visitor {
-    + visitMedicalFile(mf: MedicalFile)
+    + visitMedicalHistory(mh: MedicalHistory)
     + visitMedicalVisit(mv: MedicalVisit)
 }
 
