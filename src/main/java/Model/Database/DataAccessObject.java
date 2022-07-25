@@ -1,11 +1,15 @@
 package Model.Database;
 import Model.ContactInformation.ContactInformation;
 import Model.PatientFile.Gender;
+import Model.PatientFile.MedicalHistory;
+import Model.PatientFile.MedicalVisit;
 import Model.PatientFile.PatientFile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataAccessObject {
 
@@ -64,6 +68,170 @@ public class DataAccessObject {
         String query = "DELETE FROM PatientFiles WHERE ramqCode =" + ramqCode + "";
         executeQuery(query);
     }
+
+    /**
+     * This method makes a query to the database in order to get all medical visits of a patient file.
+     * @return
+     */ // TODO : showMedicalVisits function in MaintController.(need to convert ArrayList to ObservableList)
+    public List<MedicalVisit> getMedicalVisits(String ramqCode){
+        List<MedicalVisit> medicalVisits; // On veut Arraylist. Vieux : FXCollections.observableArrayList();
+        String query = "SELECT * FROM MedicalVisits WHERE patientRamqCode = " + ramqCode;
+        medicalVisits = getMedicalVisitDB(query);
+        return medicalVisits;
+    }
+
+    private List<MedicalVisit> getMedicalVisitDB(String query){
+        Statement statement;
+        ResultSet resultSet;
+        List<MedicalVisit> visits = new ArrayList<>();//FXCollections.observableArrayList();
+        Connection conn = DBConnection.getInstance().getConnection();
+        try{
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(query);
+            MedicalVisit visit;
+            while(resultSet.next()) {
+                int doctorLicense = resultSet.getInt("doctorLicense");
+
+                // Get doctor name for that visit.
+                ResultSet doctorNameRS = getDoctorName(doctorLicense, conn);
+                String doctorName = doctorNameRS.getString("firstName")
+                        + " " + doctorNameRS.getString("lastName");
+
+                // Get establishment name for that visit.
+                ResultSet establishmentNameRS = getEstablishmentName(doctorLicense, conn);
+                String establishmentName = establishmentNameRS.getString("name");
+
+                visit = new MedicalVisit(
+                        establishmentName,
+                        doctorName,
+                        doctorLicense,
+                        LocalDate.parse(resultSet.getString("visitDate")),
+                        resultSet.getString("diagnosis"),
+                        resultSet.getString("treatment"),
+                        resultSet.getString("summary"),
+                        resultSet.getString("notes"));
+                visits.add(visit);
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return visits;
+    }
+
+    /**
+     * This method makes a query to the database in order to get all medical histories of a patient file.
+     * @return
+     */ // TODO : showMedicalHistories function in MainController.(need to convert ArrayList to ObservableList)
+    public List<MedicalHistory> getMedicalHistories(String ramqCode){
+        List<MedicalHistory> medicalHistories;
+        String query = "SELECT * FROM MedicalVisits WHERE patientRamqCode = " + ramqCode;
+        medicalHistories = getMedicalHistoryDB(query);
+        return medicalHistories;
+    }
+
+    private List<MedicalHistory> getMedicalHistoryDB(String query){
+        Statement statement;
+        ResultSet resultSet;
+        List<MedicalHistory> histories = new ArrayList<>();
+        Connection conn = DBConnection.getInstance().getConnection();
+        try{
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(query);
+            MedicalHistory history;
+            while(resultSet.next()) {
+                int doctorLicense = resultSet.getInt("doctorLicense");
+
+                // Get doctor name for that history.
+                ResultSet doctorNameRS = getDoctorName(doctorLicense, conn);
+                String doctorName = doctorNameRS.getString("firstName")
+                        + " " + doctorNameRS.getString("lastName");
+
+                history = new MedicalHistory(
+                        resultSet.getString("diagnosis"),
+                        resultSet.getString("treatment"),
+                        doctorName,
+                        doctorLicense,
+                        LocalDate.parse(resultSet.getString("startDate")),
+                        LocalDate.parse(resultSet.getString("endDate")));
+                histories.add(history);
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return histories;
+    }
+
+    /**
+     * Gets the doctor's first and last name from his license number.
+     * @param license
+     * @return
+     */
+    private ResultSet getDoctorName(int license, Connection conn) {
+        Statement statement;
+        ResultSet resultSet = null;
+        try {
+            String queryDoctorName = "SELECT firstName, lastName FROM Users WHERE id = " +
+                    "(SELECT userId FROM Doctors WHERE license = " + license;
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(queryDoctorName);
+        } catch ( Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return resultSet;
+    }
+
+    /**
+     * Gets the establishment's name from a doctor's license.
+     * @param license
+     * @return
+     */
+    private ResultSet getEstablishmentName(int license, Connection conn) {
+        Statement statement;
+        ResultSet resultSet = null;
+        try {
+            String queryEstablishmentName = "SELECT Name FROM MedicalEstablishments WHERE id = " +
+                    "(SELECT medicalEstablishmentId FROM Doctors WHERE license = " + license;
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(queryEstablishmentName);
+        } catch ( Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return resultSet;
+    }
+
+    /**
+     * This method makes a query to the database in order to get the contact information of a patient.
+     * @return
+     */
+    public ContactInformation getContactInformation(String ramqCode){
+        ContactInformation contactInformation = null;
+        String query = "SELECT * FROM ContactInformation WHERE id = " +
+                "(SELECT contactInfoId FROM PatientFiles WHERE ramqCode = " + ramqCode;
+
+        Connection conn = DBConnection.getInstance().getConnection();
+        Statement statement;
+        ResultSet resultSet = null;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            contactInformation = new ContactInformation(
+                    resultSet.getInt("number"),
+                    resultSet.getString("street"),
+                    resultSet.getString("city"),
+                    resultSet.getString("postalCode"),
+                    resultSet.getString("phone"),
+                    resultSet.getString("email"));
+
+        } catch ( Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return contactInformation;
+    }
+
 
     /**
      * This method adds to the MedicalVisits table a Medical visit
