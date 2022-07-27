@@ -9,10 +9,14 @@ class Controller
 
 class Doctor {
 <<<<<<< HEAD
+<<<<<<< HEAD
     + visitMedicalHistory(mh: MedicalHistory)
 =======
     + visitMedicalFile(mf: MedicalFile)
 >>>>>>> Ajoute diagrammes conception : Visitor.
+=======
+    + visitMedicalHistory(mh: MedicalHistory)
+>>>>>>> Implémente partiellement le patron Visitor.
     + visitMedicalVisit(mv: MedicalVisit)
 }
 
@@ -28,10 +32,14 @@ class MedicalHistory{
 
 interface Visitor {
 <<<<<<< HEAD
+<<<<<<< HEAD
     + visitMedicalHistory(mh: MedicalHistory)
 =======
     + visitMedicalFile(mf: MedicalFile)
 >>>>>>> Ajoute diagrammes conception : Visitor.
+=======
+    + visitMedicalHistory(mh: MedicalHistory)
+>>>>>>> Implémente partiellement le patron Visitor.
     + visitMedicalVisit(mv: MedicalVisit)
 }
 
