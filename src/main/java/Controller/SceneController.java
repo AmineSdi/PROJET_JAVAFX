@@ -1,4 +1,4 @@
-package Application;
+package Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -9,18 +9,24 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class sceneController {
+public class SceneController {
     private Stage stage;
     private Scene scene;
     private Parent root;
 
     public void switchToAddHistory(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("addHistory.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    //public void switch toMedicalHistory
+    public void switchtoMedicalHistory(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("medicalHistory.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
