@@ -10,6 +10,7 @@ class Controller
 class Doctor {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     + visitMedicalHistory(mh: MedicalHistory)
 =======
     + visitMedicalFile(mf: MedicalFile)
@@ -17,6 +18,9 @@ class Doctor {
 =======
     + visitMedicalHistory(mh: MedicalHistory)
 >>>>>>> Implémente partiellement le patron Visitor.
+=======
+    + visitMedicalHistory(mh: MedicalHistory)
+>>>>>>> 4cbfda1767a4af82c6737e5e3239fb253c2fa2f5
     + visitMedicalVisit(mv: MedicalVisit)
 }
 
@@ -33,6 +37,7 @@ class MedicalHistory{
 interface Visitor {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     + visitMedicalHistory(mh: MedicalHistory)
 =======
     + visitMedicalFile(mf: MedicalFile)
@@ -40,6 +45,9 @@ interface Visitor {
 =======
     + visitMedicalHistory(mh: MedicalHistory)
 >>>>>>> Implémente partiellement le patron Visitor.
+=======
+    + visitMedicalHistory(mh: MedicalHistory)
+>>>>>>> 4cbfda1767a4af82c6737e5e3239fb253c2fa2f5
     + visitMedicalVisit(mv: MedicalVisit)
 }
 

@@ -185,10 +185,8 @@ public class MedicalVisit implements Visitable {
     public void accept(Visitor visitor) {
         visitor.visitMedicalVisit(this);
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> Implémente partiellement le patron Visitor.
+
     /**
      * Sets the diagnosis, treatment, visitSummary and notes for this medical visit.
      * */
@@ -199,9 +197,4 @@ public class MedicalVisit implements Visitable {
         validateVisitSummary(visitSummary);
         validateNotes(notes);
     }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> Implémente partiellement le patron Visitor.
 }
