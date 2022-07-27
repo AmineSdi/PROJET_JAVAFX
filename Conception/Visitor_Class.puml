@@ -8,7 +8,11 @@ center footer "Visitor class diagram"
 class Controller
 
 class Doctor {
+<<<<<<< HEAD
     + visitMedicalHistory(mh: MedicalHistory)
+=======
+    + visitMedicalFile(mf: MedicalFile)
+>>>>>>> Ajoute diagrammes conception : Visitor.
     + visitMedicalVisit(mv: MedicalVisit)
 }
 
@@ -23,7 +27,11 @@ class MedicalHistory{
 }
 
 interface Visitor {
+<<<<<<< HEAD
     + visitMedicalHistory(mh: MedicalHistory)
+=======
+    + visitMedicalFile(mf: MedicalFile)
+>>>>>>> Ajoute diagrammes conception : Visitor.
     + visitMedicalVisit(mv: MedicalVisit)
 }
 
