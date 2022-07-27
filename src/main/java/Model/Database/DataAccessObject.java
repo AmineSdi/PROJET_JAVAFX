@@ -40,10 +40,9 @@ public class DataAccessObject {
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
                         Gender.FEMALE,
-                        LocalDate.parse(resultSet.getString("birthDate")),
                         resultSet.getString("birthCity"),
-                        resultSet.getString("parentsName"),
-                        new ContactInformation(201, "PK Avenue", "Montreal", "H2X 3Y7", "(514) 987-3000", "bigluqam.ca")); // Todo: fix
+                        LocalDate.parse(resultSet.getString("birthDate")),
+                        resultSet.getString("parentsName"));
                 patientFiles.add(file);
             }
         }catch(Exception ex){

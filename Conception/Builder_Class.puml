@@ -4,20 +4,21 @@
 
 'Controller creates director...
 class Director {
-    +construct()
+    +buildPatientFile(): PatientFile
 }
 
 interface Builder {
-    +buildPart()
-    +result(): PatientFile
+    +buildVisits()
+    +buildHistories()
+    +buildContactInfo()
+    +assemble(): PatientFile
 }
 
 class PatientFileBuilder {
     +buildVisits()
     +buildHistories()
     +buildContactInfo()
-    +build()
-    +result(): PatientFile
+    +assemble(): PatientFile
 }
 
 class PatientFile {
