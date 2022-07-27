@@ -12,6 +12,7 @@ import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import Model.ContactInformation.ContactInformation;
 import Model.PatientFile.Gender;
+import Model.PatientFile.Gender;
 import Model.PatientFile.PatientFile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
