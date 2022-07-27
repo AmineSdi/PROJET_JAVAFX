@@ -5,7 +5,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
-<<<<<<< HEAD
 import java.util.Date;
 import Model.Database.DataAccessObject;
 import Model.PatientFile.Gender;
@@ -13,15 +12,8 @@ import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import Model.ContactInformation.ContactInformation;
 import Model.PatientFile.Gender;
-<<<<<<< HEAD
-=======
-
 import Model.PatientFile.Gender;
-
->>>>>>> Implémente partiellement le patron Builder.
-=======
 import Model.PatientFile.Gender;
->>>>>>> 4cbfda1767a4af82c6737e5e3239fb253c2fa2f5
 import Model.PatientFile.PatientFile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
