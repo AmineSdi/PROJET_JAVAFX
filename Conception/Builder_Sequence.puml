@@ -7,7 +7,11 @@ center footer Builder sequence diagram
 'Probablement que le directeur se trouve dans le Controller...
 participant ": Director" as D
 participant "builder: PatientFileBuilder" as builder
+<<<<<<< HEAD
 -> D: buildPatientFile()
+=======
+-> D:
+>>>>>>> Ajoute diagrammes conception : Builder
 
 activate D
 'Va falloir se connecter a la BD qqpart dans une des fcts...
@@ -21,6 +25,7 @@ builder -> visits: new()
 activate visits
 visits --> builder
 deactivate visits
+<<<<<<< HEAD
 loop ∀ MedicalVisit for this patient in Database
     create "mv: MedicalVisits" as mv
     builder -> mv: new()
@@ -32,6 +37,19 @@ loop ∀ MedicalVisit for this patient in Database
     visits --> builder
     deactivate visits
 end loop
+=======
+'loop ∀ MedicalVisit for this patient in Database
+'    create "mv: MedicalVisits" as mv
+'    builder -> mv: new()
+'    activate mv
+'    mv --> builder
+'    deactivate mv
+'    builder -> visits: add(mv)
+'    activate visits
+'    visits --> builder
+'    deactivate visits
+'end loop
+>>>>>>> Ajoute diagrammes conception : Builder
 builder --> D
 deactivate builder
 
@@ -66,7 +84,11 @@ deactivate C
 builder --> D
 deactivate builder
 
+<<<<<<< HEAD
 D -> builder: assemble()
+=======
+D -> builder: build()
+>>>>>>> Ajoute diagrammes conception : Builder
 activate builder
 create "p: PatientFile" as P
 builder -> P: new()
