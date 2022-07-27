@@ -10,16 +10,14 @@ import java.util.List;
 public class PatientFile {
 
     public PatientFile(String ramqCode, String firstName, String lastName, Gender gender,
-                       LocalDate birthDate, String birthCity, String knownParents,
-                       ContactInformation contactInformation) {
+                       String birthCity, LocalDate birthDate, String knownParents) {
         this.ramqCode = ramqCode;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
-        this.birthDate = birthDate;
         this.birthCity = birthCity;
+        this.birthDate = birthDate;
         this.knownParents = knownParents;
-        this.contactInformation = contactInformation;
     }
 
     String ramqCode;
@@ -101,6 +99,7 @@ public class PatientFile {
         return contactInformation;
     }
 
+    // For Builder pattern
     public void setContactInformation(ContactInformation contactInformation) {
         this.contactInformation = contactInformation;
     }
@@ -109,6 +108,7 @@ public class PatientFile {
         return medicalVisits;
     }
 
+    // For Builder pattern
     public void setMedicalVisits(List<MedicalVisit> medicalVisits) {
         this.medicalVisits = medicalVisits;
     }
@@ -117,7 +117,10 @@ public class PatientFile {
         return medicalHistories;
     }
 
+    // For Builder pattern
     public void setMedicalHistories(List<MedicalHistory> medicalHistories) {
         this.medicalHistories = medicalHistories;
     }
+
+
 }
