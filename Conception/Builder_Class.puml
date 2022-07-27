@@ -5,6 +5,7 @@
 'Controller creates director...
 class Director {
 <<<<<<< HEAD
+<<<<<<< HEAD
     +buildPatientFile(): PatientFile
 }
 
@@ -21,6 +22,16 @@ interface Builder {
     +buildPart()
     +result(): PatientFile
 >>>>>>> Ajoute diagrammes conception : Builder
+=======
+    +buildPatientFile(): PatientFile
+}
+
+interface Builder {
+    +buildVisits()
+    +buildHistories()
+    +buildContactInfo()
+    +assemble(): PatientFile
+>>>>>>> Implémente partiellement le patron Builder.
 }
 
 class PatientFileBuilder {
@@ -28,11 +39,15 @@ class PatientFileBuilder {
     +buildHistories()
     +buildContactInfo()
 <<<<<<< HEAD
+<<<<<<< HEAD
     +assemble(): PatientFile
 =======
     +build()
     +result(): PatientFile
 >>>>>>> Ajoute diagrammes conception : Builder
+=======
+    +assemble(): PatientFile
+>>>>>>> Implémente partiellement le patron Builder.
 }
 
 class PatientFile {

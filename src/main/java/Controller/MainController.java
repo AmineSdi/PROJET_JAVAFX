@@ -5,6 +5,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
+<<<<<<< HEAD
 import java.util.Date;
 import Model.Database.DataAccessObject;
 import Model.PatientFile.Gender;
@@ -12,6 +13,11 @@ import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import Model.ContactInformation.ContactInformation;
 import Model.PatientFile.Gender;
+=======
+
+import Model.PatientFile.Gender;
+
+>>>>>>> Implémente partiellement le patron Builder.
 import Model.PatientFile.PatientFile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -67,6 +73,7 @@ public class MainController implements Initializable {
     @FXML
     private TextField tfPhone;
     @FXML
+<<<<<<< HEAD
     private TextField tfEmail;
     @FXML
     private TextField tfDoctor;
@@ -145,6 +152,17 @@ public class MainController implements Initializable {
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
         window.setScene(new Scene(root, 750, 600));
         window.show();
+=======
+    private void handleButtonAction(ActionEvent event) {
+
+        if(event.getSource() == btnInsert){
+            insertRecord();
+        }else if (event.getSource() == btnUpdate){
+            updateRecord();
+        }else if(event.getSource() == btnDelete){
+            deleteButton();
+        }
+>>>>>>> Implémente partiellement le patron Builder.
     }
     @FXML
     public void handleBtnLogout(ActionEvent event) throws Exception {
@@ -162,6 +180,7 @@ public class MainController implements Initializable {
         window.setScene(new Scene(root, 750, 600));
         window.show();
     }
+<<<<<<< HEAD
     @FXML
     public void handleBtnBackToSearch(ActionEvent event) throws Exception {
         URL url = new File("src/main/resources/Application/ramqSearch.fxml").toURI().toURL();
@@ -169,6 +188,35 @@ public class MainController implements Initializable {
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
         window.setScene(new Scene(root, 750, 600));
         window.show();
+=======
+
+    public ObservableList<PatientFile> getPatientFiles(){
+        ObservableList<PatientFile> patientFiles = FXCollections.observableArrayList();
+        Connection conn = getConnection();
+        String query = "SELECT * FROM PatientFiles";
+        Statement statement;
+        ResultSet resultSet;
+        try{
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(query);
+            PatientFile file;
+            while(resultSet.next()){
+                file = new PatientFile(
+                        resultSet.getString("ramqCode"),
+                        resultSet.getString("firstName"),
+                        resultSet.getString("lastName"),
+                        Gender.FEMALE,
+                        resultSet.getString("birthCity"),
+                        LocalDate.parse(resultSet.getString("birthDate")),
+                        resultSet.getString("parentsName"));
+                patientFiles.add(file);
+            }
+
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return patientFiles;
+>>>>>>> Implémente partiellement le patron Builder.
     }
     /**
      * THIS BUTTON NEEDS TO BE FIXED

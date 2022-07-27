@@ -8,10 +8,14 @@ center footer Builder sequence diagram
 participant ": Director" as D
 participant "builder: PatientFileBuilder" as builder
 <<<<<<< HEAD
+<<<<<<< HEAD
 -> D: buildPatientFile()
 =======
 -> D:
 >>>>>>> Ajoute diagrammes conception : Builder
+=======
+-> D: buildPatientFile()
+>>>>>>> Implémente partiellement le patron Builder.
 
 activate D
 'Va falloir se connecter a la BD qqpart dans une des fcts...
@@ -26,6 +30,9 @@ activate visits
 visits --> builder
 deactivate visits
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Implémente partiellement le patron Builder.
 loop ∀ MedicalVisit for this patient in Database
     create "mv: MedicalVisits" as mv
     builder -> mv: new()
@@ -37,6 +44,7 @@ loop ∀ MedicalVisit for this patient in Database
     visits --> builder
     deactivate visits
 end loop
+<<<<<<< HEAD
 =======
 'loop ∀ MedicalVisit for this patient in Database
 '    create "mv: MedicalVisits" as mv
@@ -50,6 +58,8 @@ end loop
 '    deactivate visits
 'end loop
 >>>>>>> Ajoute diagrammes conception : Builder
+=======
+>>>>>>> Implémente partiellement le patron Builder.
 builder --> D
 deactivate builder
 
@@ -85,10 +95,14 @@ builder --> D
 deactivate builder
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 D -> builder: assemble()
 =======
 D -> builder: build()
 >>>>>>> Ajoute diagrammes conception : Builder
+=======
+D -> builder: assemble()
+>>>>>>> Implémente partiellement le patron Builder.
 activate builder
 create "p: PatientFile" as P
 builder -> P: new()
