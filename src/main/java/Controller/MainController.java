@@ -73,7 +73,7 @@ public class MainController implements Initializable {
     @FXML
     private TextField tfDoctor;
     @FXML
-    private TextField tfDiagnostic;
+    private TextField tfDiagnosis;
     @FXML
     private TextField tfTreatment;
     @FXML
@@ -82,6 +82,8 @@ public class MainController implements Initializable {
     private TextArea tfNote;
     @FXML
     private TextField tfDate;
+    @FXML
+    private TextField tfVisitDate;
     @FXML
     private TextField tfStartDate;
     @FXML
@@ -195,11 +197,16 @@ public class MainController implements Initializable {
     }
     @FXML
     public void handleBtnSaveMV(ActionEvent event) throws Exception {
-        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(new Scene(root, 750, 600));
-        window.show();
+        DataAccessObject dbAccesObject = new DataAccessObject();
+        dbAccesObject.addMedicalVisit(tfRamqCode.getText(), tfDoctorLicense.getText(),
+                                        tfVisitDate.getText(), tfDiagnosis.getText(),
+                                        tfTreatment.getText(), tfSummary.getText(),
+                                            tfNote.getText());
+        //URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
+        //Parent root = FXMLLoader.load(url);
+        //Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        //window.setScene(new Scene(root, 750, 600));
+        //window.show();
     }
     @FXML
     public void handleBtnCancelAddMV(ActionEvent event) throws Exception {

@@ -235,7 +235,6 @@ public class DataAccessObject {
     /**
      * This method adds to the MedicalVisits table a Medical visit
      * with the following informations
-     * @param id
      * @param ramqCode
      * @param doctorLicense
      * @param visitDate
@@ -244,10 +243,10 @@ public class DataAccessObject {
      * @param summary
      * @param notes
      */
-    public void addMedicalVisit(int id, String ramqCode, int doctorLicense, String visitDate,
+    public void addMedicalVisit(String ramqCode, String doctorLicense, String visitDate,
                                     String diagnosis, String treatment, String summary,
                                         String notes){
-        String query =  "INSERT INTO MedicalVisits VALUES (" + id  + ",'" + ramqCode + "','" +
+        String query =  "INSERT INTO MedicalVisits VALUES (" + ramqCode + "','" +
                                     doctorLicense +  "','" + visitDate + "','" + diagnosis +  "','"
                                             + treatment + "','" + summary + "','" + notes +"')";
         executeQuery(query);
@@ -256,7 +255,6 @@ public class DataAccessObject {
     /**
      * This methods adds to the MedicalHistories table a MedicalHistory
      * with the following informations
-     * @param id
      * @param ramqCode
      * @param doctorLicense
      * @param diagnosis
@@ -264,9 +262,9 @@ public class DataAccessObject {
      * @param startDate
      * @param endDate
      */
-    public void addMedicalHistory(int id, String ramqCode, int doctorLicense, String diagnosis,
+    public void addMedicalHistory(String ramqCode, int doctorLicense, String diagnosis,
                                     String treatment, String startDate, String endDate){
-        String query =  "INSERT INTO MedicalHistories VALUES (" + id  + ",'" + ramqCode + "','" +
+        String query =  "INSERT INTO MedicalHistories VALUES (" + ramqCode + "','" +
                 doctorLicense +  "','" + diagnosis + "','" + treatment +  "','"
                 + startDate + "','" + endDate +"')";
         executeQuery(query);

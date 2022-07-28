@@ -40,7 +40,7 @@
          </font>
       </Label>
       <TextArea fx:id="tfSummary" layoutX="170.0" layoutY="354.0" prefHeight="180.0" prefWidth="238.0" />
-      <TextField fx:id="tfDate" layoutX="170.0" layoutY="210.0" prefHeight="24.0" prefWidth="154.0" />
+      <TextField fx:id="tfVisitDate" layoutX="170.0" layoutY="210.0" prefHeight="24.0" prefWidth="154.0" />
       <Label layoutX="40.0" layoutY="213.0" text="Visit date">
          <font>
             <Font size="14.0" />
