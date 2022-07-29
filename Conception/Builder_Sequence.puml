@@ -7,19 +7,7 @@ center footer Builder sequence diagram
 'Probablement que le directeur se trouve dans le Controller...
 participant ": Director" as D
 participant "builder: PatientFileBuilder" as builder
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 -> D: buildPatientFile()
-=======
--> D:
->>>>>>> Ajoute diagrammes conception : Builder
-=======
--> D: buildPatientFile()
->>>>>>> Implémente partiellement le patron Builder.
-=======
--> D: buildPatientFile()
->>>>>>> 4cbfda1767a4af82c6737e5e3239fb253c2fa2f5
 
 activate D
 'Va falloir se connecter a la BD qqpart dans une des fcts...
@@ -33,27 +21,6 @@ builder -> visits: new()
 activate visits
 visits --> builder
 deactivate visits
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Implémente partiellement le patron Builder.
-=======
->>>>>>> 4cbfda1767a4af82c6737e5e3239fb253c2fa2f5
-loop ∀ MedicalVisit for this patient in Database
-    create "mv: MedicalVisits" as mv
-    builder -> mv: new()
-    activate mv
-    mv --> builder
-    deactivate mv
-    builder -> visits: add(mv)
-    activate visits
-    visits --> builder
-    deactivate visits
-end loop
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 'loop ∀ MedicalVisit for this patient in Database
 '    create "mv: MedicalVisits" as mv
 '    builder -> mv: new()
@@ -65,11 +32,6 @@ end loop
 '    visits --> builder
 '    deactivate visits
 'end loop
->>>>>>> Ajoute diagrammes conception : Builder
-=======
->>>>>>> Implémente partiellement le patron Builder.
-=======
->>>>>>> 4cbfda1767a4af82c6737e5e3239fb253c2fa2f5
 builder --> D
 deactivate builder
 
@@ -104,19 +66,7 @@ deactivate C
 builder --> D
 deactivate builder
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 D -> builder: assemble()
-=======
-D -> builder: build()
->>>>>>> Ajoute diagrammes conception : Builder
-=======
-D -> builder: assemble()
->>>>>>> Implémente partiellement le patron Builder.
-=======
-D -> builder: assemble()
->>>>>>> 4cbfda1767a4af82c6737e5e3239fb253c2fa2f5
 activate builder
 create "p: PatientFile" as P
 builder -> P: new()

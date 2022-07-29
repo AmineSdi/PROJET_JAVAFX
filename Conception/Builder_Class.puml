@@ -4,11 +4,6 @@
 
 'Controller creates director...
 class Director {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 4cbfda1767a4af82c6737e5e3239fb253c2fa2f5
     +buildPatientFile(): PatientFile
 }
 
@@ -17,47 +12,13 @@ interface Builder {
     +buildHistories()
     +buildContactInfo()
     +assemble(): PatientFile
-<<<<<<< HEAD
-=======
-    +construct()
-}
-
-interface Builder {
-    +buildPart()
-    +result(): PatientFile
->>>>>>> Ajoute diagrammes conception : Builder
-=======
-    +buildPatientFile(): PatientFile
-}
-
-interface Builder {
-    +buildVisits()
-    +buildHistories()
-    +buildContactInfo()
-    +assemble(): PatientFile
->>>>>>> Implémente partiellement le patron Builder.
-=======
->>>>>>> 4cbfda1767a4af82c6737e5e3239fb253c2fa2f5
 }
 
 class PatientFileBuilder {
     +buildVisits()
     +buildHistories()
     +buildContactInfo()
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     +assemble(): PatientFile
-=======
-    +build()
-    +result(): PatientFile
->>>>>>> Ajoute diagrammes conception : Builder
-=======
-    +assemble(): PatientFile
->>>>>>> Implémente partiellement le patron Builder.
-=======
-    +assemble(): PatientFile
->>>>>>> 4cbfda1767a4af82c6737e5e3239fb253c2fa2f5
 }
 
 class PatientFile {
