@@ -1,37 +1,19 @@
 package Controller;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
-import java.time.LocalDate;
-import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.Date;
 import Model.Database.DataAccessObject;
-import Model.PatientFile.Gender;
-import Model.PatientFile.MedicalHistory;
-import Model.PatientFile.MedicalVisit;
-import Model.ContactInformation.ContactInformation;
-import Model.PatientFile.Gender;
-import Model.PatientFile.Gender;
-import Model.PatientFile.Gender;
-import Model.PatientFile.PatientFile;
 import Model.User.Doctor;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javax.swing.*;
-import javax.xml.crypto.Data;
 
 /**
  * This class handles ''WHAT'' and will provide information
@@ -59,6 +41,9 @@ public class RamqSearchController implements Initializable {
     @FXML
     private Button btnSearch;
 
+    //*********************//
+    //FXML Label Variables //
+    //*********************//
     @FXML
     Label doctorName;
     @FXML
@@ -70,30 +55,18 @@ public class RamqSearchController implements Initializable {
     //*********************//
     @FXML
     public void handleBtnLogout(ActionEvent event) throws Exception {
+        goToLoginPage(event, dataAccessObject);
+    }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/login.fxml"));
-        root = loader.load();
-        LoginController loginController = loader.getController();
-        loginController.setResources(dataAccessObject);
+    @FXML
+    public void handleBtnSearch(ActionEvent event) throws Exception {
+        goToSearchResults(event);
 
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-//        URL url = new File("src/main/resources/Application/login.fxml").toURI().toURL();
+//        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
 //        Parent root = FXMLLoader.load(url);
 //        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 //        window.setScene(new Scene(root, 750, 600));
 //        window.show();
-    }
-    @FXML
-    public void handleBtnSearch(ActionEvent event) throws Exception {
-        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(new Scene(root, 750, 600));
-        window.show();
     }
 
     @Override
@@ -106,5 +79,45 @@ public class RamqSearchController implements Initializable {
         doctorLicense.setText("" + doctor.getLicense());
         this.doctor = doctor;
         this.dataAccessObject = dataAccessObject;
+    }
+
+    /**
+     * Goes to the login page, passing any required data.
+     * Since the doctor object is not passed, it will simply be reset to null.
+     *
+     * @param event The ActionEvent
+     * @param dataAccessObject The DataAccessObject
+     * @throws IOException
+     */
+    private void goToLoginPage(ActionEvent event,
+                               DataAccessObject dataAccessObject) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/login.fxml"));
+        root = loader.load();
+        LoginController loginController = loader.getController();
+        loginController.setResources(dataAccessObject);
+
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * Goes to the login page, passing any required data.
+     * Since the doctor object is not passed, it will simply be reset to null.
+     *
+     * @param event The ActionEvent
+     * @throws IOException
+     */
+    private void goToSearchResults(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/searchResults.fxml"));
+        root = loader.load();
+        SearchResultsController searchResultsController = loader.getController();
+        searchResultsController.setResources(doctor, dataAccessObject);
+
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
