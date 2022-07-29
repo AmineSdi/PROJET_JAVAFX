@@ -15,6 +15,7 @@ import Model.PatientFile.Gender;
 import Model.PatientFile.Gender;
 import Model.PatientFile.Gender;
 import Model.PatientFile.PatientFile;
+import Model.User.Doctor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -137,16 +138,40 @@ public class MainController implements Initializable {
     //@FXML
     //private Button btnMedicalHistory;
 
+    DataAccessObject dao = new DataAccessObject();
+    Doctor doctor;
+
     //*********************//
     //Handle Button Methods//
     //*********************//
     @FXML
     public void handleBtnLogin(ActionEvent event) throws Exception {
-        URL url = new File("src/main/resources/Application/ramqSearch.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(new Scene(root, 750, 600));
-        window.show();
+        if (tfUserName.getText().isEmpty() || tfPassword.getText().isEmpty()) {
+            // TODO : Message d'erreur qui s'affiche pour l'utilisateur.
+            System.out.println("Please fill all the fields.");
+        }
+        else {
+            doctor = dao.findUsernameAndPassword(tfUserName.getText(), tfPassword.getText());
+            if (doctor != null) {
+                URL url = new File("src/main/resources/Application/ramqSearch.fxml")
+                        .toURI()
+                        .toURL();
+                Parent root = FXMLLoader.load(url);
+                Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                window.setScene(new Scene(root, 750, 600));
+                window.show();
+                System.out.println(doctor.getFirstName()
+                        + " " + doctor.getLastName()
+                        + " " + doctor.getLicense()
+                        + " " + doctor.getUserName()
+                        + " " + doctor.getPassword()
+                        + " " + doctor.getEstablishmentName());
+            } else {
+                // TODO : Message d'erreur qui s'affiche pour l'utilisateur.
+                System.out.println("Wrong username or password.");
+            }
+        }
+
     }
     @FXML
     public void handleBtnLogout(ActionEvent event) throws Exception {

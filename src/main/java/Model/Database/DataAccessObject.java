@@ -1,9 +1,11 @@
 package Model.Database;
 import Model.ContactInformation.ContactInformation;
+import Model.ContactInformation.MedicalEstablishment;
 import Model.PatientFile.Gender;
 import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import Model.PatientFile.PatientFile;
+import Model.User.Doctor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
@@ -13,6 +15,36 @@ import java.util.List;
 
 public class DataAccessObject {
 
+    /**
+     * Searches the database for a username and password.
+     * @param username The username
+     * @param password The password
+     * @return The doctor associated with that username and password.
+     */
+    public Doctor findUsernameAndPassword(String username, String password) {
+        String userQuery = "SELECT * FROM Users WHERE username = \""
+                + username + "\" AND password = \"" + password + "\"";
+        boolean isFound = false;
+        Doctor doctor = null;
+
+        Connection conn = DBConnection.getInstance().getConnection();
+        Statement statement;
+        ResultSet resultSet = null;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(userQuery);
+            isFound = resultSet.isBeforeFirst();
+
+            if (isFound) {
+            int userId = resultSet.getInt("id");
+            doctor = getDoctor(userId, resultSet, conn);
+            }
+        } catch ( Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return doctor;
+    }
 
     /**
      * This method makes a query to the in order to get all patient files
@@ -159,6 +191,104 @@ public class DataAccessObject {
         }
         return histories;
     }
+
+    /**
+     * Gets a doctor from a license number.
+     * @param userId
+     * @return
+     */
+    private Doctor getDoctor(int userId, ResultSet userResultSet,Connection conn) {
+        Statement statement;
+        ResultSet resultSet = null;
+        Doctor doctor = null;
+        try {
+            String queryDoctorName = "SELECT * FROM Doctors WHERE userId = " + userId;
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(queryDoctorName);
+
+            MedicalEstablishment medicalEstablishment =
+                    getMedicalEstablishment(resultSet.getInt("medicalEstablishmentId"),
+                            conn);
+
+            doctor = new Doctor(
+                    userId,
+                    userResultSet.getString("firstName"),
+                    userResultSet.getString("lastName"),
+                    userResultSet.getString("username"),
+                    userResultSet.getString("password"),
+                    resultSet.getInt("license"),
+                    resultSet.getString("specialty"),
+                    medicalEstablishment
+                    );
+
+        } catch ( Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return doctor;
+    }
+
+    /**
+     * Gets a MedicalEstablishment from an ID.
+     * @param id
+     * @return
+     */
+    private MedicalEstablishment getMedicalEstablishment(int id, Connection conn) {
+        Statement statement;
+        ResultSet resultSet = null;
+        MedicalEstablishment medicalEstablishment = null;
+        try {
+            String query = "SELECT * FROM MedicalEstablishments WHERE id = " + id;
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            ContactInformation contactInformation =
+                    getContactInformation(resultSet.getInt("contactInfoId"), conn);
+
+            medicalEstablishment = new MedicalEstablishment(
+                    resultSet.getInt("id"),
+                    resultSet.getString("name"),
+                    contactInformation
+                    );
+
+        } catch ( Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+        return medicalEstablishment;
+    }
+
+    /**
+     * Gets a ContactInformation from an ID.
+     * @param id
+     * @return
+     */
+    private ContactInformation getContactInformation(int id, Connection conn) {
+        Statement statement;
+        ResultSet resultSet;
+        ContactInformation contactInformation = null;
+        try {
+            String query = "SELECT * FROM ContactInformation WHERE id = " + id;
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            contactInformation = new ContactInformation(
+                    resultSet.getInt("number"),
+                    resultSet.getString("street"),
+                    resultSet.getString("city"),
+                    resultSet.getString("postalCode"),
+                    resultSet.getString("phone"),
+                    resultSet.getString("email")
+                    );
+
+        } catch ( Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return contactInformation;
+    }
+
 
     /**
      * Gets the doctor's first and last name from his license number.

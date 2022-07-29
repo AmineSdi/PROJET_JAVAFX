@@ -104,4 +104,8 @@ public class Doctor extends User implements Visitor {
     public void visitMedicalVisit(MedicalVisit visit) {
         visit.modifyVisit(visitDiagnosis, visitTreatment, visitSummary, visitNotes);
     }
+
+    public String getEstablishmentName() {
+        return medicalEstablishment.getName();
+    }
 }

@@ -6,6 +6,8 @@ public abstract class User {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
+        // TODO : userName and password are useless here?
+        // TODO : is this a Useless class? (User user = new Doctor()... doesn't have appropriate methods)
         this.userName = userName;
         this.password = password;
     }
