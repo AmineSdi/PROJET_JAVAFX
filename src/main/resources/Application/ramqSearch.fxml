@@ -7,8 +7,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="416.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+<AnchorPane id="AnchorPane" prefHeight="416.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.RamqSearchController">
     <children>
+        <Label fx:id="doctorName" layoutX="156.0" layoutY="99.0" text="Hello">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label fx:id="doctorLicense" layoutX="156.0" layoutY="120.0" text="Hello">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
         <Button fx:id="btnSearch" onAction="#handleBtnSearch" text="Search"/>
         <Button fx:id="btnLogout" onAction="#handleBtnLogout" layoutX="358.0" layoutY="298.0" mnemonicParsing="false"  prefHeight="38.0" prefWidth="135.0" text="Logout" />
         <TextField fx:id="tfRamqCode" layoutX="340.0" layoutY="196.0" prefHeight="24.0" prefWidth="171.0" />
