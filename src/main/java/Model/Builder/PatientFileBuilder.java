@@ -1,20 +1,26 @@
 package Model.Builder;
 
 import Model.ContactInformation.ContactInformation;
+import Model.Database.DataAccessObject;
 import Model.PatientFile.Gender;
 import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import Model.PatientFile.PatientFile;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import static Model.PatientFile.Gender.*;
 
 public class PatientFileBuilder implements Builder {
 
-    public PatientFileBuilder(String ramqCode) {
+    public PatientFileBuilder(String ramqCode, DataAccessObject dataAccessObject) {
         this.ramqCode = ramqCode;
-        fetchPatientInfoFromDB(ramqCode);
+        this.dataAccessObject = dataAccessObject;
+        fetchPatientInfoFromDB();
     }
 
     String ramqCode;
@@ -29,6 +35,8 @@ public class PatientFileBuilder implements Builder {
     List<MedicalHistory> histories = new ArrayList<>();
     ContactInformation contactInformation;
 
+    DataAccessObject dataAccessObject;
+
     @Override
     public void buildVisits(String ramqCode) {
 
@@ -37,7 +45,7 @@ public class PatientFileBuilder implements Builder {
                -fetch an ArrayList of MedicalVisits for this patient :
                 "SELECT * FROM MedicalVisits WHERE patientRamqCode = " + ramqCode
          */
-//        visits = ...
+        visits = dataAccessObject.getMedicalVisits(ramqCode);
     }
 
     @Override
@@ -48,7 +56,7 @@ public class PatientFileBuilder implements Builder {
                -fetch an ArrayList of MedicalHistories for this patient :
                 "SELECT * FROM MedicalHistories WHERE patientRamqCode = " + ramqCode
          */
-//        histories = ...
+        histories = dataAccessObject.getMedicalHistories(ramqCode);
     }
 
     @Override
@@ -63,7 +71,7 @@ public class PatientFileBuilder implements Builder {
          */
 
         // Use fetched data to construct ContactInformation.
-        // contactInformation = new ContactInformation(...);
+        contactInformation = dataAccessObject.getContactInformation(ramqCode); // new ContactInformation(...);
 
     }
 
@@ -79,9 +87,13 @@ public class PatientFileBuilder implements Builder {
         PatientFile patientFile = new PatientFile(ramqCode, firstName,
                 lastName, gender,birthCity,birthDate,knownParents);
 
-        patientFile.setMedicalVisits(visits);
-        patientFile.setMedicalHistories(histories);
-        patientFile.setContactInformation(contactInformation);
+        if (patientFile.getRamqCode() == null) {
+            patientFile = null;
+        } else {
+            patientFile.setMedicalVisits(visits);
+            patientFile.setMedicalHistories(histories);
+            patientFile.setContactInformation(contactInformation);
+        }
 
         return patientFile;
     }
@@ -90,18 +102,27 @@ public class PatientFileBuilder implements Builder {
      * Sets the attributes of the current class to the values fetched from the Database.
      *
      * */
-    private void fetchPatientInfoFromDB(String ramqCode) {
+    private void fetchPatientInfoFromDB() {
          /* TODO : Use DAO to :
                -connect to Database
                "SELECT firstName, lastName, gender, birthCity, birthDate, parentsName
                FROM PatientFiles WHERE ramqCode = " + ramqCode;
          */
 
-//        firstName = ;
-//        lastName = ;
-//        gender = ;
-//        birthCity = ;
-//        birthDate = ;
-//        knownParents = ;
+        HashMap<String, String> result = dataAccessObject.getPatientFileInfoFromDB(ramqCode);
+
+        if (result != null) {
+            String resultGender = result.get("gender");
+
+            firstName = result.get("firstName");
+            lastName = result.get("lastName");
+            gender = resultGender == "FEMALE" ? FEMALE : (resultGender == "MALE" ? MALE : OTHER);
+            birthCity = result.get("birthCity");
+            birthDate = LocalDate.parse(result.get("birthDate"));
+            knownParents = result.get("parentsName");
+        } else {
+            this.ramqCode = null;
+        }
+
     }
 }

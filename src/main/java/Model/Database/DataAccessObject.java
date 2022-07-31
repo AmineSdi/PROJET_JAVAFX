@@ -11,9 +11,43 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class DataAccessObject {
+
+    public HashMap<String, String> getPatientFileInfoFromDB(String ramqCode) {
+        String userQuery = "SELECT * FROM PatientFiles WHERE ramqCode = \""
+                + ramqCode + "\" LIMIT 1";
+        boolean isFound = false;
+        HashMap<String, String> result = null;
+
+        Connection conn = DBConnection.getInstance().getConnection();
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(userQuery);
+            isFound = resultSet.isBeforeFirst();
+
+            if (isFound) {
+                result = new HashMap<String, String>();
+                result.put("ramqCode", resultSet.getString("ramqCode"));
+                result.put("firstName", resultSet.getString("firstName"));
+                result.put("lastName", resultSet.getString("lastName"));
+                result.put("gender", resultSet.getString("gender"));
+                result.put("birthCity", resultSet.getString("birthCity"));
+                result.put("birthDate", resultSet.getString("birthDate"));
+                result.put("parentsName", resultSet.getString("parentsName"));
+                result.put("contactInfoId", resultSet.getString("contactInfoId"));
+            }
+        } catch ( Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return result;
+    }
+
 
     /**
      * Searches the database for a username and password.
@@ -29,7 +63,7 @@ public class DataAccessObject {
 
         Connection conn = DBConnection.getInstance().getConnection();
         Statement statement;
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         try {
             statement = conn.createStatement();
             resultSet = statement.executeQuery(userQuery);
@@ -106,7 +140,7 @@ public class DataAccessObject {
      */ // TODO : showMedicalVisits function in MaintController.(need to convert ArrayList to ObservableList)
     public List<MedicalVisit> getMedicalVisits(String ramqCode){
         List<MedicalVisit> medicalVisits; // On veut Arraylist. Vieux : FXCollections.observableArrayList();
-        String query = "SELECT * FROM MedicalVisits WHERE patientRamqCode = " + ramqCode;
+        String query = "SELECT * FROM MedicalVisits WHERE patientRamqCode = \"" + ramqCode + "\"";
         medicalVisits = getMedicalVisitDB(query);
         return medicalVisits;
     }
@@ -155,7 +189,7 @@ public class DataAccessObject {
      */ // TODO : showMedicalHistories function in MainController.(need to convert ArrayList to ObservableList)
     public List<MedicalHistory> getMedicalHistories(String ramqCode){
         List<MedicalHistory> medicalHistories;
-        String query = "SELECT * FROM MedicalVisits WHERE patientRamqCode = " + ramqCode;
+        String query = "SELECT * FROM MedicalHistories WHERE patientRamqCode = \"" + ramqCode + "\"";
         medicalHistories = getMedicalHistoryDB(query);
         return medicalHistories;
     }
@@ -300,7 +334,7 @@ public class DataAccessObject {
         ResultSet resultSet = null;
         try {
             String queryDoctorName = "SELECT firstName, lastName FROM Users WHERE id = " +
-                    "(SELECT userId FROM Doctors WHERE license = " + license;
+                    "(SELECT userId FROM Doctors WHERE license = " + license + ")";
             statement = conn.createStatement();
             resultSet = statement.executeQuery(queryDoctorName);
         } catch ( Exception ex) {
@@ -320,7 +354,7 @@ public class DataAccessObject {
         ResultSet resultSet = null;
         try {
             String queryEstablishmentName = "SELECT Name FROM MedicalEstablishments WHERE id = " +
-                    "(SELECT medicalEstablishmentId FROM Doctors WHERE license = " + license;
+                    "(SELECT medicalEstablishmentId FROM Doctors WHERE license = " + license + ")";
             statement = conn.createStatement();
             resultSet = statement.executeQuery(queryEstablishmentName);
         } catch ( Exception ex) {
@@ -337,7 +371,7 @@ public class DataAccessObject {
     public ContactInformation getContactInformation(String ramqCode){
         ContactInformation contactInformation = null;
         String query = "SELECT * FROM ContactInformation WHERE id = " +
-                "(SELECT contactInfoId FROM PatientFiles WHERE ramqCode = " + ramqCode;
+                "(SELECT contactInfoId FROM PatientFiles WHERE ramqCode = \"" + ramqCode + "\")";
 
         Connection conn = DBConnection.getInstance().getConnection();
         Statement statement;
@@ -382,6 +416,8 @@ public class DataAccessObject {
                                             + treatment + "','" + summary + "','" + notes +"')";
         executeQuery(query);
     }
+
+
 
     /**
      * This methods adds to the MedicalHistories table a MedicalHistory

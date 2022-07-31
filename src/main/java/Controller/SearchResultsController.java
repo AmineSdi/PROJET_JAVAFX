@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import Model.Database.DataAccessObject;
+import Model.PatientFile.PatientFile;
 import Model.User.Doctor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,6 +26,9 @@ public class SearchResultsController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    DataAccessObject dataAccessObject = new DataAccessObject();
+    Doctor doctor;
+    PatientFile patientFile;
 
     //*************************//
     // FXML TextField variables//
@@ -81,8 +85,7 @@ public class SearchResultsController implements Initializable {
     @FXML
     private Button btnAddMedicalHistory;
 
-    DataAccessObject dataAccessObject = new DataAccessObject();
-    Doctor doctor;
+
 
     //*********************//
     //Handle Button Methods//
@@ -135,9 +138,21 @@ public class SearchResultsController implements Initializable {
         // showPatientFiles();
     }
 
-    public void setResources(Doctor doctor, DataAccessObject dataAccessObject) {
+    public void setResources(Doctor doctor, PatientFile patientFile,
+                             DataAccessObject dataAccessObject) {
         this.doctor = doctor;
+        this.patientFile = patientFile;
         this.dataAccessObject = dataAccessObject;
+        tfRamqCode.setText(patientFile.getRamqCode());
+        tfFirstName.setText(patientFile.getFirstName());
+        tfLastName.setText(patientFile.getLastName());
+        tfCity.setText(patientFile.getBirthCity());
+        tfBirthDate.setText(patientFile.getBirthDate().toString());
+        tfKnownParents.setText(patientFile.getKnownParents());
+        tfPhone.setText(patientFile.getContactInformation().getPhone());
+        tfEmail.setText(patientFile.getContactInformation().getEmail());
+        tfPostalCode.setText(patientFile.getContactInformation().getPostalCode());
+        tfStreet.setText(patientFile.getContactInformation().getStreet());
     }
 
     /**

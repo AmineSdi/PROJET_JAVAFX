@@ -19,8 +19,8 @@
                 <Font size="14.0" />
             </font>
         </Label>
-        <Button fx:id="btnSearch" onAction="#handleBtnSearch" text="Search"/>
-        <Button fx:id="btnLogout" onAction="#handleBtnLogout" layoutX="358.0" layoutY="298.0" mnemonicParsing="false"  prefHeight="38.0" prefWidth="135.0" text="Logout" />
+        <Button fx:id="btnSearch" onAction="#handleBtnSearch"  layoutX="358.0" layoutY="298.0" mnemonicParsing="false"  prefHeight="38.0" prefWidth="135.0" text="Search"/>
+        <Button fx:id="btnLogout" onAction="#handleBtnLogout" text="Logout" />
         <TextField fx:id="tfRamqCode" layoutX="340.0" layoutY="196.0" prefHeight="24.0" prefWidth="171.0" />
         <Label layoutX="256.0" layoutY="199.0" text="RAMQ Code">
             <font>

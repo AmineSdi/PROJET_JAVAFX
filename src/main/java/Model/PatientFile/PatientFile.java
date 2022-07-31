@@ -9,6 +9,7 @@ import java.util.List;
 
 public class PatientFile {
 
+    // TODO : Private constructor for builder pattern?
     public PatientFile(String ramqCode, String firstName, String lastName, Gender gender,
                        String birthCity, LocalDate birthDate, String knownParents) {
         this.ramqCode = ramqCode;

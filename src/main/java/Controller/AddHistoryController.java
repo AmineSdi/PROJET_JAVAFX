@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import Model.Database.DataAccessObject;
+import Model.PatientFile.PatientFile;
 import Model.User.Doctor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +27,7 @@ public class AddHistoryController implements Initializable {
     private Parent root;
     DataAccessObject dataAccessObject;
     Doctor doctor;
+    PatientFile patientFile;
 
     //*************************//
     // FXML TextField variables//
@@ -94,7 +96,7 @@ public class AddHistoryController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/searchResults.fxml"));
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
-        searchResultsController.setResources(doctor, dataAccessObject);
+        searchResultsController.setResources(doctor, patientFile, dataAccessObject);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);

@@ -3,7 +3,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import Model.Builder.Director;
+import Model.Builder.PatientFileBuilder;
 import Model.Database.DataAccessObject;
+import Model.PatientFile.PatientFile;
 import Model.User.Doctor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,6 +29,7 @@ public class RamqSearchController implements Initializable {
     private Parent root;
     DataAccessObject dataAccessObject;
     Doctor doctor;
+    PatientFile patientFile;
 
     //*************************//
     // FXML TextField variables//
@@ -60,7 +65,30 @@ public class RamqSearchController implements Initializable {
 
     @FXML
     public void handleBtnSearch(ActionEvent event) throws Exception {
-        goToSearchResults(event);
+        if (tfRamqCode.getText().isEmpty()) {
+            // TODO : Message d'erreur qui s'affiche pour l'utilisateur.
+            System.out.println("Please fill all the fields.");
+        }
+        else {
+            Director director = new Director();
+            PatientFileBuilder builder = new PatientFileBuilder(tfRamqCode.getText(),
+                    dataAccessObject);
+            patientFile = director.buildPatientFile(builder, tfRamqCode.getText());
+
+//            Doctor doctor = dataAccessObject.findUsernameAndPassword(tfUserName.getText(), tfPassword.getText());
+            if (patientFile != null) {
+                goToSearchResults(event);
+            } else {
+                // TODO : Message d'erreur qui s'affiche pour l'utilisateur.
+                System.out.println("Patient not found.");
+            }
+        }
+
+
+
+//        patientFile = builder.assemble();
+
+
 
 //        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
 //        Parent root = FXMLLoader.load(url);
@@ -113,7 +141,7 @@ public class RamqSearchController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/searchResults.fxml"));
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
-        searchResultsController.setResources(doctor, dataAccessObject);
+        searchResultsController.setResources(doctor, patientFile, dataAccessObject);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
