@@ -37,6 +37,13 @@ public class RamqSearchController implements Initializable {
     @FXML
     private TextField tfRamqCode;
 
+    //*************************//
+    // FXML Label variables (error messages)//
+    //*************************//
+    @FXML
+    private Label errorNoField;
+    @FXML
+    private Label errorNoPatient;
 
     //*********************//
     //FXML Button Variables//
@@ -66,7 +73,10 @@ public class RamqSearchController implements Initializable {
     @FXML
     public void handleBtnSearch(ActionEvent event) throws Exception {
         if (tfRamqCode.getText().isEmpty()) {
-            // TODO : Message d'erreur qui s'affiche pour l'utilisateur.
+
+              errorNoPatient.setVisible(false);
+              errorNoField.setVisible(true);
+
             System.out.println("Please fill all the fields.");
         }
         else {
@@ -79,7 +89,10 @@ public class RamqSearchController implements Initializable {
             if (patientFile != null) {
                 goToSearchResults(event);
             } else {
-                // TODO : Message d'erreur qui s'affiche pour l'utilisateur.
+
+                errorNoField.setVisible(false);
+                errorNoPatient.setVisible(true);
+
                 System.out.println("Patient not found.");
             }
         }

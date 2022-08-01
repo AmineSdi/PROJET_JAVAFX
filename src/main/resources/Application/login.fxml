@@ -33,12 +33,12 @@
             <Image url="@../img/PngItem_1937755.png" />
          </image>
       </ImageView>
-      <Label layoutX="352.0" fx:id="errorMessage1" layoutY="301.0" text="Please fill all the fields." textFill="RED" visible="false">
+      <Label layoutX="352.0" fx:id="errorNoFields" layoutY="301.0" text="Please fill all the fields." textFill="RED" visible="false">
          <font>
             <Font name="AnjaliOldLipi Regular" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="338.0"  fx:id="errorMessage2" layoutY="303.0" text="Wrong username or password" textFill="RED" visible ="false">
+      <Label layoutX="338.0"  fx:id="errorNoUserPassword" layoutY="303.0" text="Wrong username or password" textFill="RED" visible ="false">
          <font>
             <Font name="AnjaliOldLipi Regular" size="15.0" />
          </font>

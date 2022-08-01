@@ -40,5 +40,15 @@
             <Image url="@../img/pngaaa.com-5014364.png" />
          </image>
       </ImageView>
+      <Label layoutX="351.0" fx:id="errorNoField" layoutY="246.0" text="Please fill in this field" textFill="RED" visible="false">
+         <font>
+            <Font name="AnjaliOldLipi Regular" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="368.0" fx:id="errorNoPatient" layoutY="246.0" text="Patient not found" textFill="RED" visible="false">
+         <font>
+            <Font name="AnjaliOldLipi Regular" size="16.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
