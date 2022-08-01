@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="416.0" prefWidth="800.0" style="-fx-background-color: #e6f3ff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
     <children>
-        <Button id="blue" fx:id="btnLogin" layoutX="366.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleBtnLogin" prefHeight="47.0" prefWidth="131.0" stylesheets="@../css/stylesheet.css" text="Login">
+        <Button id="blue" fx:id="btnLogin" layoutX="368.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleBtnLogin" prefHeight="47.0" prefWidth="131.0" stylesheets="@../css/stylesheet.css" text="Login">
          <font>
             <Font name="AnjaliOldLipi Regular" size="28.0" />
          </font></Button>
@@ -33,5 +33,15 @@
             <Image url="@../img/PngItem_1937755.png" />
          </image>
       </ImageView>
+      <Label layoutX="352.0" fx:id="errorMessage1" layoutY="301.0" text="Please fill all the fields." textFill="RED" visible="false">
+         <font>
+            <Font name="AnjaliOldLipi Regular" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="338.0"  fx:id="errorMessage2" layoutY="303.0" text="Wrong username or password" textFill="RED" visible ="false">
+         <font>
+            <Font name="AnjaliOldLipi Regular" size="15.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

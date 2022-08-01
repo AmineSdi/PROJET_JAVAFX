@@ -11,6 +11,16 @@
 
 <AnchorPane id="AnchorPane" prefHeight="416.0" prefWidth="800.0" style="-fx-background-color: #e6f3ff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.RamqSearchController">
     <children>
+     <Label fx:id="doctorName" layoutX="156.0" layoutY="99.0" text="Hello">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label fx:id="doctorLicense" layoutX="156.0" layoutY="120.0" text="Hello">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
         <Button id="line" fx:id="btnSearch" layoutX="358.0" layoutY="298.0" mnemonicParsing="false" onAction="#handleBtnSearch" prefHeight="38.0" prefWidth="135.0" stylesheets="@../css/stylesheet.css" text="Search" />
         <Button id="line" fx:id="btnLogout" layoutX="640.0" layoutY="38.0" onAction="#handleBtnLogout" prefHeight="38.0" prefWidth="112.0" stylesheets="@../css/stylesheet.css" text="Logout">
          <cursor>

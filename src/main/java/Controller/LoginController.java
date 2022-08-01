@@ -8,7 +8,9 @@ import Model.User.Doctor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -17,6 +19,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import javax.xml.crypto.Data;
+
+import org.w3c.dom.Text;
 
 /**
  * This class handles ''WHAT'' and will provide information
@@ -35,6 +39,10 @@ public class LoginController implements Initializable {
     private TextField tfUserName;
     @FXML
     private TextField tfPassword;
+    @FXML
+    private Label errorMessage1;
+    @FXML
+    private Label errorMessage2;
 
 
     //*********************//
@@ -43,6 +51,7 @@ public class LoginController implements Initializable {
     @FXML
     private Button btnLogin;
 
+
     //*********************//
     //Handle Button Methods//
     //*********************//
@@ -50,6 +59,10 @@ public class LoginController implements Initializable {
     public void handleBtnLogin(ActionEvent event) throws Exception {
         if (tfUserName.getText().isEmpty() || tfPassword.getText().isEmpty()) {
             // TODO : Message d'erreur qui s'affiche pour l'utilisateur.
+
+            errorMessage2.setVisible(false);
+            errorMessage1.setVisible(true);
+        
             System.out.println("Please fill all the fields.");
         }
         else {
@@ -58,6 +71,9 @@ public class LoginController implements Initializable {
                 goToRamqSearchPage(event, doctor);
 
             } else {
+                errorMessage1.setVisible(false);
+                errorMessage2.setVisible(true);
+
                 // TODO : Message d'erreur qui s'affiche pour l'utilisateur.
                 System.out.println("Wrong username or password.");
             }
