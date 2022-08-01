@@ -103,11 +103,11 @@ public class PatientFileBuilder implements Builder {
      *
      * */
     private void fetchPatientInfoFromDB() {
-         /* TODO : Use DAO to :
-               -connect to Database
-               "SELECT firstName, lastName, gender, birthCity, birthDate, parentsName
-               FROM PatientFiles WHERE ramqCode = " + ramqCode;
-         */
+        /* TODO : Use DAO to :
+              -connect to Database
+              "SELECT firstName, lastName, gender, birthCity, birthDate, parentsName
+              FROM PatientFiles WHERE ramqCode = " + ramqCode;
+        */
 
         HashMap<String, String> result = dataAccessObject.getPatientFileInfoFromDB(ramqCode);
 

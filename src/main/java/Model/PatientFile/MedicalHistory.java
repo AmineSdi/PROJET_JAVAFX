@@ -82,7 +82,7 @@ public class MedicalHistory implements Visitable {
      * TODO : Manage if endDate is null??
      * TODO : Validators?
      * */
-    public void modifyHistory(String diagnosis, String treatment, LocalDate endDate){
+    public void modifyHistory(String diagnosis, String treatment, LocalDate endDate) {
         this.diagnosis = diagnosis;
         this.treatment = treatment;
         this.endDate = endDate;

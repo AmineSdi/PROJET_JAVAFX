@@ -24,18 +24,18 @@ public class DoctorTest {
     public void initialize() {
 
         ci = new ContactInformation(1333, "Boulvard Jacques Cartier E",
-                "Longueuil", "J4M2A5", "(450) 468-8111", "pb@qc.ca");
+                                    "Longueuil", "J4M2A5", "(450) 468-8111", "pb@qc.ca");
 
         establishment = new MedicalEstablishment(1,
                 "Pierre-Boucher Hospital", ci);
 
         // Valid Doctor
         d1 = new Doctor(1, "Gregory", "House", "houseMD",
-                "aaa", 11111, "Internal Medicine", establishment);
+                        "aaa", 11111, "Internal Medicine", establishment);
 
         // Invalid Doctor License
         d2 = new Doctor(1, "Gregory", "House", "houseMD",
-                "aaa", 1, "Internal Medicine", establishment);
+                        "aaa", 1, "Internal Medicine", establishment);
     }
 
     @Test public void validateLicenseTest_Valid() {

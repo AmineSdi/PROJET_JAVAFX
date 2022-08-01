@@ -103,7 +103,7 @@ public class AddVisitController implements Initializable {
         this.patientFile = patientFile;
         this.medicalVisit = medicalVisit;
         this.dataAccessObject = dataAccessObject;
-        if(medicalVisit != null){
+        if(medicalVisit != null) {
             tfDiagnosis.setText(medicalVisit.getDiagnosis());
             tfTreatment.setText(medicalVisit.getTreatment());
             tfSummary.setText(medicalVisit.getVisitSummary());

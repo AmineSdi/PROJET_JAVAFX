@@ -16,48 +16,48 @@ public class MedicalVisitTest {
     public void initialize() {
         // Everything Valid
         mv1 = new MedicalVisit("Montreal General Hospital",
-                "Dr House", 12345, visitDate,"Fever",
-                "Sleep", "High temperature 39 degree", "Happy");
+                               "Dr House", 12345, visitDate,"Fever",
+                               "Sleep", "High temperature 39 degree", "Happy");
 
         // Invalid establishmentName
         mv2 = new MedicalVisit("Montreal General Hospital 2",
-                "Dr House", 12345, visitDate,"Fever",
-                "Sleep", "High temperature 39 degree", "Happy");
+                               "Dr House", 12345, visitDate,"Fever",
+                               "Sleep", "High temperature 39 degree", "Happy");
 
         // Invalid doctorName
         mv3 = new MedicalVisit("Montreal General Hospital",
-                "Dr House Licence 8524", 12345, visitDate,"Fever",
-                "Sleep", "High temperature 39 degree", "Happy");
+                               "Dr House Licence 8524", 12345, visitDate,"Fever",
+                               "Sleep", "High temperature 39 degree", "Happy");
 
         // Invalid doctorLicense
         mv4 = new MedicalVisit("Montreal General Hospital",
-                "Dr House", 158, visitDate,"Fever",
-                "Sleep", "High temperature 39 degree", "Happy");
+                               "Dr House", 158, visitDate,"Fever",
+                               "Sleep", "High temperature 39 degree", "Happy");
 
         // Invalid visitDate
         mv5 = new MedicalVisit("Montreal General Hospital",
-                "Dr House", 12345, visitDate1,"Fever",
-                "Sleep", "High temperature 39 degree", "Happy");
+                               "Dr House", 12345, visitDate1,"Fever",
+                               "Sleep", "High temperature 39 degree", "Happy");
 
         // Invalid diagnosis
         mv6 = new MedicalVisit("Montreal General Hospital",
-                "Dr House", 12345, visitDate,"",
-                "Sleep", "High temperature 39 degree", "Happy");
+                               "Dr House", 12345, visitDate,"",
+                               "Sleep", "High temperature 39 degree", "Happy");
 
         // Invalid treatment
         mv7 = new MedicalVisit("Montreal General Hospital",
-                "Dr House", 12345, visitDate,"Fever",
-                "", "High temperature 39 degree", "Happy");
+                               "Dr House", 12345, visitDate,"Fever",
+                               "", "High temperature 39 degree", "Happy");
 
         // Invalid visitSummary
         mv8 = new MedicalVisit("Montreal General Hospital",
-                "Dr House", 12345, visitDate,"Happy",
-                "Sleep", "", "Not covid");
+                               "Dr House", 12345, visitDate,"Happy",
+                               "Sleep", "", "Not covid");
 
         // Invalid notes
         mv9 = new MedicalVisit("Montreal General Hospital",
-                "Dr House", 12345, visitDate,"Fever",
-                "Sleep", "High temperature 39 degree", "");
+                               "Dr House", 12345, visitDate,"Fever",
+                               "Sleep", "High temperature 39 degree", "");
     }
 
     @Test public void validateEstablishmentName_Valid() {

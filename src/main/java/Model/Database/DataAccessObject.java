@@ -18,7 +18,7 @@ public class DataAccessObject {
 
     public HashMap<String, String> getPatientFileInfoFromDB(String ramqCode) {
         String userQuery = "SELECT * FROM PatientFiles WHERE ramqCode = \""
-                + ramqCode + "\" LIMIT 1";
+                           + ramqCode + "\" LIMIT 1";
         boolean isFound = false;
         HashMap<String, String> result = null;
 
@@ -57,7 +57,7 @@ public class DataAccessObject {
      */
     public Doctor findUsernameAndPassword(String username, String password) {
         String userQuery = "SELECT * FROM Users WHERE username = \""
-                + username + "\" AND password = \"" + password + "\"";
+                           + username + "\" AND password = \"" + password + "\"";
         boolean isFound = false;
         Doctor doctor = null;
 
@@ -70,8 +70,8 @@ public class DataAccessObject {
             isFound = resultSet.isBeforeFirst();
 
             if (isFound) {
-            int userId = resultSet.getInt("id");
-            doctor = getDoctor(userId, resultSet, conn);
+                int userId = resultSet.getInt("id");
+                doctor = getDoctor(userId, resultSet, conn);
             }
         } catch ( Exception ex) {
             ex.printStackTrace();
@@ -84,52 +84,52 @@ public class DataAccessObject {
      * This method makes a query to the in order to get all patient files
      * @return
      */
-    public ObservableList<PatientFile> getPatientFiles(){
+    public ObservableList<PatientFile> getPatientFiles() {
         ObservableList<PatientFile> patientFiles = FXCollections.observableArrayList();
         String query = "SELECT * FROM PatientFiles";
         patientFiles = getPatientFileDB(query);
         return patientFiles;
     }
 
-    private ObservableList<PatientFile> getPatientFileDB(String query){
+    private ObservableList<PatientFile> getPatientFileDB(String query) {
         Statement statement;
         ResultSet resultSet;
         ObservableList<PatientFile> patientFiles = FXCollections.observableArrayList();
         Connection conn = DBConnection.getInstance().getConnection();
-        try{
+        try {
             statement = conn.createStatement();
             resultSet = statement.executeQuery(query);
             PatientFile file;
             while(resultSet.next()) {
                 file = new PatientFile(
-                        resultSet.getString("ramqCode"),
-                        resultSet.getString("firstName"),
-                        resultSet.getString("lastName"),
-                        Gender.FEMALE,
-                        resultSet.getString("birthCity"),
-                        LocalDate.parse(resultSet.getString("birthDate")),
-                        resultSet.getString("parentsName"));
+                    resultSet.getString("ramqCode"),
+                    resultSet.getString("firstName"),
+                    resultSet.getString("lastName"),
+                    Gender.FEMALE,
+                    resultSet.getString("birthCity"),
+                    LocalDate.parse(resultSet.getString("birthDate")),
+                    resultSet.getString("parentsName"));
                 patientFiles.add(file);
             }
-        }catch(Exception ex){
+        } catch(Exception ex) {
             ex.printStackTrace();
         }
         return patientFiles;
     }
 
-    public void insertRecord(String ramqCode, String firstName, String lastName){
+    public void insertRecord(String ramqCode, String firstName, String lastName) {
         String query = "INSERT INTO PatientFiles VALUES (" + ramqCode +
-                                    ",'" + firstName + "','" + lastName + "')";
+                       ",'" + firstName + "','" + lastName + "')";
         executeQuery(query);
     }
 
-    public void updateRecord(String firstName, String lastName, String ramqCode){
+    public void updateRecord(String firstName, String lastName, String ramqCode) {
         String query = "UPDATE PatientFiles SET firstName  = '" + firstName + "', lastName = '"
-                + lastName + "' WHERE ramqCode = " + ramqCode + "";
+                       + lastName + "' WHERE ramqCode = " + ramqCode + "";
         executeQuery(query);
     }
 
-    public void deleteButton(String ramqCode){
+    public void deleteButton(String ramqCode) {
         String query = "DELETE FROM PatientFiles WHERE ramqCode =" + ramqCode + "";
         executeQuery(query);
     }
@@ -138,19 +138,19 @@ public class DataAccessObject {
      * This method makes a query to the database in order to get all medical visits of a patient file.
      * @return
      */ // TODO : showMedicalVisits function in MaintController.(need to convert ArrayList to ObservableList)
-    public List<MedicalVisit> getMedicalVisits(String ramqCode){
+    public List<MedicalVisit> getMedicalVisits(String ramqCode) {
         List<MedicalVisit> medicalVisits; // On veut Arraylist. Vieux : FXCollections.observableArrayList();
         String query = "SELECT * FROM MedicalVisits WHERE patientRamqCode = \"" + ramqCode + "\"";
         medicalVisits = getMedicalVisitDB(query);
         return medicalVisits;
     }
 
-    private List<MedicalVisit> getMedicalVisitDB(String query){
+    private List<MedicalVisit> getMedicalVisitDB(String query) {
         Statement statement;
         ResultSet resultSet;
         List<MedicalVisit> visits = new ArrayList<>();//FXCollections.observableArrayList();
         Connection conn = DBConnection.getInstance().getConnection();
-        try{
+        try {
             statement = conn.createStatement();
             resultSet = statement.executeQuery(query);
             MedicalVisit visit;
@@ -160,24 +160,24 @@ public class DataAccessObject {
                 // Get doctor name for that visit.
                 ResultSet doctorNameRS = getDoctorName(doctorLicense, conn);
                 String doctorName = doctorNameRS.getString("firstName")
-                        + " " + doctorNameRS.getString("lastName");
+                                    + " " + doctorNameRS.getString("lastName");
 
                 // Get establishment name for that visit.
                 ResultSet establishmentNameRS = getEstablishmentName(doctorLicense, conn);
                 String establishmentName = establishmentNameRS.getString("name");
 
                 visit = new MedicalVisit(
-                        establishmentName,
-                        doctorName,
-                        doctorLicense,
-                        LocalDate.parse(resultSet.getString("visitDate")),
-                        resultSet.getString("diagnosis"),
-                        resultSet.getString("treatment"),
-                        resultSet.getString("summary"),
-                        resultSet.getString("notes"));
+                    establishmentName,
+                    doctorName,
+                    doctorLicense,
+                    LocalDate.parse(resultSet.getString("visitDate")),
+                    resultSet.getString("diagnosis"),
+                    resultSet.getString("treatment"),
+                    resultSet.getString("summary"),
+                    resultSet.getString("notes"));
                 visits.add(visit);
             }
-        }catch(Exception ex){
+        } catch(Exception ex) {
             ex.printStackTrace();
         }
         return visits;
@@ -187,19 +187,19 @@ public class DataAccessObject {
      * This method makes a query to the database in order to get all medical histories of a patient file.
      * @return
      */ // TODO : showMedicalHistories function in MainController.(need to convert ArrayList to ObservableList)
-    public List<MedicalHistory> getMedicalHistories(String ramqCode){
+    public List<MedicalHistory> getMedicalHistories(String ramqCode) {
         List<MedicalHistory> medicalHistories;
         String query = "SELECT * FROM MedicalHistories WHERE patientRamqCode = \"" + ramqCode + "\"";
         medicalHistories = getMedicalHistoryDB(query);
         return medicalHistories;
     }
 
-    private List<MedicalHistory> getMedicalHistoryDB(String query){
+    private List<MedicalHistory> getMedicalHistoryDB(String query) {
         Statement statement;
         ResultSet resultSet;
         List<MedicalHistory> histories = new ArrayList<>();
         Connection conn = DBConnection.getInstance().getConnection();
-        try{
+        try {
             statement = conn.createStatement();
             resultSet = statement.executeQuery(query);
             MedicalHistory history;
@@ -209,18 +209,18 @@ public class DataAccessObject {
                 // Get doctor name for that history.
                 ResultSet doctorNameRS = getDoctorName(doctorLicense, conn);
                 String doctorName = doctorNameRS.getString("firstName")
-                        + " " + doctorNameRS.getString("lastName");
+                                    + " " + doctorNameRS.getString("lastName");
 
                 history = new MedicalHistory(
-                        resultSet.getString("diagnosis"),
-                        resultSet.getString("treatment"),
-                        doctorName,
-                        doctorLicense,
-                        LocalDate.parse(resultSet.getString("startDate")),
-                        LocalDate.parse(resultSet.getString("endDate")));
+                    resultSet.getString("diagnosis"),
+                    resultSet.getString("treatment"),
+                    doctorName,
+                    doctorLicense,
+                    LocalDate.parse(resultSet.getString("startDate")),
+                    LocalDate.parse(resultSet.getString("endDate")));
                 histories.add(history);
             }
-        }catch(Exception ex){
+        } catch(Exception ex) {
             ex.printStackTrace();
         }
         return histories;
@@ -241,19 +241,19 @@ public class DataAccessObject {
             resultSet = statement.executeQuery(queryDoctorName);
 
             MedicalEstablishment medicalEstablishment =
-                    getMedicalEstablishment(resultSet.getInt("medicalEstablishmentId"),
-                            conn);
+                getMedicalEstablishment(resultSet.getInt("medicalEstablishmentId"),
+                                        conn);
 
             doctor = new Doctor(
-                    userId,
-                    userResultSet.getString("firstName"),
-                    userResultSet.getString("lastName"),
-                    userResultSet.getString("username"),
-                    userResultSet.getString("password"),
-                    resultSet.getInt("license"),
-                    resultSet.getString("specialty"),
-                    medicalEstablishment
-                    );
+                userId,
+                userResultSet.getString("firstName"),
+                userResultSet.getString("lastName"),
+                userResultSet.getString("username"),
+                userResultSet.getString("password"),
+                resultSet.getInt("license"),
+                resultSet.getString("specialty"),
+                medicalEstablishment
+            );
 
         } catch ( Exception ex) {
             ex.printStackTrace();
@@ -277,13 +277,13 @@ public class DataAccessObject {
             resultSet = statement.executeQuery(query);
 
             ContactInformation contactInformation =
-                    getContactInformation(resultSet.getInt("contactInfoId"), conn);
+                getContactInformation(resultSet.getInt("contactInfoId"), conn);
 
             medicalEstablishment = new MedicalEstablishment(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    contactInformation
-                    );
+                resultSet.getInt("id"),
+                resultSet.getString("name"),
+                contactInformation
+            );
 
         } catch ( Exception ex) {
             ex.printStackTrace();
@@ -308,13 +308,13 @@ public class DataAccessObject {
             resultSet = statement.executeQuery(query);
 
             contactInformation = new ContactInformation(
-                    resultSet.getInt("number"),
-                    resultSet.getString("street"),
-                    resultSet.getString("city"),
-                    resultSet.getString("postalCode"),
-                    resultSet.getString("phone"),
-                    resultSet.getString("email")
-                    );
+                resultSet.getInt("number"),
+                resultSet.getString("street"),
+                resultSet.getString("city"),
+                resultSet.getString("postalCode"),
+                resultSet.getString("phone"),
+                resultSet.getString("email")
+            );
 
         } catch ( Exception ex) {
             ex.printStackTrace();
@@ -334,7 +334,7 @@ public class DataAccessObject {
         ResultSet resultSet = null;
         try {
             String queryDoctorName = "SELECT firstName, lastName FROM Users WHERE id = " +
-                    "(SELECT userId FROM Doctors WHERE license = " + license + ")";
+                                     "(SELECT userId FROM Doctors WHERE license = " + license + ")";
             statement = conn.createStatement();
             resultSet = statement.executeQuery(queryDoctorName);
         } catch ( Exception ex) {
@@ -354,7 +354,7 @@ public class DataAccessObject {
         ResultSet resultSet = null;
         try {
             String queryEstablishmentName = "SELECT Name FROM MedicalEstablishments WHERE id = " +
-                    "(SELECT medicalEstablishmentId FROM Doctors WHERE license = " + license + ")";
+                                            "(SELECT medicalEstablishmentId FROM Doctors WHERE license = " + license + ")";
             statement = conn.createStatement();
             resultSet = statement.executeQuery(queryEstablishmentName);
         } catch ( Exception ex) {
@@ -368,10 +368,10 @@ public class DataAccessObject {
      * This method makes a query to the database in order to get the contact information of a patient.
      * @return
      */
-    public ContactInformation getContactInformation(String ramqCode){
+    public ContactInformation getContactInformation(String ramqCode) {
         ContactInformation contactInformation = null;
         String query = "SELECT * FROM ContactInformation WHERE id = " +
-                "(SELECT contactInfoId FROM PatientFiles WHERE ramqCode = \"" + ramqCode + "\")";
+                       "(SELECT contactInfoId FROM PatientFiles WHERE ramqCode = \"" + ramqCode + "\")";
 
         Connection conn = DBConnection.getInstance().getConnection();
         Statement statement;
@@ -381,12 +381,12 @@ public class DataAccessObject {
             resultSet = statement.executeQuery(query);
 
             contactInformation = new ContactInformation(
-                    resultSet.getInt("number"),
-                    resultSet.getString("street"),
-                    resultSet.getString("city"),
-                    resultSet.getString("postalCode"),
-                    resultSet.getString("phone"),
-                    resultSet.getString("email"));
+                resultSet.getInt("number"),
+                resultSet.getString("street"),
+                resultSet.getString("city"),
+                resultSet.getString("postalCode"),
+                resultSet.getString("phone"),
+                resultSet.getString("email"));
 
         } catch ( Exception ex) {
             ex.printStackTrace();
@@ -402,7 +402,7 @@ public class DataAccessObject {
      * @param ramqCode
      * @param medicalVisit
      */
-    public void addMedicalVisit(String ramqCode, MedicalVisit medicalVisit){
+    public void addMedicalVisit(String ramqCode, MedicalVisit medicalVisit) {
         int doctorLicense = medicalVisit.getDoctorLicense();
         String visitDate = medicalVisit.getVisitDate().toString();
         String diagnosis = medicalVisit.getDiagnosis();
@@ -410,8 +410,8 @@ public class DataAccessObject {
         String summary = medicalVisit.getVisitSummary();
         String notes = medicalVisit.getNotes();
         String query =  "INSERT INTO MedicalVisits(patientRamqCode, doctorLicense, visitDate, diagnosis, treatment, summary, notes)  VALUES ('" + ramqCode + "','" +
-                                    doctorLicense +  "','" + visitDate + "','" + diagnosis +  "','"
-                                            + treatment + "','" + summary + "','" + notes +"')";
+                        doctorLicense +  "','" + visitDate + "','" + diagnosis +  "','"
+                        + treatment + "','" + summary + "','" + notes +"')";
         executeQuery(query);
     }
 
@@ -428,10 +428,10 @@ public class DataAccessObject {
      * @param endDate
      */
     public void addMedicalHistory(String ramqCode, int doctorLicense, String diagnosis,
-                                    String treatment, String startDate, String endDate){
+                                  String treatment, String startDate, String endDate) {
         String query =  "INSERT INTO MedicalHistories VALUES (" + ramqCode + "','" +
-                doctorLicense +  "','" + diagnosis + "','" + treatment +  "','"
-                + startDate + "','" + endDate +"')";
+                        doctorLicense +  "','" + diagnosis + "','" + treatment +  "','"
+                        + startDate + "','" + endDate +"')";
         executeQuery(query);
     }
     /**
@@ -441,10 +441,10 @@ public class DataAccessObject {
     private void executeQuery(String query) {
         Connection connection = DBConnection.getInstance().getConnection();
         Statement st;
-        try{
+        try {
             st = connection.createStatement();
             st.executeUpdate(query);
-        }catch(Exception ex){
+        } catch(Exception ex) {
             ex.printStackTrace();
         }
     }

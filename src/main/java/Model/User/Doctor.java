@@ -50,7 +50,7 @@ public class Doctor extends User implements Visitor {
     public String getVisitTreatment() {
         return visitTreatment;
     }
-    public void setVisitTreatment(String visitTreatment){
+    public void setVisitTreatment(String visitTreatment) {
         this.visitTreatment = visitTreatment;
     }
     public String getVisitSummary() {
@@ -102,8 +102,8 @@ public class Doctor extends User implements Visitor {
      */
     public MedicalVisit createVisit() {
         MedicalVisit mv = new MedicalVisit(this.medicalEstablishment.getName(),
-                this.firstName + " " + this.lastName, this.license, LocalDate.now(),
-                null, null, null, null);
+                                           this.firstName + " " + this.lastName, this.license, LocalDate.now(),
+                                           null, null, null, null);
 
         return mv;
     }
@@ -117,8 +117,8 @@ public class Doctor extends User implements Visitor {
      */
     public MedicalHistory createHistory() {
         MedicalHistory mh = new MedicalHistory(null, null,
-                this.firstName + " " + this.lastName, this.license,
-                LocalDate.now(), null);
+                                               this.firstName + " " + this.lastName, this.license,
+                                               LocalDate.now(), null);
 
         return mh;
     }
@@ -131,7 +131,7 @@ public class Doctor extends User implements Visitor {
     @Override
     public void visitMedicalVisit(MedicalVisit visit) {
         visit.modifyVisit(medicalEstablishment.getName(), firstName, lastName, license, LocalDate.now(),
-                visitDiagnosis, visitTreatment, visitSummary, visitNotes);
+                          visitDiagnosis, visitTreatment, visitSummary, visitNotes);
     }
 
     public String getEstablishmentName() {

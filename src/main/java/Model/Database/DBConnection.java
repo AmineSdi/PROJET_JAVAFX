@@ -12,7 +12,7 @@ class DBConnection {
     private static DBConnection instance = null;
     //private String jdbcUrl = "jdbc:sqlite:MedicalSystem.db";
     private Connection connection = null;
-    private DBConnection(){
+    private DBConnection() {
         String jdbcUrl = "jdbc:sqlite:MedicalSystem.db";
         try {
             connection = DriverManager.getConnection(jdbcUrl);
@@ -29,7 +29,7 @@ class DBConnection {
         return instance;
     }
 
-    public Connection getConnection(){
+    public Connection getConnection() {
         return this.connection;
     }
 

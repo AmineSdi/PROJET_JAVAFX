@@ -6,7 +6,7 @@ import Model.Visitor.Visitor;
 import java.time.LocalDate;
 
 public class MedicalVisit implements Visitable {
-    public MedicalVisit(){}
+    public MedicalVisit() {}
     public MedicalVisit(String establishmentName, String doctorName, int doctorLicense,
                         LocalDate visitDate, String diagnosis, String treatment,
                         String visitSummary, String notes) {
@@ -196,7 +196,7 @@ public class MedicalVisit implements Visitable {
      * */
     public void modifyVisit(String medicalEstablishmentName, String firstName, String lastName,
                             int license, LocalDate date, String diagnosis, String treatment,
-                              String visitSummary, String notes){
+                            String visitSummary, String notes) {
         this.establishmentName = medicalEstablishmentName;
         this.doctorName = firstName + " " + lastName;
         this.doctorLicense = license;

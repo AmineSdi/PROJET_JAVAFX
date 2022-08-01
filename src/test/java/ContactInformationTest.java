@@ -12,31 +12,31 @@ public class ContactInformationTest {
     public void initialize() {
         // Everything Valid
         c1 = new ContactInformation(201, "PK Avenue", "Montreal",
-                "H2X3Y7", "(514) 987-3000", "bigl@uqam.ca");
+                                    "H2X3Y7", "(514) 987-3000", "bigl@uqam.ca");
 
         // Invalid phone
         c2 = new ContactInformation(201, "PK Avenue", "Montreal",
-                "H2X3Y7", "514) 987-3000", "bigl@uqam.ca");
+                                    "H2X3Y7", "514) 987-3000", "bigl@uqam.ca");
 
         // Invalid email
         c3 = new ContactInformation(201, "PK Avenue", "Montreal",
-                "H2X3Y7", "(514) 987-3000", "bigluqam.ca");
+                                    "H2X3Y7", "(514) 987-3000", "bigluqam.ca");
 
         // Invalid postal code
         c4 = new ContactInformation(201, "PK Avenue", "Montreal",
-                "H2X 3Y7", "(514) 987-3000", "bigluqam.ca");
+                                    "H2X 3Y7", "(514) 987-3000", "bigluqam.ca");
 
         // Invalid number
         c5 = new ContactInformation(1, "PK Avenue", "Montreal",
-                "H2X3Y7", "(514) 987-3000", "bigl@uqam.ca");
+                                    "H2X3Y7", "(514) 987-3000", "bigl@uqam.ca");
 
         // Invalid street
         c6 = new ContactInformation(201, "201 PK Avenue", "Montreal",
-                "H2X3Y7", "(514) 987-3000", "bigl@uqam.ca");
+                                    "H2X3Y7", "(514) 987-3000", "bigl@uqam.ca");
 
         // Invalid city
         c7 = new ContactInformation(201, "PK Avenue", "Montréal",
-                "H2X3Y7", "(514) 987-3000", "bigl@uqam.ca");
+                                    "H2X3Y7", "(514) 987-3000", "bigl@uqam.ca");
 
     }
 
