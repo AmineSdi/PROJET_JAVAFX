@@ -39,10 +39,14 @@ public class LoginController implements Initializable {
     private TextField tfUserName;
     @FXML
     private TextField tfPassword;
+
+    //*************************//
+    // FXML Label variables (error messages)//
+    //*************************//
     @FXML
-    private Label errorMessage1;
+    private Label errorNoFields;
     @FXML
-    private Label errorMessage2;
+    private Label errorNoUserPassword;
 
 
     //*********************//
@@ -58,12 +62,11 @@ public class LoginController implements Initializable {
     @FXML
     public void handleBtnLogin(ActionEvent event) throws Exception {
         if (tfUserName.getText().isEmpty() || tfPassword.getText().isEmpty()) {
-            // TODO : Message d'erreur qui s'affiche pour l'utilisateur.
 
-            errorMessage2.setVisible(false);
-            errorMessage1.setVisible(true);
+                errorNoUserPassword.setVisible(false);
+                errorNoFields.setVisible(true);
         
-            System.out.println("Please fill all the fields.");
+                System.out.println("Please fill all the fields.");
         }
         else {
             Doctor doctor = dataAccessObject.findUsernameAndPassword(tfUserName.getText(), tfPassword.getText());
@@ -71,10 +74,10 @@ public class LoginController implements Initializable {
                 goToRamqSearchPage(event, doctor);
 
             } else {
-                errorMessage1.setVisible(false);
-                errorMessage2.setVisible(true);
 
-                // TODO : Message d'erreur qui s'affiche pour l'utilisateur.
+                errorNoFields.setVisible(false);
+                errorNoUserPassword.setVisible(true);
+
                 System.out.println("Wrong username or password.");
             }
         }
