@@ -409,7 +409,9 @@ public class DataAccessObject {
         String treatment = medicalVisit.getTreatment();
         String summary = medicalVisit.getVisitSummary();
         String notes = medicalVisit.getNotes();
-        String query =  "INSERT INTO MedicalVisits(patientRamqCode, doctorLicense, visitDate, diagnosis, treatment, summary, notes)  VALUES ('" + ramqCode + "','" +
+        String query =  "INSERT INTO MedicalVisits(patientRamqCode," +
+                        " doctorLicense, visitDate, diagnosis, treatment, summary, notes) " +
+                        " VALUES ('" + ramqCode + "','" +
                         doctorLicense +  "','" + visitDate + "','" + diagnosis +  "','"
                         + treatment + "','" + summary + "','" + notes +"')";
         executeQuery(query);
