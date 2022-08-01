@@ -6,6 +6,9 @@ import Model.Visitor.Visitor;
 import java.time.LocalDate;
 
 public class MedicalHistory implements Visitable {
+
+    public MedicalHistory(){}
+
     public MedicalHistory(String diagnosis, String treatment, String doctorName, int doctorLicense,
                           LocalDate startDate, LocalDate endDate) {
         this.diagnosis = diagnosis;
@@ -82,9 +85,14 @@ public class MedicalHistory implements Visitable {
      * TODO : Manage if endDate is null??
      * TODO : Validators?
      * */
-    public void modifyHistory(String diagnosis, String treatment, LocalDate endDate) {
+    public void modifyHistory(String firstName, String lastName, int license,
+                              String diagnosis, String treatment, LocalDate startDate,
+                              LocalDate endDate) {
+        this.doctorName = firstName + " " + lastName;
+        this.doctorLicense = license;
         this.diagnosis = diagnosis;
         this.treatment = treatment;
+        this.startDate = startDate;
         this.endDate = endDate;
     }
 }

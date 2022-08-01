@@ -36,6 +36,31 @@ public class Doctor extends User implements Visitor {
     String visitTreatment;
     String visitSummary;
     String visitNotes;
+
+    public String getHistoryDiagnosis() {
+        return historyDiagnosis;
+    }
+
+    public void setHistoryDiagnosis(String historyDiagnosis) {
+        this.historyDiagnosis = historyDiagnosis;
+    }
+
+    public String getHistoryTreatment() {
+        return historyTreatment;
+    }
+
+    public void setHistoryTreatment(String historyTreatment) {
+        this.historyTreatment = historyTreatment;
+    }
+
+    public LocalDate getHistoryEndDate() {
+        return historyEndDate;
+    }
+
+    public void setHistoryEndDate(LocalDate historyEndDate) {
+        this.historyEndDate = historyEndDate;
+    }
+
     String historyDiagnosis;
     String historyTreatment;
     LocalDate historyEndDate;
@@ -125,7 +150,8 @@ public class Doctor extends User implements Visitor {
 
     @Override
     public void visitMedicalHistory(MedicalHistory history) {
-        history.modifyHistory(historyDiagnosis, historyTreatment, historyEndDate);
+        history.modifyHistory(firstName, lastName, license, historyDiagnosis, historyTreatment,
+                LocalDate.now(), historyEndDate);
     }
 
     @Override

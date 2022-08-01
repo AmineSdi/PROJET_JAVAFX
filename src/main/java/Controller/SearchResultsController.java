@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import Model.Database.DataAccessObject;
+import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import Model.PatientFile.PatientFile;
 import Model.User.Doctor;
@@ -31,6 +32,7 @@ public class SearchResultsController implements Initializable {
     Doctor doctor;
     PatientFile patientFile;
     MedicalVisit medicalVisit = null;
+    MedicalHistory medicalHistory = null;
 
     //*************************//
     // FXML TextField variables//
@@ -144,10 +146,11 @@ public class SearchResultsController implements Initializable {
     }
 
     public void setResources(Doctor doctor, PatientFile patientFile, MedicalVisit medicalVisit,
-                             DataAccessObject dataAccessObject) {
+                             MedicalHistory medicalHistory, DataAccessObject dataAccessObject) {
         this.doctor = doctor;
         this.patientFile = patientFile;
         this.medicalVisit = medicalVisit;
+        this.medicalHistory = medicalHistory;
         this.dataAccessObject = dataAccessObject;
         tfRamqCode.setText(patientFile.getRamqCode());
         tfFirstName.setText(patientFile.getFirstName());
@@ -191,7 +194,8 @@ public class SearchResultsController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/addHistory.fxml"));
         root = loader.load();
         AddHistoryController addHistoryController = loader.getController();
-        addHistoryController.setResources(doctor, dataAccessObject);
+        addHistoryController.setResources(doctor, patientFile, medicalVisit, medicalHistory,
+                dataAccessObject);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
