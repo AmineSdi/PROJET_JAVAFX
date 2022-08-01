@@ -67,6 +67,7 @@ public class AddVisitController implements Initializable {
     @FXML
     public void handleBtnSaveMV(ActionEvent event) throws Exception {
         goToSearchResultsPage(event);
+
 //        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
 //        Parent root = FXMLLoader.load(url);
 //        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -89,8 +90,9 @@ public class AddVisitController implements Initializable {
         // showPatientFiles();
     }
 
-    public void setResources(Doctor doctor, DataAccessObject dataAccessObject) {
+    public void setResources(Doctor doctor, PatientFile patientFile, DataAccessObject dataAccessObject) {
         this.doctor = doctor;
+        this.patientFile = patientFile;
         this.dataAccessObject = dataAccessObject;
     }
 

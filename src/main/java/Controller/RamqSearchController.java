@@ -142,7 +142,6 @@ public class RamqSearchController implements Initializable {
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
         searchResultsController.setResources(doctor, patientFile, dataAccessObject);
-
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
