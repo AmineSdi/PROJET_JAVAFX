@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import Model.Database.DataAccessObject;
+import Model.PatientFile.MedicalVisit;
 import Model.PatientFile.PatientFile;
 import Model.User.Doctor;
 import javafx.event.ActionEvent;
@@ -26,9 +27,10 @@ public class SearchResultsController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    DataAccessObject dataAccessObject = new DataAccessObject();
+    DataAccessObject dataAccessObject;
     Doctor doctor;
     PatientFile patientFile;
+    MedicalVisit medicalVisit = null;
 
     //*************************//
     // FXML TextField variables//
@@ -138,10 +140,11 @@ public class SearchResultsController implements Initializable {
         // showPatientFiles();
     }
 
-    public void setResources(Doctor doctor, PatientFile patientFile,
+    public void setResources(Doctor doctor, PatientFile patientFile, MedicalVisit medicalVisit,
                              DataAccessObject dataAccessObject) {
         this.doctor = doctor;
         this.patientFile = patientFile;
+        this.medicalVisit = medicalVisit;
         this.dataAccessObject = dataAccessObject;
         tfRamqCode.setText(patientFile.getRamqCode());
         tfFirstName.setText(patientFile.getFirstName());
@@ -166,7 +169,7 @@ public class SearchResultsController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/addVisit.fxml"));
         root = loader.load();
         AddVisitController addVisitController = loader.getController();
-        addVisitController.setResources(doctor, patientFile, dataAccessObject);
+        addVisitController.setResources(doctor, patientFile, medicalVisit, dataAccessObject);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -201,7 +204,7 @@ public class SearchResultsController implements Initializable {
      */
     private void goToRamqSearchPage(ActionEvent event) throws IOException {
         // Pass data to the next controller
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/ramqSearch.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/ramqSearch.fxml"));
         root = loader.load();
         RamqSearchController ramqSearchController = loader.getController();
         ramqSearchController.setResources(doctor, dataAccessObject);

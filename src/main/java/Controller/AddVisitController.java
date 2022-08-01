@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import Model.Database.DataAccessObject;
+import Model.PatientFile.MedicalVisit;
 import Model.PatientFile.PatientFile;
 import Model.User.Doctor;
 import javafx.event.ActionEvent;
@@ -29,12 +30,13 @@ public class AddVisitController implements Initializable {
     DataAccessObject dataAccessObject = new DataAccessObject();
     Doctor doctor;
     PatientFile patientFile;
+    MedicalVisit medicalVisit;
 
     //*************************//
     // FXML TextField variables//
     //*************************//
     @FXML
-    private TextField tfDiagnostic;
+    private TextField tfDiagnosis;
     @FXML
     private TextField tfTreatment;
     @FXML
@@ -66,6 +68,12 @@ public class AddVisitController implements Initializable {
      */
     @FXML
     public void handleBtnSaveMV(ActionEvent event) throws Exception {
+        medicalVisit = new MedicalVisit();
+        doctor.setVisitDiagnosis(tfDiagnosis.getText());
+        doctor.setVisitTreatment(tfTreatment.getText());
+        doctor.setVisitNotes(tfNote.getText());
+        doctor.setVisitSummary(tfSummary.getText());
+        medicalVisit.accept(doctor);
         goToSearchResultsPage(event);
 
 //        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
@@ -90,10 +98,17 @@ public class AddVisitController implements Initializable {
         // showPatientFiles();
     }
 
-    public void setResources(Doctor doctor, PatientFile patientFile, DataAccessObject dataAccessObject) {
+    public void setResources(Doctor doctor, PatientFile patientFile, MedicalVisit medicalVisit,DataAccessObject dataAccessObject) {
         this.doctor = doctor;
         this.patientFile = patientFile;
+        this.medicalVisit = medicalVisit;
         this.dataAccessObject = dataAccessObject;
+        if(medicalVisit != null){
+            tfDiagnosis.setText(medicalVisit.getDiagnosis());
+            tfTreatment.setText(medicalVisit.getTreatment());
+            tfSummary.setText(medicalVisit.getVisitSummary());
+            tfNote.setText(medicalVisit.getNotes());
+        }
     }
 
     /**
@@ -107,7 +122,7 @@ public class AddVisitController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/searchResults.fxml"));
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
-        searchResultsController.setResources(doctor, patientFile, dataAccessObject);
+        searchResultsController.setResources(doctor, patientFile, medicalVisit, dataAccessObject);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);

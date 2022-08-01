@@ -9,6 +9,8 @@ import java.time.LocalDate;
 
 public class Doctor extends User implements Visitor {
 
+
+    //CONSTRUCTEUR
     public Doctor(int userId, String firstName, String lastName, String userName, String password,
                   int license, String specialty,
                   MedicalEstablishment medicalEstablishment) {
@@ -22,12 +24,14 @@ public class Doctor extends User implements Visitor {
     String specialty;
     MedicalEstablishment medicalEstablishment;
 
+
     /** Note : Pour faire fonctionner le patron Visiteur, on doit garder certaines informations
      * dans la classe Doctor : diagnosis, treatment, visitSummary et notes pour le
      * MedicalVisit, et diagnosis, treatment, endDate pour le medicalHistory... Alors on va
      * voir si c'est ok de garder ces attributs ici en attendant une meilleure solution...
      * Ces infos vont venir des textfields à partir du MainController...
      * */
+    //VARIABLES
     String visitDiagnosis;
     String visitTreatment;
     String visitSummary;
@@ -36,22 +40,45 @@ public class Doctor extends User implements Visitor {
     String historyTreatment;
     LocalDate historyEndDate;
 
+    //SETTERS AND GETTERS
+    public String getVisitDiagnosis() {
+        return visitDiagnosis;
+    }
+    public void setVisitDiagnosis(String visitDiagnosis) {
+        this.visitDiagnosis = visitDiagnosis;
+    }
+    public String getVisitTreatment() {
+        return visitTreatment;
+    }
+    public void setVisitTreatment(String visitTreatment){
+        this.visitTreatment = visitTreatment;
+    }
+    public String getVisitSummary() {
+        return visitSummary;
+    }
+    public void setVisitSummary(String visitSummary) {
+        this.visitSummary = visitSummary;
+    }
+    public String getVisitNotes() {
+        return visitNotes;
+    }
+    public void setVisitNotes(String visitNotes) {
+        this.visitNotes = visitNotes;
+    }
     public int getLicense() {
         return license;
     }
-
     public void setLicense(int license) {
         this.license = license;
     }
-
     public String getSpecialty() {
         return specialty;
     }
-
     public void setSpecialty(String specialty) {
         this.specialty = specialty;
     }
 
+    //PRIVATE METHODS
     /**
      * Validates that the license number of the Doctor.
      * If invalid, sets the license to 0, which prevents the Doctor from using the application.
@@ -65,6 +92,7 @@ public class Doctor extends User implements Visitor {
             this.license = 0;
     }
 
+    //PUBLIC METHODS
     /**
      * Creates a new MedicalVisit, filling in the information about the Doctor and the Date.
      * The rest of the information (diagnosis, treatment, etc.) is initially empty and is set
@@ -102,7 +130,8 @@ public class Doctor extends User implements Visitor {
 
     @Override
     public void visitMedicalVisit(MedicalVisit visit) {
-        visit.modifyVisit(visitDiagnosis, visitTreatment, visitSummary, visitNotes);
+        visit.modifyVisit(medicalEstablishment.getName(), firstName, lastName, license, LocalDate.now(),
+                visitDiagnosis, visitTreatment, visitSummary, visitNotes);
     }
 
     public String getEstablishmentName() {

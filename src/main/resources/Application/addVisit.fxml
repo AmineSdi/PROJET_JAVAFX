@@ -10,18 +10,6 @@
 
 <AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddVisitController">
    <children>
-      <TextField fx:id="tfDoctorLicense" layoutX="170.0" layoutY="163.0" prefHeight="24.0" prefWidth="238.0" />
-      <TextField fx:id="tfRamqCode" layoutX="170.0" layoutY="115.0" prefHeight="24.0" prefWidth="238.0" />
-      <Label layoutX="40.0" layoutY="166.0" text="Doctor License">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="40.0" layoutY="118.0" text="RAMQ code">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
       <Text fontSmoothingType="LCD" layoutX="350.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Medical Visit" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
@@ -40,12 +28,6 @@
          </font>
       </Label>
       <TextArea fx:id="tfSummary" layoutX="170.0" layoutY="354.0" prefHeight="180.0" prefWidth="238.0" />
-      <TextField fx:id="tfVisitDate" layoutX="170.0" layoutY="210.0" prefHeight="24.0" prefWidth="154.0" />
-      <Label layoutX="40.0" layoutY="213.0" text="Visit date">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
       <TextField fx:id="tfDiagnosis" layoutX="170.0" layoutY="258.0" prefHeight="24.0" prefWidth="238.0" />
       <Label layoutX="40.0" layoutY="261.0" text="Diagnosis">
          <font>

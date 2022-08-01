@@ -6,6 +6,7 @@ import Model.Visitor.Visitor;
 import java.time.LocalDate;
 
 public class MedicalVisit implements Visitable {
+    public MedicalVisit(){}
     public MedicalVisit(String establishmentName, String doctorName, int doctorLicense,
                         LocalDate visitDate, String diagnosis, String treatment,
                         String visitSummary, String notes) {
@@ -193,11 +194,20 @@ public class MedicalVisit implements Visitable {
     /**
      * Sets the diagnosis, treatment, visitSummary and notes for this medical visit.
      * */
-    public void modifyVisit(String diagnosis, String treatment,
+    public void modifyVisit(String medicalEstablishmentName, String firstName, String lastName,
+                            int license, LocalDate date, String diagnosis, String treatment,
                               String visitSummary, String notes){
-        validateDiagnosis(diagnosis);
-        validateTreatment(treatment);
-        validateVisitSummary(visitSummary);
-        validateNotes(notes);
+        this.establishmentName = medicalEstablishmentName;
+        this.doctorName = firstName + " " + lastName;
+        this.doctorLicense = license;
+        this.visitDate = date;
+        this.diagnosis = diagnosis;
+        this.treatment = treatment;
+        this.visitSummary = visitSummary;
+        this.notes = notes;
+//        validateDiagnosis(diagnosis);
+//        validateTreatment(treatment);
+//        validateVisitSummary(visitSummary);
+//        validateNotes(notes);
     }
 }

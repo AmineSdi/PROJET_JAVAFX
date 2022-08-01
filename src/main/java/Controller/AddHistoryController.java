@@ -96,7 +96,7 @@ public class AddHistoryController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/searchResults.fxml"));
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
-        searchResultsController.setResources(doctor, patientFile, dataAccessObject);
+        searchResultsController.setResources(doctor, patientFile, null, dataAccessObject);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
