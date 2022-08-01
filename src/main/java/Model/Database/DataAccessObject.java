@@ -400,17 +400,16 @@ public class DataAccessObject {
      * This method adds to the MedicalVisits table a Medical visit
      * with the following informations
      * @param ramqCode
-     * @param doctorLicense
-     * @param visitDate
-     * @param diagnosis
-     * @param treatment
-     * @param summary
-     * @param notes
+     * @param medicalVisit
      */
-    public void addMedicalVisit(String ramqCode, String doctorLicense, String visitDate,
-                                    String diagnosis, String treatment, String summary,
-                                        String notes){
-        String query =  "INSERT INTO MedicalVisits VALUES (" + ramqCode + "','" +
+    public void addMedicalVisit(String ramqCode, MedicalVisit medicalVisit){
+        int doctorLicense = medicalVisit.getDoctorLicense();
+        String visitDate = medicalVisit.getVisitDate().toString();
+        String diagnosis = medicalVisit.getDiagnosis();
+        String treatment = medicalVisit.getTreatment();
+        String summary = medicalVisit.getVisitSummary();
+        String notes = medicalVisit.getNotes();
+        String query =  "INSERT INTO MedicalVisits(patientRamqCode, doctorLicense, visitDate, diagnosis, treatment, summary, notes)  VALUES ('" + ramqCode + "','" +
                                     doctorLicense +  "','" + visitDate + "','" + diagnosis +  "','"
                                             + treatment + "','" + summary + "','" + notes +"')";
         executeQuery(query);

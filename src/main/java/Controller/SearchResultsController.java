@@ -108,11 +108,14 @@ public class SearchResultsController implements Initializable {
      */
     @FXML
     public void handleBtnSaveToDB(ActionEvent event) throws Exception {
-        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(new Scene(root, 750, 600));
-        window.show();
+        if(medicalVisit != null) {
+            dataAccessObject.addMedicalVisit(patientFile.getRamqCode(), medicalVisit);
+        }
+//        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
+//        Parent root = FXMLLoader.load(url);
+//        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        window.setScene(new Scene(root, 750, 600));
+//        window.show();
     }
     @FXML
     public void handleBtnAddMV(ActionEvent event) throws Exception {
