@@ -100,10 +100,12 @@ public class AddVisitController implements Initializable {
         // showPatientFiles();
     }
 
-    public void setResources(Doctor doctor, PatientFile patientFile, MedicalVisit medicalVisit,DataAccessObject dataAccessObject) {
+    public void setResources(Doctor doctor, PatientFile patientFile, MedicalVisit medicalVisit,
+                             MedicalHistory medicalHistory, DataAccessObject dataAccessObject) {
         this.doctor = doctor;
         this.patientFile = patientFile;
         this.medicalVisit = medicalVisit;
+        this.medicalHistory = medicalHistory;
         this.dataAccessObject = dataAccessObject;
         if(medicalVisit != null) {
             tfDiagnosis.setText(medicalVisit.getDiagnosis());

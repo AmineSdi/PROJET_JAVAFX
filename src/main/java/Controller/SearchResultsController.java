@@ -180,7 +180,8 @@ public class SearchResultsController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/addVisit.fxml"));
         root = loader.load();
         AddVisitController addVisitController = loader.getController();
-        addVisitController.setResources(doctor, patientFile, medicalVisit, dataAccessObject);
+        addVisitController.setResources(doctor, patientFile, medicalVisit, medicalHistory,
+                dataAccessObject);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);

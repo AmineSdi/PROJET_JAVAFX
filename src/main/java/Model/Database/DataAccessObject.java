@@ -428,7 +428,7 @@ public class DataAccessObject {
         int doctorLicense = medicalHistory.getDoctorLicense();
         String diagnosis = medicalHistory.getDiagnosis();
         String treatment = medicalHistory.getTreatment();
-        String startDate = medicalHistory.getStartDate().toString();
+        LocalDate startDate = medicalHistory.getStartDate();
         LocalDate endDate = medicalHistory.getEndDate();
 
         String query =  "INSERT INTO MedicalHistories(patientRamqCode, doctorLicense," +
