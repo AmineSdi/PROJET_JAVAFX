@@ -114,6 +114,7 @@ public class SearchResultsController implements Initializable {
             dataAccessObject.addMedicalVisit(patientFile.getRamqCode(), medicalVisit);
         }
         if(medicalHistory != null) {
+            
             dataAccessObject.addMedicalHistory(patientFile.getRamqCode(), medicalHistory);
         }
         // TODO : Once saved, must not be able to click on Save button again.
