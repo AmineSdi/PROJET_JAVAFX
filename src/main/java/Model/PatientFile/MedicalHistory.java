@@ -12,12 +12,20 @@ public class MedicalHistory implements Visitable {
 
     public MedicalHistory(String diagnosis, String treatment, String doctorName, int doctorLicense,
                           LocalDate startDate, LocalDate endDate) {
-        validateDiagnosis(diagnosis);
-        validateTreatment(treatment);
-        validateDoctorName(doctorName);
-        validateDoctorLicense(doctorLicense);
-        validateStartDate(startDate);
-        this.endDate = null;
+        //NOUVELLE VERSION À TESTER ET MODIFIER
+//        validateDiagnosis(diagnosis);
+//        validateTreatment(treatment);
+//        validateDoctorName(doctorName);
+//        validateDoctorLicense(doctorLicense);
+//        validateStartDate(startDate);
+//        this.endDate = null;
+        //ANCIENNE VERSION
+        this.diagnosis = diagnosis;
+        this.treatment = treatment;
+        this.doctorName = doctorName;
+        this.doctorLicense = doctorLicense;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     String diagnosis;
@@ -45,10 +53,10 @@ public class MedicalHistory implements Visitable {
     }
 
     public void validateDiagnosis(String diagnosis) {
-        // Valid diagnosis examples : Cancer, Cold + temperature 39, punctuation
-        // Invalid diagnosis example : empty field,
+        // Valid diagnosis examples : Cancer, Cold + temperature 39
+        // Invalid diagnosis example : empty field
         boolean isValid = false;
-        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        String validFormat = "^\\w+(\\s\\w+)*$";
         if (diagnosis != null) {
             if (diagnosis.matches(validFormat) && diagnosis.length() > 0)
                 isValid = true;
@@ -65,10 +73,10 @@ public class MedicalHistory implements Visitable {
     }
 
     public void validateTreatment(String treatment) {
-        // Valid treatment examples : Sleep, pills, punctuation
-        // Invalid treatment example : empty field,
+        // Valid treatment examples : Sleep, pills
+        // Invalid treatment example : empty field
         boolean isValid = false;
-        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        String validFormat = "^\\w+(\\s\\w+)*$";
         if (treatment != null) {
 
             if (treatment.matches(validFormat) && treatment.length() > 0)
@@ -149,19 +157,27 @@ public class MedicalHistory implements Visitable {
      * <p>
      * TODO : Manage if endDate is null??
      * TODO : Validators?
+<<<<<<< HEAD
      */
 
     public void modifyHistory(String firstName, String lastName, int license,
                               String diagnosis, String treatment, LocalDate startDate,
                               LocalDate endDate) {
-        validateDoctorName(firstName);
-        validateDoctorName(lastName);
+        //ANCIENNE VERSION
         this.doctorName = firstName + " " + lastName;
-        validateDoctorLicense(license);
-        validateDiagnosis(diagnosis);
-        validateTreatment(treatment);
-        validateStartDate(startDate);
-        this.endDate = null;
+        this.doctorLicense = license;
+        this.diagnosis = diagnosis;
+        this.treatment = treatment;
+        this.startDate = startDate;
+        this.endDate = endDate;
+
+        //À TESTER ET À MODIFIER
+//=======
+//    public void modifyHistory(String diagnosis, String treatment, LocalDate endDate){
+//        validateDiagnosis(diagnosis);
+//        validateTreatment(treatment);
+//        validateEndDate(endDate);
+//>>>>>>> Mettre à jour la classe MedicalHistory
     }
 
 }

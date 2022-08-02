@@ -119,20 +119,13 @@ public class MedicalVisitTest {
         assertEquals(null, mv7.getTreatment());
     }
 
-<<<<<<< HEAD
     @Test public void validateVisitSummary_Valid() {
         assertEquals("High temperature 39 degree.", mv1.getSummary());
     }
 
-    @Test public void validateVisitSummary_Invalid() {
-=======
-    @Test void validateVisitSummary_Valid() {
-        assertEquals("High temperature 39 degree", mv1.getSummary());
-    }
 
 
     @Test void validateVisitSummary_Invalid() {
->>>>>>> Mettre à jour la classe MedicalVisit
         assertEquals(null, mv8.getSummary());
     }
 
@@ -144,12 +137,7 @@ public class MedicalVisitTest {
         assertEquals(null, mv9.getNotes());
     }
 
-<<<<<<< HEAD
-    @Test public void validateDiagnosisModify_Valid() {
-        assertEquals("To be followed", mmv.getNotes());
-=======
     @Test void validateDiagnosisModify_Valid() {
->>>>>>> Mettre à jour la classe MedicalVisit
         assertEquals("No cancer.", mmv.getDiagnosis());
     }
 
@@ -157,11 +145,7 @@ public class MedicalVisitTest {
         assertEquals("Nothing to do.", mmv.getTreatment());
     }
 
-<<<<<<< HEAD
-    @Test public void validateVisitSummaryModify_Valid() {
-=======
     @Test void validateVisitSummaryModify_Valid() {
->>>>>>> Mettre à jour la classe MedicalVisit
         assertEquals("Patent is cancer free.", mmv.getSummary());
     }
 
