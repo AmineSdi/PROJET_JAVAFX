@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MedicalVisitTest {
 
     MedicalVisit mv1, mv2, mv3, mv4, mv5, mv6, mv7, mv8, mv9;
+    MedicalVisit mmv;
     LocalDate visitDate = LocalDate.now();
     LocalDate visitDate1 = LocalDate.of(2020, 3, 15);
 
@@ -18,6 +19,15 @@ public class MedicalVisitTest {
         mv1 = new MedicalVisit("Montreal General Hospital",
                                "Dr House", 12345, visitDate,"Fever",
                                "Sleep", "High temperature 39 degree", "Happy");
+
+        // Everything Valid, but for modifyVisit tests
+        mmv = new MedicalVisit("CHUM",
+                "Dr Gibson", 55555, visitDate,"Heart problem",
+                "Pill", "Problem with the heart", "Visit later");
+
+        // Changes for modifyVisit
+        mmv.modifyVisit("Heart cancer", "Nothing", "Have heart cancer",
+                "To be followed");
 
         // Invalid establishmentName
         mv2 = new MedicalVisit("Montreal General Hospital 2",
@@ -88,9 +98,9 @@ public class MedicalVisitTest {
         assertEquals(visitDate, mv1.getVisitDate());
     }
 
-//    @Test public void validateVisitDate_Invalid() {
-//        assertEquals(null, mv5.getVisitDate());
-//    }
+    @Test public void validateVisitDate_Invalid() {
+        assertEquals(null, mv5.getVisitDate());
+    }
 
     @Test public void validateDiagnosis_Valid() {
         assertEquals("Fever", mv1.getDiagnosis());
@@ -112,15 +122,31 @@ public class MedicalVisitTest {
         assertEquals("High temperature 39 degree", mv1.getSummary());
     }
 
-//    @Test public void validateVisitSummary_Invalid() {
-//        assertEquals(null, mv8.getVisitSummary());
-//    }
+    @Test public void validateVisitSummary_Invalid() {
+        assertEquals(null, mv8.getVisitSummary());
+    }
 
     @Test public void validateNotes_Valid() {
         assertEquals("Happy", mv1.getNotes());
     }
 
-//    @Test public void validateNotes_Invalid() {
-//        assertEquals(null, mv9.getNotes());
-//    }
+    @Test public void validateNotes_Invalid() {
+        assertEquals(null, mv9.getNotes());
+    }
+
+    @Test public void validateDiagnosisModify_Valid() {
+        assertEquals("Heart cancer", mmv.getDiagnosis());
+    }
+
+    @Test public void validateTreatmentModify_Valid() {
+        assertEquals("Nothing", mmv.getTreatment());
+    }
+
+    @Test public void validateVisitSummaryModify_Valid() {
+        assertEquals("Have heart cancer", mmv.getVisitSummary());
+    }
+
+    @Test public void validateNotesModify_Valid() {
+        assertEquals("To be followed", mmv.getNotes());
+    }
 }
