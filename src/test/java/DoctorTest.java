@@ -44,7 +44,7 @@ public class DoctorTest {
 
         // Invalid Doctor License
         d2 = new Doctor(1, "Gregory", "House", "houseMD",
-                        "aaa", 1, "Internal Medicine", establishment);
+                "aaa", 1, "Internal Medicine", establishment);
 
         // Invalid Specialty
         d3 = new Doctor(1, "Gregory", "House", "houseMD",
