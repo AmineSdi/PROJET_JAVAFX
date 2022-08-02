@@ -15,7 +15,9 @@ public class Doctor extends User implements Visitor {
                   int license, String specialty,
                   MedicalEstablishment medicalEstablishment) {
         super(userId, firstName, lastName, userName, password);
-        validateLicense(license);
+        //validateLicense(license);
+        //validateSpecialty(specialty);
+        this.license = license;
         this.specialty = specialty;
         this.medicalEstablishment = medicalEstablishment;
     }
@@ -111,6 +113,21 @@ public class Doctor extends User implements Visitor {
     }
     public void setSpecialty(String specialty) {
         this.specialty = specialty;
+    }
+    public void validateSpecialty(String specialty) {
+        // Valid specialty examples : any speciality
+        // Invalid specialty example : empty field
+        boolean isValid = false;
+        String validFormat = "^\\w+(\\s\\w+)*$";
+        if (specialty != null) {
+            if (specialty.matches(validFormat) && specialty.length() > 0)
+                isValid = true;
+
+            if (!isValid)
+                this.specialty = null;
+            else
+                this.specialty = specialty;
+        }
     }
 
     //PRIVATE METHODS
