@@ -23,7 +23,7 @@ public class MedicalEstablishmentTest {
         me2 = new MedicalEstablishment(10000, "CHUM", ci);
 
         // Invalid name
-        me3 = new MedicalEstablishment(2022, "CHUM 2", ci);
+        me3 = new MedicalEstablishment(2022, "", ci);
 
     }
 
