@@ -54,11 +54,11 @@ public class ContactInformation {
 
     private void validateStreet(String street) {
         // Valid street example : President-Kennedy, de la Commune
-        // Invalid street example : 201 President-Kennedy
+        // Invalid street example : 201 President-Kennedy or empty string
         boolean isValid = false;
         String validFormat = "^([a-zA-Z-\\s])*$";
 
-        if (street.matches(validFormat))
+        if (street.matches(validFormat) && street.length() > 0)
             isValid = true;
 
         if (!isValid)
@@ -69,11 +69,11 @@ public class ContactInformation {
 
     private void validateCity(String city) {
         // Valid street example : Montreal
-        // Invalid street example : Montréal
+        // Invalid street example : Montréal or empty string
         boolean isValid = false;
         String validFormat = "^([a-zA-Z-\\s])*$";
-        //"^\\w+( \\w+)*$";
-        if (city.matches(validFormat))
+
+        if (city.matches(validFormat) && city.length() > 0)
             isValid = true;
 
         if (!isValid)
