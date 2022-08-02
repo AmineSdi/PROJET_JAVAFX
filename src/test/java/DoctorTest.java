@@ -15,7 +15,7 @@ public class DoctorTest {
 //    User user;
 //    HealthProfessional healthProfessional;
 //    Doctor doctor;
-    Doctor d1, d2;
+    Doctor d1, d2, d3;
 
     MedicalEstablishment establishment;
     ContactInformation ci;
@@ -36,6 +36,11 @@ public class DoctorTest {
         // Invalid Doctor License
         d2 = new Doctor(1, "Gregory", "House", "houseMD",
                 "aaa", 1, "Internal Medicine", establishment);
+
+        // Invalid Specialty
+        d3 = new Doctor(1, "Gregory", "House", "houseMD",
+                "aaa", 11111, "", establishment);
+
     }
 
     @Test public void validateLicenseTest_Valid() {
@@ -44,6 +49,14 @@ public class DoctorTest {
 
     @Test public void validateLicenseTest_Invalid() {
         assertEquals(0, d2.getLicense());
+    }
+
+    @Test public void validateSpecialtyTest_Valid() {
+        assertEquals("Internal Medicine", d1.getSpecialty());
+    }
+
+    @Test public void validateSpecialtyTest_Invalid() {
+        assertEquals(null, d3.getSpecialty());
     }
 
     @Test public void createVisitTest() {
@@ -68,6 +81,11 @@ public class DoctorTest {
         assertEquals(11111, mh.getDoctorLicense());
         assertEquals(LocalDate.now(), mh.getStartDate());
         assertEquals(null, mh.getEndDate());
+    }
+
+    @Test public void medicalEstablishment_Valid() {
+        assertEquals("Pierre-Boucher Hospital", d1.getEstablishmentName());
+
     }
 
 }
