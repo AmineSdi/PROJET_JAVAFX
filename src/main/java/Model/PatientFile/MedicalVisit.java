@@ -13,14 +13,14 @@ public class MedicalVisit implements Visitable {
         validateEstablishmentName(establishmentName);
         validateDoctorName(doctorName);
         validateDoctorLicense(doctorLicense);
-//        validateVisitDate(visitDate);
+        validateVisitDate(visitDate);
         validateDiagnosis(diagnosis);
         validateTreatment(treatment);
-//        validateVisitSummary(visitSummary); //
-//        validateNotes(notes);
-        this.visitDate = visitDate;
-        this.visitSummary = visitSummary;
-        this.notes = notes;
+        validateVisitSummary(visitSummary); //
+        validateNotes(notes);
+        //this.visitDate = visitDate;
+        //this.visitSummary = visitSummary;
+        //this.notes = notes;
     }
 
     String establishmentName;
@@ -91,7 +91,6 @@ public class MedicalVisit implements Visitable {
         // Valid visitDate example : today date
         // Invalid phone examples : not today date
         boolean isValid = false;
-        //String validFormat = "\\d{4}-\\d{2}-\\d{2}";
 
         LocalDate date = LocalDate.now();
         if (visitDate.equals(date))
