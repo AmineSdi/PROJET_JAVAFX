@@ -7,24 +7,17 @@ import java.time.LocalDate;
 
 public class MedicalHistory implements Visitable {
 
-    public MedicalHistory(){}
+    public MedicalHistory() {
+    }
 
     public MedicalHistory(String diagnosis, String treatment, String doctorName, int doctorLicense,
                           LocalDate startDate, LocalDate endDate) {
-        //NOUVELLE VERSION À TESTER ET MODIFIER
-//        validateDiagnosis(diagnosis);
-//        validateTreatment(treatment);
-//        validateDoctorName(doctorName);
-//        validateDoctorLicense(doctorLicense);
-//        validateStartDate(startDate);
-//        this.endDate = null;
-        //ANCIENNE VERSION
-        this.diagnosis = diagnosis;
-        this.treatment = treatment;
-        this.doctorName = doctorName;
-        this.doctorLicense = doctorLicense;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        validateDiagnosis(diagnosis);
+        validateTreatment(treatment);
+        validateDoctorName(doctorName);
+        validateDoctorLicense(doctorLicense);
+        validateStartDate(startDate);
+        this.endDate = null;
     }
 
     String diagnosis;
@@ -153,10 +146,10 @@ public class MedicalHistory implements Visitable {
 
     /**
      * Sets the diagnosis, treatment, and endDate this medical history.
-     *
+     * <p>
      * TODO : Manage if endDate is null??
      * TODO : Validators?
-     * */
+     */
 
     public void modifyHistory(String firstName, String lastName, int license,
                               String diagnosis, String treatment, LocalDate startDate,
@@ -176,5 +169,6 @@ public class MedicalHistory implements Visitable {
 //        validateTreatment(treatment);
 //        validateEndDate(endDate);
 //>>>>>>> Mettre à jour la classe MedicalHistory
+
     }
 }
