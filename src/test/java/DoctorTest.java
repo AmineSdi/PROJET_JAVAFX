@@ -15,7 +15,7 @@ public class DoctorTest {
 //    User user;
 //    HealthProfessional healthProfessional;
 //    Doctor doctor;
-    Doctor d1, d2, d3, d4, d5, doctor;
+    Doctor d1, d2, d3;
 
     MedicalEstablishment establishment;
     ContactInformation ci;
@@ -40,22 +40,20 @@ public class DoctorTest {
         d1 = new Doctor(1, "Gregory", "House", "houseMD",
                 "aaa", 11111, "Internal Medicine", establishment);
 
-        doctor = new Doctor(1, "Gregory", "House", "houseMD",
-                "aaa", 11111, "Internal Medicine", establishment);
+
 
         // Invalid Doctor License
         d2 = new Doctor(1, "Gregory", "House", "houseMD",
-                "aaa", 1, "Internal Medicine", establishment);
+                        "aaa", 1, "Internal Medicine", establishment);
 
+        // Invalid Specialty
+        d3 = new Doctor(1, "Gregory", "House", "houseMD",
+                "aaa", 11111, "", establishment);
         // Invalid Specialty
         d3 = new Doctor(1, "Gregory", "House", "houseMD",
                 "aaa", 22222, "", establishment);
 
-        d4 = new Doctor(1, "Gregory", "House", "houseMD",
-                "aaa", 33333, "Internal Medicine", establishment);
 
-        d5 = new Doctor(1, "Gregory", "House", "houseMD",
-                "aaa", 11111, "Internal Medicine", establishment);
 
         // Everything Valid, but for modifyVisit tests
         mmv = new MedicalVisit("CHUM", "Dr Gibson", 55555,
@@ -93,13 +91,21 @@ public class DoctorTest {
         d1.setVisitNotes("Danger");
         d2.setVisitNotes("{[");
 
-        d4.setLicense(51471);
-        d5.setLicense(5);
     }
 
 
 
-    @Test void createVisitTest() {
+
+
+    @Test public void validateSpecialtyTest_Valid() {
+        assertEquals("Internal Medicine", d1.getSpecialty());
+    }
+
+    @Test public void validateSpecialtyTest_Invalid() {
+        assertEquals(null, d3.getSpecialty());
+    }
+
+    @Test public void createVisitTest() {
         MedicalVisit mv = d1.createVisit();
 
         assertEquals("Pierre-Boucher Hospital", mv.getEstablishmentName());
@@ -122,27 +128,16 @@ public class DoctorTest {
         assertEquals(null, mh.getEndDate());
     }
 
-    @Test void medicalEstablishment_Valid() {
+
+    @Test public void medicalEstablishment_Valid() {
         assertEquals("Pierre-Boucher Hospital", d1.getEstablishmentName());
 
     }
 
 
-    @Test void validateLicenseTest_Valid() {
-        assertEquals(51471, d4.getLicense());
-    }
 
-    @Test void validateLicenseTest_Invalid() {
-        assertEquals(0, d5.getLicense());
-    }
 
-    @Test void validateSpecialtyTest_Valid() {
-        assertEquals("Internal Medicine", d1.getSpecialty());
-    }
-
-    @Test void validateSpecialtyTest_Invalid() {
-        assertEquals(null, d3.getSpecialty());
-    }
+    
 
     @Test void validateDiagnosisHistory_Valid() {
         assertEquals("Pain", d1.getHistoryDiagnosis());
