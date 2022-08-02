@@ -430,10 +430,7 @@ public class DataAccessObject {
         String treatment = medicalHistory.getTreatment();
         String startDate = medicalHistory.getStartDate().toString();
         LocalDate endDate = medicalHistory.getEndDate();
-        String endDateString = null;
-        if (endDate != null) {
-            endDateString = endDate.toString();
-        }
+
         String query =  "INSERT INTO MedicalHistories(patientRamqCode, doctorLicense," +
                         "diagnosis, treatment, startDate, endDate) VALUES ('" +
                         ramqCode + "','" + doctorLicense +  "','" + diagnosis + "','" +

@@ -63,6 +63,16 @@ public class Doctor extends User implements Visitor {
 
     String historyDiagnosis;
     String historyTreatment;
+
+    public LocalDate getHistoryStartDate() {
+        return historyStartDate;
+    }
+
+    public void setHistoryStartDate(LocalDate historyStartDate) {
+        this.historyStartDate = historyStartDate;
+    }
+
+    LocalDate historyStartDate;
     LocalDate historyEndDate;
 
     //SETTERS AND GETTERS
@@ -151,7 +161,7 @@ public class Doctor extends User implements Visitor {
     @Override
     public void visitMedicalHistory(MedicalHistory history) {
         history.modifyHistory(firstName, lastName, license, historyDiagnosis, historyTreatment,
-                LocalDate.now(), historyEndDate);
+                historyStartDate, historyEndDate);
     }
 
     @Override

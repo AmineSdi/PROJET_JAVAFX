@@ -47,8 +47,8 @@ public class AddHistoryController implements Initializable {
     private TextField tfDiagnosis;
     @FXML
     private TextField tfTreatment;
-//    @FXML
-//    private TextField tfStartDate;
+    @FXML
+    private DatePicker dpStartDate;
 
 //    @FXML
 //    private TextField tfEndDate;
@@ -79,6 +79,7 @@ public class AddHistoryController implements Initializable {
         medicalHistory = new MedicalHistory();
         doctor.setHistoryDiagnosis(tfDiagnosis.getText());
         doctor.setHistoryTreatment(tfTreatment.getText());
+        doctor.setHistoryStartDate(dpStartDate.getValue());
         doctor.setHistoryEndDate(dpEndDate.getValue());//(LocalDate.now()); // For now.
 
         medicalHistory.accept(doctor);
@@ -101,19 +102,20 @@ public class AddHistoryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setDateFormat();
+        setDateFormat(dpEndDate);
+        setDateFormat(dpStartDate);
     }
 
     /**
      * Ensures that the displayed format of the date is yyyy-MM-dd.
      */
-    private void setDateFormat(){
-        dpEndDate.setConverter(new StringConverter<LocalDate>() {
+    private void setDateFormat(DatePicker date){
+        date.setConverter(new StringConverter<LocalDate>() {
             String format = "yyyy-MM-dd";
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(format);
 
             {
-                dpEndDate.setPromptText(format.toLowerCase());
+                date.setPromptText(format.toLowerCase());
             }
 
             @Override
@@ -146,12 +148,14 @@ public class AddHistoryController implements Initializable {
         if(medicalHistory != null) {
             tfDiagnosis.setText(medicalHistory.getDiagnosis());
             tfTreatment.setText(medicalHistory.getTreatment());
+            dpStartDate.setValue(medicalHistory.getStartDate());
             dpEndDate.setValue(medicalHistory.getEndDate());
         }
     }
 
-    public void getEndDate(ActionEvent event) {
-        setDateFormat();
+    public void getDate(ActionEvent event) {
+        setDateFormat(dpEndDate);
+        setDateFormat(dpStartDate);
     }
 
     /**
