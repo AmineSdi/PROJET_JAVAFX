@@ -29,6 +29,15 @@ public class MedicalVisitTest {
         //mmv.modifyVisit("Heart cancer", "Nothing", "Have heart cancer",
                 //"To be followed");
 
+        // Everything Valid, but for modifyVisit tests
+        mmv = new MedicalVisit("CHUM",
+                "Dr Gibson", 55555, visitDate,"Heart problem",
+                "Pill", "Problem with the heart", "Visit later");
+
+        // Changes for modifyVisit
+        mmv.modifyVisit("Heart cancer", "Nothing", "Have heart cancer",
+                "To be followed");
+
         // Invalid establishmentName
         mv2 = new MedicalVisit("Montreal General Hospital 2",
                                "Dr House", 12345, visitDate,"Fever",
