@@ -14,7 +14,7 @@ public class UserTest {
     ContactInformation ci;
 
     @BeforeEach
-    void initialize() {
+    public void initialize() {
         ci = new ContactInformation(1333, "Boulvard Jacques Cartier E",
                 "Longueuil", "J4M2A5", "(450) 468-8111", "pb@qc.ca");
 
@@ -46,39 +46,38 @@ public class UserTest {
                 "54#$", 123456, "Cancer specialist", establishment);
     }
 
-    @Test void validateUserId_Valid() {
+    @Test public void validateUserId_Valid() {
         assertEquals(123456, u1.getUserId()); }
 
-    @Test void validateUserId_Invalid() {
+    @Test public void validateUserId_Invalid() {
         assertEquals(0, u2.getUserId());
     }
 
-    @Test void validateFirstName_Valid() {
+    @Test public void validateFirstName_Valid() {
         assertEquals("John", u1.getFirstName());}
 
-    @Test void validateFirstName_Invalid() {
+    @Test public void validateFirstName_Invalid() {
         assertEquals(null, u3.getFirstName());
     }
 
-    @Test void validateLastName_Valid() {
+    @Test public void validateLastName_Valid() {
         assertEquals("Smith", u1.getLastName());}
 
-    @Test void validateLastName_Invalid() {
+    @Test public void validateLastName_Invalid() {
         assertEquals(null, u4.getLastName());
     }
 
-    @Test void validateUserName_Valid() {
+    @Test public void validateUserName_Valid() {
         assertEquals("JohnSmit", u1.getUserName()); }
 
-    @Test void validateUserName_Invalid() {
+    @Test public void validateUserName_Invalid() {
         assertEquals(null, u5.getUserName());
     }
 
-    @Test void validatePassword_Valid() {
-        assertEquals("1234Aq#$", u1.getPassword());
-    }
+    @Test public void validatePassword_Valid() {
+        assertEquals("1234Aq#$", u1.getPassword()); }
 
-    @Test void validatePassword_Invalid() {
+    @Test public void validatePassword_Invalid() {
         assertEquals(null, u6.getPassword());
     }
 

@@ -137,7 +137,7 @@ public class DoctorTest {
 
 
 
-    
+
 
     @Test void validateDiagnosisHistory_Valid() {
         assertEquals("Pain", d1.getHistoryDiagnosis());
