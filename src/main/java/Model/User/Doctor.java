@@ -15,10 +15,9 @@ public class Doctor extends User implements Visitor {
                   int license, String specialty,
                   MedicalEstablishment medicalEstablishment) {
         super(userId, firstName, lastName, userName, password);
-        //validateLicense(license);
-        //validateSpecialty(specialty);
-        this.license = license;
         this.specialty = specialty;
+        validateLicense(license);
+        validateSpecialty(specialty);
         this.medicalEstablishment = medicalEstablishment;
     }
 
@@ -108,12 +107,15 @@ public class Doctor extends User implements Visitor {
     public void setLicense(int license) {
         this.license = license;
     }
-    public String getSpecialty() {
-        return specialty;
-    }
+
     public void setSpecialty(String specialty) {
         this.specialty = specialty;
     }
+     public String getSpecialty() {
+        return specialty;
+    }
+
+
     public void validateSpecialty(String specialty) {
         // Valid specialty examples : any speciality
         // Invalid specialty example : empty field
