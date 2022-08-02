@@ -2,6 +2,7 @@ package Controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 import Model.Database.DataAccessObject;
 import Model.PatientFile.PatientFile;
@@ -10,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -33,15 +35,15 @@ public class AddHistoryController implements Initializable {
     // FXML TextField variables//
     //*************************//
 
-    private TextField tfDiagnostic;
+    private TextField tfDiagnosis;
     @FXML
     private TextField tfTreatment;
     @FXML
-    private TextField tfStartDate;
+    private DatePicker dpStartDate;
     @FXML
-    private TextField tfEndDate;
-    @FXML
-    private TextField tfDoctorLicense;
+    private DatePicker dpEndDate;
+    // @FXML
+    // private TextField tfDoctorLicense;
 
     //*********************//
     //FXML Button Variables//
@@ -50,6 +52,8 @@ public class AddHistoryController implements Initializable {
     private Button btnSaveMH;
     @FXML
     private Button btnCancelAddMH;
+    @FXML
+    private Button btnBackMH;
 
 
 
