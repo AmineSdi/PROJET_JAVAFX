@@ -17,8 +17,18 @@ public class MedicalVisitTest {
     void initialize() {
         // Everything Valid
         mv1 = new MedicalVisit("Montreal General Hospital",
-                               "Dr House", 12345, visitDate,"Fever(39).",
-                               "Sleep.", "High temperature 39 degree", "Happy.");
+                               "Dr House", 12345, visitDate,"Fever",
+                               "Sleep", "High temperature 39 degree", "Happy");
+
+        // Everything Valid, but for modifyVisit tests
+        mmv = new MedicalVisit("CHUM",
+                "Dr Gibson", 55555, visitDate,"Heart problem",
+                "Pill", "Problem with the heart", "Visit later");
+
+        // Changes for modifyVisit
+        //mmv.modifyVisit("Heart cancer", "Nothing", "Have heart cancer",
+                //"To be followed");
+
         // Invalid establishmentName
         mv2 = new MedicalVisit("Montreal General Hospital 2",
                                "Dr House", 12345, visitDate,"Fever",
@@ -99,7 +109,7 @@ public class MedicalVisitTest {
         assertEquals(visitDate, mv1.getVisitDate());
     }
 
-    @Test void validateVisitDate_Invalid() {
+    @Test public void validateVisitDate_Invalid() {
         assertEquals(null, mv5.getVisitDate());
     }
 
@@ -133,23 +143,24 @@ public class MedicalVisitTest {
         assertEquals("Happy.", mv1.getNotes());
     }
 
-    @Test void validateNotes_Invalid() {
+
+    @Test public void validateNotes_Invalid() {
         assertEquals(null, mv9.getNotes());
     }
 
-    @Test void validateDiagnosisModify_Valid() {
-        assertEquals("No cancer.", mmv.getDiagnosis());
+    @Test public void validateDiagnosisModify_Valid() {
+        assertEquals("Heart cancer", mmv.getDiagnosis());
     }
 
-    @Test void validateTreatmentModify_Valid() {
-        assertEquals("Nothing to do.", mmv.getTreatment());
+    @Test public void validateTreatmentModify_Valid() {
+        assertEquals("Nothing", mmv.getTreatment());
     }
 
-    @Test void validateVisitSummaryModify_Valid() {
-        assertEquals("Patent is cancer free.", mmv.getSummary());
+    @Test public void validateVisitSummaryModify_Valid() {
+        assertEquals("Have heart cancer", mmv.getSummary());
     }
 
-    @Test void validateNotesModify_Valid() {
-        assertEquals("To follow in 2 months.", mmv.getNotes());
+    @Test public void validateNotesModify_Valid() {
+        assertEquals("To be followed", mmv.getNotes());
     }
 }

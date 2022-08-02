@@ -16,11 +16,11 @@ public class MedicalVisit implements Visitable {
         validateVisitDate(visitDate);
         validateDiagnosis(diagnosis);
         validateTreatment(treatment);
-        validateVisitSummary(summary);
+        validateVisitSummary(summary); //
         validateNotes(notes);
-        //this.visitDate = visitDate;
-        //this.visitSummary = visitSummary;
-        //this.notes = notes;
+//        this.visitDate = visitDate;
+//        this.summary = summary;
+//        this.notes = notes;
     }
 
     String establishmentName;
