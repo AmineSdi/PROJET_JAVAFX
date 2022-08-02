@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PatientFileTest {
 
-    PatientFile pf1, pf2, pf3, pf4, pf5, pf6, pf7, pf;
-    MedicalHistory mh, mhe;
-    MedicalVisit mv, mve;
+    PatientFile pf1, pf2, pf3, pf4, pf5, pf6, pf7;
+    MedicalHistory mh;
+    MedicalVisit mv;
     LocalDate startDate = LocalDate.now();
     LocalDate visitDate = LocalDate.now();
     LocalDate bd = LocalDate.now();
@@ -25,30 +25,23 @@ public class PatientFileTest {
     List<MedicalHistory> medicalHistoryList = new ArrayList<>();
     List<MedicalVisit> medicalVisitList = new ArrayList<>();
 
+
     @BeforeEach
-    void initialize() {
-
+    public void initialize() {
+        List<MedicalHistory> medicalHistoryList = new ArrayList<>();
         medicalHistoryList.add(mh);
-
         mh = new MedicalHistory("Fever", "Pills", "Dr House",
                 11111, startDate, null);
-
+        List<MedicalVisit> medicalVisitList = new ArrayList<>();
         medicalVisitList.add(mv);
 
         mv = new MedicalVisit("Montreal General Hospital",
                 "Dr House", 12345, visitDate,"Fever",
                 "Sleep", "High temperature 39 degree", "Happy");
 
+
         ci = new ContactInformation(1333, "Boulevard Jacques Cartier E",
                 "Longueuil", "J4M2A5", "(450) 468-8111", "pb@qc.ca");
-
-        pf = new PatientFile("ABCD12345678", "Gregory", "House",
-                Gender.MALE, "Montreal", LocalDate.now(),
-                "John House, Mary Smith");
-
-        pf.addMedicalVisit(mv);
-        pf.addMedicalHistory(mh);
-
         // Everything Valid
         pf1 = new PatientFile("ABCD12345678", "Gregory", "House",
                 Gender.MALE, "Montreal", LocalDate.now(),
@@ -85,55 +78,56 @@ public class PatientFileTest {
                 "John House, Mary Smith");
     }
 
-    @Test void validateRamqCode_Valid () {
+
+    @Test public void validateRamqCode_Valid () {
         assertEquals("ABCD12345678", pf1.getRamqCode());
     }
 
-    @Test void validateRamqCode_Invalid () {
+    @Test public void validateRamqCode_Invalid () {
         assertEquals(null, pf2.getRamqCode());
     }
 
-    @Test void validateFirstName_Valid () {
+    @Test public void validateFirstName_Valid () {
         assertEquals("Gregory", pf1.getFirstName());
     }
 
-    @Test void validateFirstName_Invalid () {
+    @Test public void validateFirstName_Invalid () {
         assertEquals(null, pf3.getFirstName());
     }
 
-    @Test void validateLastName_Valid () {
+    @Test public void validateLastName_Valid () {
         assertEquals("House", pf1.getLastName());
     }
 
-    @Test void validateLastName_Invalid () {
+    @Test public void validateLastName_Invalid () {
         assertEquals(null, pf4.getLastName());
     }
 
-    @Test void validateBirthCity_Valid () {
+    @Test public void validateBirthCity_Valid () {
         assertEquals("Montreal", pf1.getBirthCity());
     }
 
-    @Test void validateBirthCity_Invalid () {
+    @Test public void validateBirthCity_Invalid () {
         assertEquals(null, pf5.getBirthCity());
     }
 
-    @Test void validateKnownParent_Valid () {
+    @Test public void validateKnownParent_Valid () {
         assertEquals("John House, Mary Smith", pf1.getKnownParents());
     }
 
-    @Test void validateKnownParent_Invalid () {
+    @Test public void validateKnownParent_Invalid () {
         assertEquals(null, pf6.getKnownParents());
     }
 
-    @Test void validateGender_Valid () {
+    @Test public void validateGender_Valid () {
         assertEquals(Gender.MALE, pf1.getGender());
     }
 
-    @Test void validateBirthDate_Valid () {
+    @Test public void validateBirthDate_Valid () {
         assertEquals(bd, pf1.getBirthDate());
     }
 
-    @Test void createContactInformation() {
+    @Test public void createContactInformation() {
         pf1.setContactInformation(ci);
         assertEquals(1333, pf1.getContactInformation().getNumber());
         assertEquals("Boulevard Jacques Cartier E", pf1.getContactInformation().getStreet());
@@ -142,19 +136,16 @@ public class PatientFileTest {
         assertEquals("(450) 468-8111", pf1.getContactInformation().getPhone());
         assertEquals("pb@qc.ca", pf1.getContactInformation().getEmail());
     }
-    @Test void createMedicalVisit() {
+
+    @Test public void createMedicalVisit() {
+
         assertNotNull(pf1.getMedicalVisits());
+
     }
 
-    @Test void createMedicalHistory() {
+    @Test public void createMedicalHistory() {
+
         assertNotNull(pf1.getMedicalHistories());
-    }
 
-    @Test void addMedicalVisitTest() {
-        assertEquals(1, medicalVisitList.size());
-    }
-
-    @Test void addMedicalHistoryTest() {
-        assertEquals(1, medicalHistoryList.size());
     }
 }
