@@ -418,22 +418,22 @@ public class DataAccessObject {
     }
 
 
-
     /**
-     * This methods adds to the MedicalHistories table a MedicalHistory
-     * with the following informations
+     * This methods adds a MedicalHistory to the MedicalHistories table.
+     *
      * @param ramqCode
-     * @param doctorLicense
-     * @param diagnosis
-     * @param treatment
-     * @param startDate
-     * @param endDate
+     * @param medicalHistory
      */
-    public void addMedicalHistory(String ramqCode, int doctorLicense, String diagnosis,
-                                  String treatment, String startDate, String endDate) {
-        String query =  "INSERT INTO MedicalHistories VALUES (" + ramqCode + "','" +
-                        doctorLicense +  "','" + diagnosis + "','" + treatment +  "','"
-                        + startDate + "','" + endDate +"')";
+    public void addMedicalHistory(String ramqCode, MedicalHistory medicalHistory) {
+        int doctorLicense = medicalHistory.getDoctorLicense();
+        String diagnosis = medicalHistory.getDiagnosis();
+        String treatment = medicalHistory.getTreatment();
+        String startDate = medicalHistory.getStartDate().toString();
+        String endDate = medicalHistory.getEndDate().toString();
+        String query =  "INSERT INTO MedicalHistories(patientRamqCode, doctorLicense," +
+                        "diagnosis, treatment, startDate, endDate) VALUES ('" +
+                        ramqCode + "','" + doctorLicense +  "','" + diagnosis + "','" +
+                        treatment +  "','" + startDate + "','" + endDate +"')";
         executeQuery(query);
     }
     /**

@@ -113,6 +113,10 @@ public class SearchResultsController implements Initializable {
         if(medicalVisit != null) {
             dataAccessObject.addMedicalVisit(patientFile.getRamqCode(), medicalVisit);
         }
+        if(medicalHistory != null) {
+            dataAccessObject.addMedicalHistory(patientFile.getRamqCode(), medicalHistory);
+        }
+        // TODO : Once saved, must not be able to click on Save button again.
 //        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
 //        Parent root = FXMLLoader.load(url);
 //        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
