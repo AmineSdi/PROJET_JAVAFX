@@ -40,7 +40,7 @@ public class MedicalEstablishment {
         boolean isValid = false;
         String validFormat = "^[A-Z]+([a-zA-Z-\\s]+)*$";
 
-        if (name.matches(validFormat))
+        if (name.matches(validFormat) && name.length() > 0)
             isValid = true;
 
         if (!isValid)
