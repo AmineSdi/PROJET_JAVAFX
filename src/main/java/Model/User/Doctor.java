@@ -19,6 +19,8 @@ public class Doctor extends User implements Visitor {
         //validateSpecialty(specialty);
         this.license = license;
         this.specialty = specialty;
+//        validateLicense(license);
+//        validateSpecialty(specialty);
         this.medicalEstablishment = medicalEstablishment;
     }
 

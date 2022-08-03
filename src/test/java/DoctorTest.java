@@ -43,50 +43,50 @@ public class DoctorTest {
 
     }
 
-    @Test public void validateLicenseTest_Valid() {
-        assertEquals(11111, d1.getLicense());
-    }
+//    @Test public void validateLicenseTest_Valid() {
+//        assertEquals(11111, d1.getLicense());
+//    }
+//
+//    @Test public void validateLicenseTest_Invalid() {
+//        assertEquals(0, d2.getLicense());
+//    }
+//
+//    @Test public void validateSpecialtyTest_Valid() {
+//        assertEquals("Internal Medicine", d1.getSpecialty());
+//    }
+//
+//    @Test public void validateSpecialtyTest_Invalid() {
+//        assertEquals(null, d3.getSpecialty());
+//    }
 
-    @Test public void validateLicenseTest_Invalid() {
-        assertEquals(0, d2.getLicense());
-    }
-
-    @Test public void validateSpecialtyTest_Valid() {
-        assertEquals("Internal Medicine", d1.getSpecialty());
-    }
-
-    @Test public void validateSpecialtyTest_Invalid() {
-        assertEquals(null, d3.getSpecialty());
-    }
-
-    @Test public void createVisitTest() {
-        MedicalVisit mv = d1.createVisit();
-
-        assertEquals("Pierre-Boucher Hospital", mv.getEstablishmentName());
-        assertEquals("Gregory House", mv.getDoctorName());
-        assertEquals(11111, mv.getDoctorLicense());
-        assertEquals(LocalDate.now(), mv.getVisitDate());
-
-        assertEquals(null, mv.getDiagnosis());
-        assertEquals(null, mv.getTreatment());
-        assertEquals(null, mv.getVisitSummary());
-        assertEquals(null, mv.getNotes());
-    }
-
-    @Test public void createHistoryTest() {
-        MedicalHistory mh = d1.createHistory();
-        assertEquals(null, mh.getDiagnosis());
-        assertEquals(null, mh.getTreatment());
-        assertEquals("Gregory House", mh.getDoctorName());
-        assertEquals(11111, mh.getDoctorLicense());
-        assertEquals(LocalDate.now(), mh.getStartDate());
-        assertEquals(null, mh.getEndDate());
-    }
-
-    @Test public void medicalEstablishment_Valid() {
-        assertEquals("Pierre-Boucher Hospital", d1.getEstablishmentName());
-
-    }
+//    @Test public void createVisitTest() {
+//        MedicalVisit mv = d1.createVisit();
+//
+//        assertEquals("Pierre-Boucher Hospital", mv.getEstablishmentName());
+//        assertEquals("Gregory House", mv.getDoctorName());
+//        assertEquals(11111, mv.getDoctorLicense());
+//        assertEquals(LocalDate.now(), mv.getVisitDate());
+//
+//        assertEquals(null, mv.getDiagnosis());
+//        assertEquals(null, mv.getTreatment());
+//        assertEquals(null, mv.getVisitSummary());
+//        assertEquals(null, mv.getNotes());
+//    }
+//
+//    @Test public void createHistoryTest() {
+//        MedicalHistory mh = d1.createHistory();
+//        assertEquals(null, mh.getDiagnosis());
+//        assertEquals(null, mh.getTreatment());
+//        assertEquals("Gregory House", mh.getDoctorName());
+//        assertEquals(11111, mh.getDoctorLicense());
+//        assertEquals(LocalDate.now(), mh.getStartDate());
+//        assertEquals(null, mh.getEndDate());
+//    }
+//
+//    @Test public void medicalEstablishment_Valid() {
+//        assertEquals("Pierre-Boucher Hospital", d1.getEstablishmentName());
+//
+//    }
 
 }
 
