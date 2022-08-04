@@ -17,6 +17,29 @@ import java.util.List;
 
 public class DataAccessObject {
 
+    /**
+     * Checks if the patient RAMQ code exists in the database.
+     * @param ramqCode The patient RAMQ code
+     * @return true if it exists, false otherwise.
+     */
+    public boolean patientExistsInDB(String ramqCode) {
+        String query = "SELECT * FROM PatientFiles WHERE ramqCode = \""
+                + ramqCode + "\" LIMIT 1";
+        boolean isFound = false;
+        Connection conn = DBConnection.getInstance().getConnection();
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(query);
+            isFound = resultSet.isBeforeFirst();
+        } catch ( Exception ex ) {
+            ex.printStackTrace();
+        }
+
+        return isFound;
+    }
+
     public HashMap<String, String> getPatientFileInfoFromDB(String ramqCode) {
         String userQuery = "SELECT * FROM PatientFiles WHERE ramqCode = \""
                            + ramqCode + "\" LIMIT 1";
