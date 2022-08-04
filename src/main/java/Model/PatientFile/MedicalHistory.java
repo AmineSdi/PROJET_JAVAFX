@@ -44,10 +44,10 @@ public class MedicalHistory implements Visitable {
     }
 
     public void validateDiagnosis(String diagnosis) {
-        // Valid diagnosis examples : Cancer, Cold + temperature 39
-        // Invalid diagnosis example : empty field
+        // Valid diagnosis examples : Cancer, Cold + temperature 39, end with punctuation
+        // Invalid diagnosis example : empty field, does not end with punctuation
         boolean isValid = false;
-        String validFormat = "^\\w+(\\s\\w+)*$";
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
         if (diagnosis != null) {
             if (diagnosis.matches(validFormat) && diagnosis.length() > 0)
                 isValid = true;
@@ -64,10 +64,10 @@ public class MedicalHistory implements Visitable {
     }
 
     public void validateTreatment(String treatment) {
-        // Valid treatment examples : Sleep, pills
-        // Invalid treatment example : empty field
+        // Valid treatment examples : Sleep, pills, end with punctuation
+        // Invalid treatment example : empty field, does not end with punctuation
         boolean isValid = false;
-        String validFormat = "^\\w+(\\s\\w+)*$";
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
         if (treatment != null) {
 
             if (treatment.matches(validFormat) && treatment.length() > 0)
@@ -153,21 +153,19 @@ public class MedicalHistory implements Visitable {
     public void modifyHistory(String firstName, String lastName, int license,
                               String diagnosis, String treatment, LocalDate startDate,
                               LocalDate endDate) {
-        //ANCIENNE VERSION
         this.doctorName = firstName + " " + lastName;
         this.doctorLicense = license;
         this.diagnosis = diagnosis;
         this.treatment = treatment;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
 
-        //À TESTER ET À MODIFIER
-//=======
-//    public void modifyHistory(String diagnosis, String treatment, LocalDate endDate){
-//        validateDiagnosis(diagnosis);
-//        validateTreatment(treatment);
-//        validateEndDate(endDate);
-//>>>>>>> Mettre à jour la classe MedicalHistory
+    public void modifyHistory(String diagnosis, String treatment, LocalDate endDate){
+        validateDiagnosis(diagnosis);
+        validateTreatment(treatment);
+        validateEndDate(endDate);
+
     }
 
 }

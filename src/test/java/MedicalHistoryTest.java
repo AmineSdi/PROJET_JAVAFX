@@ -20,19 +20,11 @@ public class MedicalHistoryTest {
     @BeforeEach
     public void initialize(){
         // Everything Valid
-        mh1 = new MedicalHistory("Fever", "Pills", "Dr House",
-                11111, startDate, null);
-
-        // Everything Valid, but for modifyHistory tests
-        mmh = new MedicalHistory("Cold", "Sleep", "Dr Gibson",
-                55555, startDate, null);
-
-        //NEEDS TO BE FIXED
-        // Changes for modifyHistory
-        //mmh.modifyHistory("Cancer", "Chemotherapy", LocalDate.now());
+        mh1 = new MedicalHistory("Fever? He's sick.", "He takes pills.",
+                "Dr House", 11111, startDate, null);
 
         // Invalid diagnosis
-        mh2 = new MedicalHistory("", "Pills", "Dr House",
+        mh2 = new MedicalHistory("Fever", "Pills", "Dr House",
                 11111, startDate, null);
 
         // Invalid treatment
@@ -54,8 +46,15 @@ public class MedicalHistoryTest {
         // Invalid endDate
         mh7 = new MedicalHistory("Fever", "Pills", "Dr House",
                 11111, startDate, null);
-    }
 
+        // Everything Valid, but for modifyHistory tests
+        mmh = new MedicalHistory("Cold", "Sleep", "Dr Gibson",
+                55555, startDate, null);
+
+        // Changes for modifyHistory
+        mmh.modifyHistory("Now has cancer.", "Chemotherapy?", LocalDate.now());
+    }
+    
 
     @Test public void validateDiagnosis_Valid() {
         assertEquals("Fever", mh1.getDiagnosis());
