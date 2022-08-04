@@ -17,26 +17,8 @@ public class MedicalVisitTest {
     public void initialize() {
         // Everything Valid
         mv1 = new MedicalVisit("Montreal General Hospital",
-                               "Dr House", 12345, visitDate,"Fever",
-                               "Sleep", "High temperature 39 degree", "Happy");
-
-        // Everything Valid, but for modifyVisit tests
-        mmv = new MedicalVisit("CHUM",
-                "Dr Gibson", 55555, visitDate,"Heart problem",
-                "Pill", "Problem with the heart", "Visit later");
-
-        // Changes for modifyVisit
-        mmv.modifyVisit("Heart cancer", "Nothing", "Have heart cancer",
-                "To be followed");
-
-        // Everything Valid, but for modifyVisit tests
-        mmv = new MedicalVisit("CHUM",
-                "Dr Gibson", 55555, visitDate,"Heart problem",
-                "Pill", "Problem with the heart", "Visit later");
-
-        // Changes for modifyVisit
-        mmv.modifyVisit("Heart cancer", "Nothing", "Have heart cancer",
-                "To be followed");
+                               "Dr House", 12345, visitDate,"Fever.",
+                               "Sleep.", "High temperature 39 degree.", "Happy.");
 
         // Invalid establishmentName
         mv2 = new MedicalVisit("Montreal General Hospital 2",
@@ -77,6 +59,17 @@ public class MedicalVisitTest {
         mv9 = new MedicalVisit("Montreal General Hospital",
                                "Dr House", 12345, visitDate,"Fever",
                                "Sleep", "High temperature 39 degree", "");
+
+        // Everything Valid, but for modifyVisit tests
+        mmv = new MedicalVisit("CHUM", "Dr Gibson", 55555,
+                visitDate,"Heart problem.", "Pill.",
+                "Problem with the heart.", "Visit later.");
+
+        // Changes for modifyVisit
+        mmv.modifyVisit("CHUM", "Gibson","Smith", 25252,
+                LocalDate.now(), "No cancer.", "Nothing to do.",
+                "Patent is cancer free.", "To follow in 2 months.");
+
     }
 
     @Test public void validateEstablishmentName_Valid() {
@@ -112,7 +105,7 @@ public class MedicalVisitTest {
     }
 
     @Test public void validateDiagnosis_Valid() {
-        assertEquals("Fever", mv1.getDiagnosis());
+        assertEquals("Fever.", mv1.getDiagnosis());
     }
 
     @Test public void validateDiagnosis_Invalid() {
@@ -120,7 +113,7 @@ public class MedicalVisitTest {
     }
 
     @Test public void validateTreatment_Valid() {
-        assertEquals("Sleep", mv1.getTreatment());
+        assertEquals("Sleep.", mv1.getTreatment());
     }
 
     @Test public void validateTreatment_Invalid() {
@@ -128,15 +121,15 @@ public class MedicalVisitTest {
     }
 
     @Test public void validateVisitSummary_Valid() {
-        assertEquals("High temperature 39 degree", mv1.getSummary());
+        assertEquals("High temperature 39 degree.", mv1.getSummary());
     }
 
     @Test public void validateVisitSummary_Invalid() {
-        assertEquals(null, mv8.getVisitSummary());
+        assertEquals(null, mv8.getSummary());
     }
 
     @Test public void validateNotes_Valid() {
-        assertEquals("Happy", mv1.getNotes());
+        assertEquals("Happy.", mv1.getNotes());
     }
 
     @Test public void validateNotes_Invalid() {
@@ -144,18 +137,19 @@ public class MedicalVisitTest {
     }
 
     @Test public void validateDiagnosisModify_Valid() {
-        assertEquals("Heart cancer", mmv.getDiagnosis());
+        assertEquals("To be followed", mmv.getNotes());
+        assertEquals("No cancer.", mmv.getDiagnosis());
     }
 
     @Test public void validateTreatmentModify_Valid() {
-        assertEquals("Nothing", mmv.getTreatment());
+        assertEquals("Nothing to do.", mmv.getTreatment());
     }
 
     @Test public void validateVisitSummaryModify_Valid() {
-        assertEquals("Have heart cancer", mmv.getVisitSummary());
+        assertEquals("Patent is cancer free.", mmv.getSummary());
     }
 
     @Test public void validateNotesModify_Valid() {
-        assertEquals("To be followed", mmv.getNotes());
+        assertEquals("To follow in 2 months.", mmv.getNotes());
     }
 }
