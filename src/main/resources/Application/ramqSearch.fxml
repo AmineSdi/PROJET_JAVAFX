@@ -21,10 +21,13 @@
                 <Font size="14.0" />
             </font>
         </Label>
-        <Button id="line" fx:id="btnSearch" layoutX="358.0" layoutY="298.0" mnemonicParsing="false" onAction="#handleBtnSearch" prefHeight="38.0" prefWidth="135.0" stylesheets="@../css/stylesheet.css" text="Search" />
+        <Button id="line" fx:id="btnSearch" defaultButton="true" layoutX="358.0" layoutY="298.0" mnemonicParsing="false" onAction="#handleBtnSearch" prefHeight="38.0" prefWidth="135.0" stylesheets="@../css/stylesheet.css" text="Search">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
         <Button id="line" fx:id="btnLogout" layoutX="640.0" layoutY="38.0" onAction="#handleBtnLogout" prefHeight="38.0" prefWidth="112.0" stylesheets="@../css/stylesheet.css" text="Logout">
          <cursor>
-            <Cursor fx:constant="DEFAULT" />
+            <Cursor fx:constant="HAND" />
          </cursor></Button>
         <TextField fx:id="tfRamqCode" layoutX="330.0" layoutY="196.0" opacity="0.71" prefHeight="32.0" prefWidth="197.0" style="-fx-background-radius: 8px;">
          <cursor>
