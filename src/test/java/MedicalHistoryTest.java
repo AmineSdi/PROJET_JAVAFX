@@ -20,19 +20,11 @@ public class MedicalHistoryTest {
     @BeforeEach
     public void initialize(){
         // Everything Valid
-        mh1 = new MedicalHistory("Fever", "Pills", "Dr House",
-                11111, startDate, null);
-
-        // Everything Valid, but for modifyHistory tests
-        mmh = new MedicalHistory("Cold", "Sleep", "Dr Gibson",
-                55555, startDate, null);
-
-        //NEEDS TO BE FIXED
-        // Changes for modifyHistory
-        //mmh.modifyHistory("Cancer", "Chemotherapy", LocalDate.now());
+        mh1 = new MedicalHistory("Fever? He's sick.", "He takes pills.",
+                "Dr House", 11111, startDate, null);
 
         // Invalid diagnosis
-        mh2 = new MedicalHistory("", "Pills", "Dr House",
+        mh2 = new MedicalHistory("Fever", "Pills", "Dr House",
                 11111, startDate, null);
 
         // Invalid treatment
@@ -54,66 +46,73 @@ public class MedicalHistoryTest {
         // Invalid endDate
         mh7 = new MedicalHistory("Fever", "Pills", "Dr House",
                 11111, startDate, null);
+
+        // Everything Valid, but for modifyHistory tests
+        mmh = new MedicalHistory("Cold", "Sleep", "Dr Gibson",
+                55555, startDate, null);
+
+        // Changes for modifyHistory
+        mmh.modifyHistory("Now has cancer.", "Chemotherapy?", LocalDate.now());
     }
 
-//    @Test public void validateDiagnosis_Valid() {
-//        assertEquals("Fever", mh1.getDiagnosis());
-//    }
-//
-//    @Test public void validateDiagnosis_Invalid() {
-//        assertEquals(null, mh2.getDiagnosis());
-//    }
-//
-//    @Test public void validateTreatment_Valid() {
-//        assertEquals("Pills", mh1.getTreatment());
-//    }
-//
-//    @Test public void validateTreatment_Invalid() {
-//        assertEquals(null, mh3.getTreatment());
-//    }
-//
-//    @Test public void validateDoctorName_Valid() {
-//        assertEquals("Dr House", mh1.getDoctorName());
-//    }
-//
-//    @Test public void validateDoctorName_Invalid() {
-//        assertEquals(null, mh4.getDoctorName());
-//    }
-//
-//    @Test public void validateDoctorLicence_Valid() {
-//        assertEquals(11111, mh1.getDoctorLicense());
-//    }
-//
-//    @Test public void validateDoctorLicence_Invalid() {
-//        assertEquals(0, mh5.getDoctorLicense());
-//    }
-//
-//    @Test public void validateStartDate_Valid() {
-//        assertEquals(startDate, mh1.getStartDate());
-//    }
-//
-//    @Test public void validateStartDate_Invalid() {
-//        assertEquals(null, mh6.getStartDate());
-//    }
-//
-//    @Test public void validateEndDate_Valid() {
-//        assertEquals(null, mh1.getEndDate());
-//    }
-//
-//    @Test public void validateEndDate_Invalid() {
-//        assertEquals(null, mh7.getEndDate());
-//    }
-//
-//    @Test public void validateDiagnosisModify_Valid() {
-//        assertEquals("Cancer", mmh.getDiagnosis());
-//    }
-//
-//    @Test public void validateTreatmentModify_Valid() {
-//        assertEquals("Chemotherapy", mmh.getTreatment());
-//    }
-//
-//    @Test public void validateEndDateModify_Valid() {
-//        assertEquals(LocalDate.now(), mmh.getEndDate());
-//    }
+    @Test public void validateDiagnosis_Valid() {
+        assertEquals("Fever? He's sick.", mh1.getDiagnosis());
+    }
+
+    @Test public void validateDiagnosis_Invalid() {
+        assertEquals(null, mh2.getDiagnosis());
+    }
+
+    @Test public void validateTreatment_Valid() {
+        assertEquals("He takes pills.", mh1.getTreatment());
+    }
+
+    @Test public void validateTreatment_Invalid() {
+        assertEquals(null, mh3.getTreatment());
+    }
+
+    @Test public void validateDoctorName_Valid() {
+        assertEquals("Dr House", mh1.getDoctorName());
+    }
+
+    @Test public void validateDoctorName_Invalid() {
+        assertEquals(null, mh4.getDoctorName());
+    }
+
+    @Test public void validateDoctorLicence_Valid() {
+        assertEquals(11111, mh1.getDoctorLicense());
+    }
+
+    @Test public void validateDoctorLicence_Invalid() {
+        assertEquals(0, mh5.getDoctorLicense());
+    }
+
+    @Test public void validateStartDate_Valid() {
+        assertEquals(startDate, mh1.getStartDate());
+    }
+
+    @Test public void validateStartDate_Invalid() {
+        assertEquals(null, mh6.getStartDate());
+    }
+
+    @Test public void validateEndDate_Valid() {
+        assertEquals(null, mh1.getEndDate());
+    }
+
+    @Test public void validateEndDate_Invalid() {
+        assertEquals(null, mh7.getEndDate());
+    }
+
+    @Test public void validateDiagnosisModify_Valid() {
+        assertEquals("Now has cancer.", mmh.getDiagnosis());
+    }
+
+    @Test public void validateTreatmentModify_Valid() {
+        assertEquals("Chemotherapy?", mmh.getTreatment());
+    }
+
+    @Test public void validateEndDateModify_Valid() {
+        assertEquals(LocalDate.now(), mmh.getEndDate());
+    }
 
 }
