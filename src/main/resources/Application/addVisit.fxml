@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="861.0" prefWidth="800.0" style="-fx-background-color: #e6f3ff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddVisitController">
+<AnchorPane fx:id="AnchorPane" prefHeight="861.0" prefWidth="800.0" style="-fx-background-color: #e6f3ff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddVisitController">
    <children>
       <BorderPane layoutX="52.0" layoutY="116.0" prefHeight="630.0" prefWidth="696.0" style="-fx-background-color: white; -fx-background-radius: 7px;">
          <effect>
@@ -38,7 +38,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button id="line" fx:id="btnCancelAddMV" layoutX="635.0" layoutY="784.0" mnemonicParsing="false" onAction="#handleBtnCancelAddMV" prefHeight="49.0" prefWidth="120.0" stylesheets="@../css/stylesheet.css" text="Cancel">
+      <Button id="line" fx:id="btnCancelAddMV" layoutX="635.0" layoutY="784.0" mnemonicParsing="false" onAction="#handleBtnCancelAddMV" prefHeight="49.0" prefWidth="120.0" stylesheets="@../css/stylesheet.css" text="Clear">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>

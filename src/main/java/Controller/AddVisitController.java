@@ -12,13 +12,12 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -37,6 +36,9 @@ public class AddVisitController implements Initializable {
     MedicalHistory medicalHistory;
 
     Timeline automaticUpdate;
+
+    @FXML
+    private javafx.scene.layout.AnchorPane AnchorPane;
 
     //*************************//
     // FXML TextField variables//
@@ -88,7 +90,30 @@ public class AddVisitController implements Initializable {
 
     @FXML
     public void handleBtnCancelAddMV(ActionEvent event) throws Exception {
-        goToSearchResultsPage(event);
+        if (confirmClear()) {
+            this.medicalVisit = null;
+            goToSearchResultsPage(event);
+        }
+    }
+
+    /**
+     * This function creates a pop-up box asking if the user is certain of wanting to clear the
+     * local changes to the medical history.
+     * @return A boolean.
+     */
+    private boolean confirmClear() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Medical program");
+        alert.setHeaderText("Erase all local changes to this medical visit?");
+        alert.setContentText("Click OK to erase, click cancel to return.");
+
+        if(alert.showAndWait().get() == ButtonType.OK) {
+            //Code à effectuer lorsque le programme se termine
+            stage = (Stage) AnchorPane.getScene().getWindow();
+            stage.close();
+            return true;
+        }
+        return false;
     }
 
     @Override
