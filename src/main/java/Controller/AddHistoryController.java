@@ -59,8 +59,6 @@ public class AddHistoryController implements Initializable {
     private Button btnSaveMH;
     @FXML
     private Button btnCancelAddMH;
-    @FXML
-    private Button btnBackMH;
 
 
 
