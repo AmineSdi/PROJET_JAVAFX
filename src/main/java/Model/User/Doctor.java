@@ -15,7 +15,6 @@ public class Doctor extends User implements Visitor {
                   int license, String specialty,
                   MedicalEstablishment medicalEstablishment) {
         super(userId, firstName, lastName, userName, password);
-        this.specialty = specialty;
         validateLicense(license);
         validateSpecialty(specialty);
         this.medicalEstablishment = medicalEstablishment;
@@ -43,7 +42,19 @@ public class Doctor extends User implements Visitor {
     }
 
     public void setHistoryDiagnosis(String historyDiagnosis) {
-        this.historyDiagnosis = historyDiagnosis;
+        // Valid diagnosis examples : Cancer, Cold + temperature 39, end with punctuation
+        // Invalid diagnosis example : empty field, does not end with punctuation
+        boolean isValid = false;
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
+        if (historyDiagnosis != null) {
+            if (historyDiagnosis.matches(validFormat))
+                isValid = true;
+
+            if (!isValid)
+                this.historyDiagnosis = null;
+            else
+                this.historyDiagnosis = historyDiagnosis;
+        }
     }
 
     public String getHistoryTreatment() {
@@ -51,7 +62,20 @@ public class Doctor extends User implements Visitor {
     }
 
     public void setHistoryTreatment(String historyTreatment) {
-        this.historyTreatment = historyTreatment;
+        // Valid treatment examples : Sleep, pills, end with punctuation
+        // Invalid treatment example : empty field, does not end with punctuation
+        boolean isValid = false;
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
+        if (historyTreatment != null) {
+
+            if (historyTreatment.matches(validFormat))
+                isValid = true;
+
+            if (!isValid)
+                this.historyTreatment = null;
+            else
+                this.historyTreatment = historyTreatment;
+        }
     }
 
     public LocalDate getHistoryEndDate() {
@@ -59,7 +83,18 @@ public class Doctor extends User implements Visitor {
     }
 
     public void setHistoryEndDate(LocalDate historyEndDate) {
-        this.historyEndDate = historyEndDate;
+        // Valid historyEndDate example : today date
+        // Invalid historyEndDate examples : not today date
+        boolean isValid = false;
+
+        LocalDate date = LocalDate.now();
+        if (historyEndDate.equals(date))
+            isValid = true;
+
+        if (!isValid)
+            this.historyEndDate = null;
+        else
+            this.historyEndDate = historyEndDate;
     }
 
     String historyDiagnosis;
@@ -70,7 +105,18 @@ public class Doctor extends User implements Visitor {
     }
 
     public void setHistoryStartDate(LocalDate historyStartDate) {
-        this.historyStartDate = historyStartDate;
+        // Valid historyStartDate example : today date
+        // Invalid historyStartDate examples : not today date
+        boolean isValid = false;
+
+        LocalDate date = LocalDate.now();
+        if (historyStartDate.equals(date))
+            isValid = true;
+
+        if (!isValid)
+            this.historyStartDate = null;
+        else
+            this.historyStartDate = historyStartDate;
     }
 
     LocalDate historyStartDate;
@@ -81,41 +127,93 @@ public class Doctor extends User implements Visitor {
         return visitDiagnosis;
     }
     public void setVisitDiagnosis(String visitDiagnosis) {
-        this.visitDiagnosis = visitDiagnosis;
+        // Valid diagnosis examples : Cancer, Cold + temperature 39, end with punctuation
+        // Invalid diagnosis example : empty field, does not end with punctuation
+        boolean isValid = false;
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
+        if (visitDiagnosis != null) {
+            if (visitDiagnosis.matches(validFormat))
+                isValid = true;
+
+            if (!isValid)
+                this.visitDiagnosis = null;
+            else
+                this.visitDiagnosis = visitDiagnosis;
+        }
     }
     public String getVisitTreatment() {
         return visitTreatment;
     }
     public void setVisitTreatment(String visitTreatment) {
-        this.visitTreatment = visitTreatment;
+        // Valid treatment examples : Sleep, pills, end with punctuation
+        // Invalid treatment example : empty field, does not end with punctuation
+        boolean isValid = false;
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
+        if (visitTreatment != null) {
+
+            if (visitTreatment.matches(validFormat))
+                isValid = true;
+
+            if (!isValid)
+                this.visitTreatment = null;
+            else
+                this.visitTreatment = visitTreatment;
+        }
     }
     public String getVisitSummary() {
         return visitSummary;
     }
     public void setVisitSummary(String visitSummary) {
-        this.visitSummary = visitSummary;
+        // Valid visitSummary examples : High temperature for 2 days, end with punctuation
+        // Invalid visitSummary example : empty field, does not end with punctuation
+        boolean isValid = false;
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
+        if (visitSummary != null) {
+
+            if (visitSummary.matches(validFormat))
+                isValid = true;
+
+            if (!isValid)
+                this.visitSummary = null;
+            else
+                this.visitSummary = visitSummary;
+        }
     }
     public String getVisitNotes() {
         return visitNotes;
     }
     public void setVisitNotes(String visitNotes) {
-        this.visitNotes = visitNotes;
+        // Valid visitNotes examples : Had cold in the past, end with punctuation
+        // Invalid visitNotes example : empty field, does not end with punctuation
+        boolean isValid = false;
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
+        if (visitNotes != null) {
+
+            if (visitNotes.matches(validFormat))
+                isValid = true;
+            if (!isValid)
+                this.visitNotes = null;
+            else
+                this.visitNotes = visitNotes;
+        }
     }
     public int getLicense() {
         return license;
     }
     public void setLicense(int license) {
-        this.license = license;
+        // Valid license example : 12345
+        // Invalid license examples : 97-8514, 2541-08
+        if (license >= 10000 && license <= 99999)
+            this.license = license;
+        else
+            this.license = 0;
     }
 
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
-    }
-     public String getSpecialty() {
+
+
+    public String getSpecialty() {
         return specialty;
     }
-
-
     public void validateSpecialty(String specialty) {
         // Valid specialty examples : any speciality
         // Invalid specialty example : empty field
