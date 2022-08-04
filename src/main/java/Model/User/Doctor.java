@@ -223,7 +223,7 @@ public class Doctor extends User implements Visitor {
     }
 
 
-    
+
 
     public void validateSpecialty(String specialty) {
         // Valid specialty examples : any speciality
