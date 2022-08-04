@@ -15,10 +15,7 @@ public class Doctor extends User implements Visitor {
                   int license, String specialty,
                   MedicalEstablishment medicalEstablishment) {
         super(userId, firstName, lastName, userName, password);
-        //validateLicense(license);
-        //validateSpecialty(specialty);
-        this.license = license;
-        this.specialty = specialty;
+
         validateLicense(license);
         validateSpecialty(specialty);
         this.medicalEstablishment = medicalEstablishment;
@@ -46,12 +43,13 @@ public class Doctor extends User implements Visitor {
     }
 
     public void setHistoryDiagnosis(String historyDiagnosis) {
-        // Valid diagnosis examples : Cancer, Cold + temperature 39, punctuation
-        // Invalid diagnosis example : empty field
+
+        // Valid diagnosis examples : Cancer, Cold + temperature 39, end with punctuation
+        // Invalid diagnosis example : empty field, does not end with punctuation
         boolean isValid = false;
-        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
         if (historyDiagnosis != null) {
-            if (historyDiagnosis.matches(validFormat) && historyDiagnosis.length() > 0)
+            if (historyDiagnosis.matches(validFormat))
                 isValid = true;
 
             if (!isValid)
@@ -66,15 +64,14 @@ public class Doctor extends User implements Visitor {
     }
 
     public void setHistoryTreatment(String historyTreatment) {
-        // Valid treatment examples : Sleep, pills, punctuation
-        // Invalid treatment example : empty field
+
+        // Valid treatment examples : Sleep, pills, end with punctuation
+        // Invalid treatment example : empty field, does not end with punctuation
         boolean isValid = false;
-        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
         if (historyTreatment != null) {
-
-            if (historyTreatment.matches(validFormat) && historyTreatment.length() > 0)
+            if (historyTreatment.matches(validFormat))
                 isValid = true;
-
             if (!isValid)
                 this.historyTreatment = null;
             else
@@ -89,17 +86,9 @@ public class Doctor extends User implements Visitor {
     public void setHistoryEndDate(LocalDate historyEndDate) {
         // Valid historyEndDate example : today date
         // Invalid historyEndDate examples : not today date
-        this.historyEndDate = historyEndDate;
-        /*boolean isValid = false;
 
-        LocalDate date = LocalDate.now();
-        if (historyEndDate.equals(date))
-            isValid = true;
+            this.historyEndDate = historyEndDate;
 
-        if (!isValid)
-            this.historyEndDate = null;
-        else
-            this.historyEndDate = historyEndDate;*/
     }
 
     String historyDiagnosis;
@@ -132,12 +121,14 @@ public class Doctor extends User implements Visitor {
         return visitDiagnosis;
     }
     public void setVisitDiagnosis(String visitDiagnosis) {
-        // Valid diagnosis examples : Cancer, Cold + temperature 39, punctuation
-        // Invalid diagnosis example : empty field
+
+        // Valid diagnosis examples : Cancer, Cold + temperature 39, end with punctuation
+        // Invalid diagnosis example : empty field, does not end with punctuation
         boolean isValid = false;
-        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
         if (visitDiagnosis != null) {
-            if (visitDiagnosis.matches(validFormat) && visitDiagnosis.length() > 0)
+            if (visitDiagnosis.matches(validFormat))
+
                 isValid = true;
 
             if (!isValid)
@@ -150,13 +141,15 @@ public class Doctor extends User implements Visitor {
         return visitTreatment;
     }
     public void setVisitTreatment(String visitTreatment) {
-        // Valid treatment examples : Sleep, pills, punctuation
-        // Invalid treatment example : empty field
+
+        // Valid treatment examples : Sleep, pills, end with punctuation
+        // Invalid treatment example : empty field, does not end with punctuation
         boolean isValid = false;
-        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
         if (visitTreatment != null) {
 
-            if (visitTreatment.matches(validFormat) && visitTreatment.length() > 0)
+            if (visitTreatment.matches(validFormat))
+
                 isValid = true;
 
             if (!isValid)
@@ -169,13 +162,15 @@ public class Doctor extends User implements Visitor {
         return visitSummary;
     }
     public void setVisitSummary(String visitSummary) {
-        // Valid visitSummary examples : High temperature for 2 days, punctuation
-        // Invalid visitSummary example : empty field
+
+        // Valid visitSummary examples : High temperature for 2 days, end with punctuation
+        // Invalid visitSummary example : empty field, does not end with punctuation
         boolean isValid = false;
-        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
         if (visitSummary != null) {
 
-            if (visitSummary.matches(validFormat) && visitSummary.length() > 0)
+            if (visitSummary.matches(validFormat))
+
                 isValid = true;
 
             if (!isValid)
@@ -188,13 +183,14 @@ public class Doctor extends User implements Visitor {
         return visitNotes;
     }
     public void setVisitNotes(String visitNotes) {
-        // Valid visitNotes examples : Had cold in the past,punctuation
-        // Invalid visitNotes example : empty field
+
+        // Valid visitNotes examples : Had cold in the past, end with punctuation
+        // Invalid visitNotes example : empty field, does not end with punctuation
         boolean isValid = false;
-        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
         if (visitNotes != null) {
 
-            if (visitNotes.matches(validFormat) && visitNotes.length() > 0)
+            if (visitNotes.matches(validFormat))
                 isValid = true;
             if (!isValid)
                 this.visitNotes = null;
@@ -215,16 +211,13 @@ public class Doctor extends User implements Visitor {
     }
 
 
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
-    }
-     public String getSpecialty() {
+
+
+
+
+    public String getSpecialty() {
         return specialty;
     }
-
-
-
-
     public void validateSpecialty(String specialty) {
         // Valid specialty examples : any speciality
         // Invalid specialty example : empty field
