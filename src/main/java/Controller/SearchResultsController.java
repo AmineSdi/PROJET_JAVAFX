@@ -169,7 +169,6 @@ public class SearchResultsController implements Initializable {
     public void showPatientVisits(DataAccessObject dao, String ramqCode){
         this.dataAccessObject = dao;
         ObservableList<MedicalVisit> visitObservableList = dataAccessObject.getObservableVisitsList(ramqCode);
-        System.out.println(visitObservableList.get(0).getSummary());
         colDateOfVisit.setCellValueFactory(new PropertyValueFactory<>("visitDate"));
         colDiagnosisVisit.setCellValueFactory(new PropertyValueFactory<>("diagnosis"));
         colTreatmentVisit.setCellValueFactory(new PropertyValueFactory<>("treatment"));
