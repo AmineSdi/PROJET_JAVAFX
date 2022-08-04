@@ -109,7 +109,7 @@ public class MedicalVisitTest {
     }
 
     @Test public void validateVisitSummary_Valid() {
-        assertEquals("High temperature 39 degree", mv1.getVisitSummary());
+        assertEquals("High temperature 39 degree", mv1.getSummary());
     }
 
 //    @Test public void validateVisitSummary_Invalid() {

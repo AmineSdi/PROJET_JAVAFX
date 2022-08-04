@@ -9,7 +9,7 @@ public class MedicalVisit implements Visitable {
     public MedicalVisit() {}
     public MedicalVisit(String establishmentName, String doctorName, int doctorLicense,
                         LocalDate visitDate, String diagnosis, String treatment,
-                        String visitSummary, String notes) {
+                        String summary, String notes) {
         validateEstablishmentName(establishmentName);
         validateDoctorName(doctorName);
         validateDoctorLicense(doctorLicense);
@@ -19,7 +19,7 @@ public class MedicalVisit implements Visitable {
 //        validateVisitSummary(visitSummary); //
 //        validateNotes(notes);
         this.visitDate = visitDate;
-        this.visitSummary = visitSummary;
+        this.summary = summary;
         this.notes = notes;
     }
 
@@ -29,7 +29,7 @@ public class MedicalVisit implements Visitable {
     LocalDate visitDate;
     String diagnosis;
     String treatment;
-    String visitSummary;
+    String summary;
     String notes;
 
     public String getEstablishmentName() {
@@ -144,8 +144,8 @@ public class MedicalVisit implements Visitable {
         }
     }
 
-    public String getVisitSummary() {
-        return visitSummary;
+    public String getSummary() {
+        return summary;
     }
 
     public void validateVisitSummary(String visitSummary) {
@@ -159,9 +159,9 @@ public class MedicalVisit implements Visitable {
                 isValid = true;
 
             if (!isValid)
-                this.visitSummary = null;
+                this.summary = null;
             else
-                this.visitSummary = visitSummary;
+                this.summary = visitSummary;
         }
     }
 
@@ -196,14 +196,14 @@ public class MedicalVisit implements Visitable {
      * */
     public void modifyVisit(String medicalEstablishmentName, String firstName, String lastName,
                             int license, LocalDate date, String diagnosis, String treatment,
-                            String visitSummary, String notes) {
+                            String summary, String notes) {
         this.establishmentName = medicalEstablishmentName;
         this.doctorName = firstName + " " + lastName;
         this.doctorLicense = license;
         this.visitDate = date;
         this.diagnosis = diagnosis;
         this.treatment = treatment;
-        this.visitSummary = visitSummary;
+        this.summary = summary;
         this.notes = notes;
 //        validateDiagnosis(diagnosis);
 //        validateTreatment(treatment);

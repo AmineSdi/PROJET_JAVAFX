@@ -56,7 +56,7 @@ public class DoctorTest {
 
         assertEquals(null, mv.getDiagnosis());
         assertEquals(null, mv.getTreatment());
-        assertEquals(null, mv.getVisitSummary());
+        assertEquals(null, mv.getSummary());
         assertEquals(null, mv.getNotes());
     }
 

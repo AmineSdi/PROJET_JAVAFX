@@ -1,5 +1,4 @@
 package Controller;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -110,7 +109,7 @@ public class AddVisitController implements Initializable {
         if(medicalVisit != null) {
             tfDiagnosis.setText(medicalVisit.getDiagnosis());
             tfTreatment.setText(medicalVisit.getTreatment());
-            tfSummary.setText(medicalVisit.getVisitSummary());
+            tfSummary.setText(medicalVisit.getSummary());
             tfNote.setText(medicalVisit.getNotes());
         }
     }

@@ -1,5 +1,4 @@
 package Controller;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,15 +7,19 @@ import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import Model.PatientFile.PatientFile;
 import Model.User.Doctor;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 
@@ -60,22 +63,35 @@ public class SearchResultsController implements Initializable {
     private TextField tfEmail;
 
     //*****************************************************//
+    //FXML TableView and columns variables (MedicalVisit)//
+    //*****************************************************//
+    @FXML
+    private TableView<MedicalVisit> medicalVisitTableView = new TableView<>();
+    @FXML
+    private TableColumn<MedicalVisit, String> colDateOfVisit = new TableColumn<>("visitDate");
+    @FXML
+    private TableColumn<MedicalVisit, String> colDiagnosisVisit = new TableColumn<>("diagnosis");
+    @FXML
+    private TableColumn<MedicalVisit, String> colTreatmentVisit = new TableColumn<>("treatment");
+    @FXML
+    private TableColumn<MedicalVisit, String> colSummaryVisit = new TableColumn<>("summary");
+    @FXML
+    private TableColumn<MedicalVisit, String> colNotesVisit = new TableColumn<>("notes");
+
+    //*****************************************************//
     //FXML TableView and columns variables (MedicalHistory)//
     //*****************************************************//
-    //private TableView<MedicalHistory> tvMedicalHistory;
-    // private TableColumn<MedicalHistory,String> tcDoctorName;
-    // private TableColumn<MedicalHistory,String> tcDiagnosis;
-    // private TableColumn<MedicalHistory,String> tcTreatment;
-    // private TableColumn<MedicalHistory,String>  tcStartDate;
-    // private TableColumn<MedicalHistory,String>  tcEndDate;
-    // // FXML tableView and columns variables (MedicalVisit)
-    // private TableView<MedicalVisit> tvMedicalVisit;
-    // // private TableColumn<MedicalVisit,String> tcDoctorName2;
-    // private TableColumn<MedicalVisit,String> tcDate;
-    // // private TableColumn<MedicalVisit,String> tcDiagnosis2;
-    // // private TableColumn<MedicalVisit,String> tcTreatment2;
-    // private TableColumn<MedicalVisit,String> tcSummary;
-    // private TableColumn<MedicalVisit,String> tcNote;
+    @FXML
+    private TableView<MedicalHistory> medicalHistoryTableView = new TableView<>();
+    @FXML
+    private TableColumn<MedicalHistory, String> colDiagnosisHistory = new TableColumn<>("diagnosis");
+    @FXML
+    private TableColumn<MedicalHistory, String> colTreatmentHistory = new TableColumn<>("treatment");
+    @FXML
+    private TableColumn<MedicalHistory, String> colStartHistory = new TableColumn<>("startDate");
+    @FXML
+    private TableColumn<MedicalHistory, String> colEndHistory = new TableColumn<>("endDate");
+
 
     //*********************//
     //FXML Button Variables//
@@ -97,11 +113,6 @@ public class SearchResultsController implements Initializable {
     @FXML
     public void handleBtnBackToSearch(ActionEvent event) throws Exception {
         goToRamqSearchPage(event);
-//        URL url = new File("src/main/resources/Application/ramqSearch.fxml").toURI().toURL();
-//        Parent root = FXMLLoader.load(url);
-//        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        window.setScene(new Scene(root, 750, 600));
-//        window.show();
     }
     /**
      * THIS BUTTON NEEDS TO BE FIXED
@@ -118,36 +129,20 @@ public class SearchResultsController implements Initializable {
             dataAccessObject.addMedicalHistory(patientFile.getRamqCode(), medicalHistory);
         }
         // TODO : Once saved, must not be able to click on Save button again.
-//        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
-//        Parent root = FXMLLoader.load(url);
-//        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        window.setScene(new Scene(root, 750, 600));
-//        window.show();
     }
     @FXML
     public void handleBtnAddMV(ActionEvent event) throws Exception {
         goToAddVisitPage(event);
-//        URL url = new File("src/main/resources/Application/addVisit.fxml").toURI().toURL();
-//        Parent root = FXMLLoader.load(url);
-//        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        window.setScene(new Scene(root, 750, 600));
-//        window.show();
     }
 
     @FXML
     public void handleBtnAddMH(ActionEvent event) throws Exception {
         goToAddHistoryPage(event);
-//        URL url = new File("src/main/resources/Application/addHistory.fxml").toURI().toURL();
-//        Parent root = FXMLLoader.load(url);
-//        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        window.setScene(new Scene(root, 750, 600));
-//        window.show();
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // showPatientFiles();
     }
 
     public void setResources(Doctor doctor, PatientFile patientFile, MedicalVisit medicalVisit,
@@ -167,6 +162,31 @@ public class SearchResultsController implements Initializable {
         tfEmail.setText(patientFile.getContactInformation().getEmail());
         tfPostalCode.setText(patientFile.getContactInformation().getPostalCode());
         tfStreet.setText(patientFile.getContactInformation().getStreet());
+        showPatientVisits(dataAccessObject, patientFile.getRamqCode());
+        showPatientHistory(dataAccessObject, patientFile.getRamqCode());
+    }
+
+    public void showPatientVisits(DataAccessObject dao, String ramqCode){
+        this.dataAccessObject = dao;
+        ObservableList<MedicalVisit> visitObservableList = dataAccessObject.getObservableVisitsList(ramqCode);
+        System.out.println(visitObservableList.get(0).getSummary());
+        colDateOfVisit.setCellValueFactory(new PropertyValueFactory<>("visitDate"));
+        colDiagnosisVisit.setCellValueFactory(new PropertyValueFactory<>("diagnosis"));
+        colTreatmentVisit.setCellValueFactory(new PropertyValueFactory<>("treatment"));
+        colSummaryVisit.setCellValueFactory(new PropertyValueFactory<>("summary"));
+        colNotesVisit.setCellValueFactory(new PropertyValueFactory<>("notes"));
+        medicalVisitTableView.setItems(visitObservableList);
+    }
+
+
+    public void showPatientHistory(DataAccessObject dao, String ramqCode){
+        this.dataAccessObject = dao;
+        ObservableList<MedicalHistory> historyObservableList = dataAccessObject.getObservableHistoryList(ramqCode);
+        colDiagnosisHistory.setCellValueFactory(new PropertyValueFactory<MedicalHistory, String>("diagnosis"));
+        colTreatmentHistory.setCellValueFactory(new PropertyValueFactory<MedicalHistory, String>("treatment"));
+        colStartHistory.setCellValueFactory(new PropertyValueFactory<MedicalHistory, String>("startDate"));
+        colEndHistory.setCellValueFactory(new PropertyValueFactory<MedicalHistory, String>("endDate"));
+        medicalHistoryTableView.setItems(historyObservableList);
     }
 
     /**
