@@ -345,14 +345,17 @@ public class DataAccessObject {
                 ResultSet doctorNameRS = getDoctorName(doctorLicense, conn);
                 String doctorName = doctorNameRS.getString("firstName")
                         + " " + doctorNameRS.getString("lastName");
-
+                String endDate = resultSet.getString(("endDate"));
+                LocalDate localEndDate = null; if (endDate != null) {
+                    localEndDate = LocalDate.parse(endDate);
+                }
                 history = new MedicalHistory(
                         resultSet.getString("diagnosis"),
                         resultSet.getString("treatment"),
                         doctorName,
                         doctorLicense,
                         LocalDate.parse(resultSet.getString("startDate")),
-                        LocalDate.parse(resultSet.getString("endDate")));
+                        localEndDate);
                 historyObservableList.add(history);
             }
         } catch(Exception ex) {
