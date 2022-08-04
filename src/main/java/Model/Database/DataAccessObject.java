@@ -217,13 +217,22 @@ public class DataAccessObject {
                 String doctorName = doctorNameRS.getString("firstName")
                                     + " " + doctorNameRS.getString("lastName");
 
+                String startDate = resultSet.getString(("startDate"));
+                LocalDate localStartDate = null;
+                if (startDate != null)
+                    localStartDate = LocalDate.parse(startDate);
+                String endDate = resultSet.getString(("endDate"));
+                LocalDate localEndDate = null;
+                if (endDate != null) {
+                    localEndDate = LocalDate.parse(endDate);
+                }
                 history = new MedicalHistory(
                     resultSet.getString("diagnosis"),
                     resultSet.getString("treatment"),
                     doctorName,
                     doctorLicense,
-                    LocalDate.parse(resultSet.getString("startDate")),
-                    LocalDate.parse(resultSet.getString("endDate")));
+                    localStartDate,
+                    localEndDate);
                 histories.add(history);
             }
         } catch(Exception ex) {
@@ -524,7 +533,11 @@ public class DataAccessObject {
         String query =  "INSERT INTO MedicalHistories(patientRamqCode, doctorLicense," +
                         "diagnosis, treatment, startDate, endDate) VALUES ('" +
                         ramqCode + "','" + doctorLicense +  "','" + diagnosis + "','" +
-                        treatment +  "','" + startDate + "','" + endDate +"')";
+                        treatment +  "','" + startDate;
+        if (endDate != null)
+            query = query + "','" + endDate + "')";
+        else
+            query = query + "', NULL)";
         executeQuery(query);
     }
     /**
