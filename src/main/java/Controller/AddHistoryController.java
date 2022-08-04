@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXMLLoader;
@@ -80,7 +81,13 @@ public class AddHistoryController implements Initializable {
                 || dpStartDate.getValue() == null) {
             // TODO : Print error message to user.
             System.out.println("Please complete medical history.");
-        } else {
+        } else if (dpEndDate.getValue() != null &&
+                (!dpStartDate.getValue().isBefore(dpEndDate.getValue())
+                && !dpStartDate.getValue().isEqual(dpEndDate.getValue()))) {
+            // TODO : Print error message to user.
+            System.out.println("Start date must be before end date.");
+        }
+        else {
             goToSearchResultsPage(event);
         }
 //        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
@@ -103,6 +110,25 @@ public class AddHistoryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setDateFormat(dpEndDate);
         setDateFormat(dpStartDate);
+        dpStartDate.getEditor().setDisable(true);
+        dpEndDate.getEditor().setDisable(true);
+    }
+
+    private void setAllowedDates() {
+        LocalDate maxDate = LocalDate.now();
+        dpStartDate.setDayCellFactory(d ->
+                new DateCell() {
+                    @Override public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setDisable(item.isAfter(maxDate));
+                    }});
+
+        dpEndDate.setDayCellFactory(d ->
+                new DateCell() {
+                    @Override public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setDisable(item.isAfter(maxDate));
+                    }});
     }
 
     /**
@@ -152,6 +178,7 @@ public class AddHistoryController implements Initializable {
         } else {
             dpStartDate.setValue(LocalDate.now());
         }
+        setAllowedDates();
     }
 
     /**
