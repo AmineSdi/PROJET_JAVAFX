@@ -115,20 +115,25 @@ public class SearchResultsController implements Initializable {
         goToRamqSearchPage(event);
     }
     /**
-     * THIS BUTTON NEEDS TO BE FIXED
-     * @param event
+     * This button handler sends the local MedicalVisit and/or MedicalHistory to the database,
+     * resetting them to null.
+     * The local PatientFile object is updated appropriately as well.
+     * @param event The ActionEvent.
      * @throws Exception
      */
     @FXML
     public void handleBtnSaveToDB(ActionEvent event) throws Exception {
         if(medicalVisit != null) {
             dataAccessObject.addMedicalVisit(patientFile.getRamqCode(), medicalVisit);
+            patientFile.addMedicalVisit(medicalVisit);
+            medicalVisit = null;
         }
+
         if(medicalHistory != null) {
-            
             dataAccessObject.addMedicalHistory(patientFile.getRamqCode(), medicalHistory);
+            patientFile.addMedicalHistory(medicalHistory);
+            medicalHistory = null;
         }
-        // TODO : Once saved, must not be able to click on Save button again.
     }
     @FXML
     public void handleBtnAddMV(ActionEvent event) throws Exception {
