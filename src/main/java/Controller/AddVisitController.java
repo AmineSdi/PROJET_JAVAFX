@@ -8,6 +8,8 @@ import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import Model.PatientFile.PatientFile;
 import Model.User.Doctor;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * This class handles ''WHAT'' and will provide information
@@ -33,6 +36,8 @@ public class AddVisitController implements Initializable {
     PatientFile patientFile;
     MedicalVisit medicalVisit;
     MedicalHistory medicalHistory;
+
+    Timeline automaticUpdate;
 
     //*************************//
     // FXML TextField variables//
@@ -70,12 +75,7 @@ public class AddVisitController implements Initializable {
      */
     @FXML
     public void handleBtnSaveMV(ActionEvent event) throws Exception {
-        medicalVisit = new MedicalVisit();
-        doctor.setVisitDiagnosis(tfDiagnosis.getText());
-        doctor.setVisitTreatment(tfTreatment.getText());
-        doctor.setVisitNotes(tfNote.getText());
-        doctor.setVisitSummary(tfSummary.getText());
-        medicalVisit.accept(doctor);
+        updateMedicalVisit();
 
 
         if (tfDiagnosis.getText().isEmpty() || tfTreatment.getText().isEmpty()
@@ -85,26 +85,29 @@ public class AddVisitController implements Initializable {
         } else {
             goToSearchResultsPage(event);
         }
-//        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
-//        Parent root = FXMLLoader.load(url);
-//        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        window.setScene(new Scene(root, 750, 600));
-//        window.show();
     }
 
     @FXML
     public void handleBtnCancelAddMV(ActionEvent event) throws Exception {
         goToSearchResultsPage(event);
-//        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
-//        Parent root = FXMLLoader.load(url);
-//        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        window.setScene(new Scene(root, 750, 600));
-//        window.show();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // showPatientFiles();
+    }
+
+    /**
+     * Updates the local MedicalVisit Object
+     */
+    private void updateMedicalVisit() {
+        System.out.println("updated.");
+        medicalVisit = new MedicalVisit();
+        doctor.setVisitDiagnosis(tfDiagnosis.getText());
+        doctor.setVisitTreatment(tfTreatment.getText());
+        doctor.setVisitNotes(tfNote.getText());
+        doctor.setVisitSummary(tfSummary.getText());
+        medicalVisit.accept(doctor);
     }
 
     public void setResources(Doctor doctor, PatientFile patientFile, MedicalVisit medicalVisit,
@@ -120,6 +123,12 @@ public class AddVisitController implements Initializable {
             tfSummary.setText(medicalVisit.getVisitSummary());
             tfNote.setText(medicalVisit.getNotes());
         }
+
+        automaticUpdate = new Timeline(
+                new KeyFrame(Duration.seconds(3),
+                        event -> updateMedicalVisit()));
+        automaticUpdate.setCycleCount(Timeline.INDEFINITE);
+        automaticUpdate.play();
     }
 
     /**
@@ -129,11 +138,16 @@ public class AddVisitController implements Initializable {
      * @throws IOException
      */
     private void goToSearchResultsPage(ActionEvent event) throws IOException {
+        automaticUpdate.stop();
+        automaticUpdate = null;
+
         // Pass data to the next controller
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/searchResults.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/Application/searchResults.fxml"));
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
-        searchResultsController.setResources(doctor, patientFile, medicalVisit, medicalHistory, dataAccessObject);
+        searchResultsController.setResources(doctor, patientFile, medicalVisit, medicalHistory,
+                dataAccessObject);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
