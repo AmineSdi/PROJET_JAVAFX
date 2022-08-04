@@ -43,7 +43,7 @@ public class DoctorTest {
 
         // Invalid Doctor License
         d2 = new Doctor(1, "Gregory", "House", "houseMD",
-                "aaa", 1, "Internal Medicine", establishment);
+                        "aaa", 1, "Internal Medicine", establishment);
 
         // Invalid Specialty
         d3 = new Doctor(1, "Gregory", "House", "houseMD",
@@ -78,7 +78,6 @@ public class DoctorTest {
     @Test public void validateSpecialtyTest_Valid() {
         assertEquals("Internal Medicine", d1.getSpecialty());
     }
-
 
     @Test public void validateSpecialtyTest_Invalid() {
         assertEquals(null, d3.getSpecialty());

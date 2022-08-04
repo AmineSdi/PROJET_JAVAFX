@@ -59,7 +59,7 @@ public class MedicalHistoryTest {
 
 
     @Test public void validateDiagnosis_Valid() {
-        assertEquals("Fever", mh1.getDiagnosis());
+        assertEquals("Fever? He's sick.", mh1.getDiagnosis());
     }
 
     @Test public void validateDiagnosis_Invalid() {
@@ -67,7 +67,7 @@ public class MedicalHistoryTest {
     }
 
     @Test public void validateTreatment_Valid() {
-        assertEquals("Pills", mh1.getTreatment());
+        assertEquals("He takes pills.", mh1.getTreatment());
     }
 
     @Test public void validateTreatment_Invalid() {
@@ -111,10 +111,12 @@ public class MedicalHistoryTest {
     }
 
     @Test public void validateTreatmentModify_Valid() {
-        assertEquals("Chemotherapy", mmh.getTreatment());
+
+        assertEquals("Chemotherapy?", mmh.getTreatment());
     }
 
     @Test public void validateEndDateModify_Valid() {
         assertEquals(LocalDate.now(), mmh.getEndDate());
     }
+
 }

@@ -17,7 +17,6 @@ public class MedicalVisitTest {
     public void initialize() {
         // Everything Valid
         mv1 = new MedicalVisit("Montreal General Hospital",
-
                                "Dr House", 12345, visitDate,"Fever.",
                                "Sleep.", "High temperature 39 degree.", "Happy.");
         // Invalid establishmentName
@@ -123,6 +122,7 @@ public class MedicalVisitTest {
     @Test public void validateVisitSummary_Valid() {
         assertEquals("High temperature 39 degree", mv1.getSummary());
     }
+
 
     @Test public void validateVisitSummary_Invalid() {
         assertEquals(null, mv8.getSummary());
