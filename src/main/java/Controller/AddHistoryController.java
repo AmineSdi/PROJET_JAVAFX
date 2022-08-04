@@ -149,6 +149,8 @@ public class AddHistoryController implements Initializable {
             tfTreatment.setText(medicalHistory.getTreatment());
             dpStartDate.setValue(medicalHistory.getStartDate());
             dpEndDate.setValue(medicalHistory.getEndDate());
+        } else {
+            dpStartDate.setValue(LocalDate.now());
         }
     }
 
