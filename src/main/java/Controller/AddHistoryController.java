@@ -76,7 +76,13 @@ public class AddHistoryController implements Initializable {
         doctor.setHistoryEndDate(dpEndDate.getValue());//(LocalDate.now()); // For now.
 
         medicalHistory.accept(doctor);
-        goToSearchResultsPage(event);
+        if (tfDiagnosis.getText().isEmpty() || tfTreatment.getText().isEmpty()
+                || dpStartDate.getValue() == null) {
+            // TODO : Print error message to user.
+            System.out.println("Please complete medical history.");
+        } else {
+            goToSearchResultsPage(event);
+        }
 //        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
 //        Parent root = FXMLLoader.load(url);
 //        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -146,11 +152,6 @@ public class AddHistoryController implements Initializable {
         }
     }
 
-    public void getDate(ActionEvent event) {
-        setDateFormat(dpEndDate);
-        setDateFormat(dpStartDate);
-    }
-
     /**
      * Goes to the search results page, passing any required data.
      *
@@ -159,11 +160,12 @@ public class AddHistoryController implements Initializable {
      */
     private void goToSearchResultsPage(ActionEvent event) throws IOException {
         // Pass data to the next controller
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/searchResults.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/Application/searchResults.fxml"));
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
-        searchResultsController.setResources(doctor, patientFile, medicalVisit, medicalHistory,
-                dataAccessObject);
+        searchResultsController.setResources(doctor, patientFile, medicalVisit,
+                medicalHistory, dataAccessObject);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);

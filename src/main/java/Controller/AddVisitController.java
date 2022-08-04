@@ -76,8 +76,15 @@ public class AddVisitController implements Initializable {
         doctor.setVisitNotes(tfNote.getText());
         doctor.setVisitSummary(tfSummary.getText());
         medicalVisit.accept(doctor);
-        goToSearchResultsPage(event);
 
+
+        if (tfDiagnosis.getText().isEmpty() || tfTreatment.getText().isEmpty()
+                || tfSummary.getText().isEmpty() || tfNote.getText().isEmpty()) {
+            // TODO : print error message to user.
+            System.out.println("Please complete medical visit.");
+        } else {
+            goToSearchResultsPage(event);
+        }
 //        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
 //        Parent root = FXMLLoader.load(url);
 //        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -132,6 +139,7 @@ public class AddVisitController implements Initializable {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
 
 }
