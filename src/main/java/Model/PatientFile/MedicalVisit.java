@@ -89,7 +89,7 @@ public class MedicalVisit implements Visitable {
 
     public void validateVisitDate(LocalDate visitDate) {
         // Valid visitDate example : today date
-        // Invalid phone examples : not today date
+        // Invalid visitDate examples : not today date
         boolean isValid = false;
 
         LocalDate date = LocalDate.now();
@@ -107,10 +107,10 @@ public class MedicalVisit implements Visitable {
     }
 
     public void validateDiagnosis(String diagnosis) {
-        // Valid diagnosis examples : Cancer, Cold + temperature 39
-        // Invalid diagnosis example : empty field
+        // Valid diagnosis examples : Cancer, Cold + temperature 39, end with punctuation
+        // Invalid diagnosis example : empty field, does not end with punctuation
         boolean isValid = false;
-        String validFormat = "^\\w+(\\s\\w+)*$";
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
         if (diagnosis != null) {
             if (diagnosis.matches(validFormat))
                 isValid = true;
@@ -127,10 +127,10 @@ public class MedicalVisit implements Visitable {
     }
 
     public void validateTreatment(String treatment) {
-        // Valid treatment examples : Sleep, pills
-        // Invalid treatment example : empty field
+        // Valid treatment examples : Sleep, pills, end with punctuation
+        // Invalid treatment example : empty field, does not end with punctuation
         boolean isValid = false;
-        String validFormat = "^\\w+(\\s\\w+)*$";
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
         if (treatment != null) {
 
             if (treatment.matches(validFormat))
@@ -148,10 +148,10 @@ public class MedicalVisit implements Visitable {
     }
 
     public void validateVisitSummary(String visitSummary) {
-        // Valid visitSummary examples : High temperature for 2 days
-        // Invalid visitSummary example : empty field
+        // Valid visitSummary examples : High temperature for 2 days, end with punctuation
+        // Invalid visitSummary example : empty field, does not end with punctuation
         boolean isValid = false;
-        String validFormat = "^\\w+(\\s\\w+)*$";
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
         if (visitSummary != null) {
 
             if (visitSummary.matches(validFormat))
@@ -169,10 +169,10 @@ public class MedicalVisit implements Visitable {
     }
 
     public void validateNotes(String notes) {
-        // Valid visitSummary examples : Had cold in the past
-        // Invalid notes example : empty field
+        // Valid visitSummary examples : Had cold in the past, end with punctuation
+        // Invalid notes example : empty field, does not end with punctuation
         boolean isValid = false;
-        String validFormat = "^\\w+(\\s\\w+)*$";
+        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
         if (notes != null) {
 
             if (notes.matches(validFormat))
@@ -200,13 +200,14 @@ public class MedicalVisit implements Visitable {
         this.doctorName = firstName + " " + lastName;
         this.doctorLicense = license;
         this.visitDate = date;
-        this.diagnosis = diagnosis;
-        this.treatment = treatment;
-        this.summary = summary;
-        this.notes = notes;
-//        validateDiagnosis(diagnosis);
-//        validateTreatment(treatment);
-//        validateVisitSummary(visitSummary);
-//        validateNotes(notes);
+
+        //this.diagnosis = diagnosis;
+        //this.treatment = treatment;
+        //this.visitSummary = visitSummary;
+        //this.notes = notes;
+        validateDiagnosis(diagnosis);
+        validateTreatment(treatment);
+        validateVisitSummary(summary);
+        validateNotes(notes);
     }
 }

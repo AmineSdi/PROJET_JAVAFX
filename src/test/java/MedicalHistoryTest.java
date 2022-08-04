@@ -55,7 +55,7 @@ public class MedicalHistoryTest {
         mmh.modifyHistory("Now has cancer.", "Chemotherapy?", LocalDate.now());
     }
 
-   
+
 
 
     @Test public void validateDiagnosis_Valid() {
