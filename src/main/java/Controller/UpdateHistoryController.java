@@ -1,6 +1,7 @@
 package Controller;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import Model.Database.DataAccessObject;
 import Model.PatientFile.MedicalHistory;
@@ -38,6 +39,9 @@ public class UpdateHistoryController implements Initializable {
     @FXML
     private ComboBox<String> comboBox = new ComboBox<>();
 
+    @FXML
+    private DatePicker dpEndDate;
+
     //*********************//
     //Handle Button Methods//
     //*********************//
@@ -54,20 +58,30 @@ public class UpdateHistoryController implements Initializable {
      */
     @FXML
     public void handleBtnUpdate(ActionEvent event) throws Exception {
-
         // End date must be same or more than Start date.
+        if(dpEndDate.getValue() == null) {
+            //TODO : show error message to user.
+            System.out.println("End date of disease is empty.");
+        } else if (comboBox.getValue() == null) {
+            //TODO : show error message to user.
+            System.out.println("Diagnosis is empty.");
+        } else {
+            LocalDate startDate = dataAccessObject.getStartDate(patientFile.getRamqCode(),
+                    doctor.getLicense(), comboBox.getValue());
 
-        if(medicalVisit != null) {
-            dataAccessObject.addMedicalVisit(patientFile.getRamqCode(), medicalVisit);
-            patientFile.addMedicalVisit(medicalVisit);
-            medicalVisit = null;
-        }
+            if (!startDate.isBefore(dpEndDate.getValue())
+                    && !startDate.isEqual(dpEndDate.getValue())) {
+                //TODO : show error message to user.
+                System.out.println("End date of disease precedes start date of disease.");
+            } else {
+                patientFile.updateEndDate(doctor.getLicense(),
+                        comboBox.getValue(), startDate, dpEndDate.getValue());
 
-        if(medicalHistory != null) {
-            dataAccessObject.addMedicalHistory(patientFile.getRamqCode(), medicalHistory);
-            patientFile.addMedicalHistory(medicalHistory);
-            medicalHistory = null;
+                dataAccessObject.updateEndDate(patientFile.getRamqCode(), doctor.getLicense(),
+                        comboBox.getValue(), startDate, dpEndDate.getValue());
+            }
         }
+        goToSearchResultsPage(event);
     }
 
     @Override
