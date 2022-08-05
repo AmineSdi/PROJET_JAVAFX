@@ -543,6 +543,44 @@ public class DataAccessObject {
             query = query + "', NULL)";
         executeQuery(query);
     }
+
+    /**
+     * Gets a startDate of a specific medical history where the end date is null in the database.
+     * @param ramqCode The RAMQ code of the patient.
+     * @param doctorLicense The doctor's license
+     * @param diagnosis The Diagnosis
+     * @return The Start Date
+     */
+    public LocalDate getStartDate(String ramqCode, int doctorLicense, String diagnosis) {
+        Connection conn = DBConnection.getInstance().getConnection();
+        Statement statement;
+        ResultSet resultSet = null;
+        String startDate = null;
+        try {
+            String queryEstablishmentName = "SELECT startDate FROM MedicalHistories WHERE patientRamqCode = '" +
+                    ramqCode + "' AND doctorLicense = " + doctorLicense + " AND diagnosis = '" + diagnosis + "' AND endDate IS NULL";
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(queryEstablishmentName);
+            startDate = resultSet.getString("startDate");
+        } catch ( Exception ex) {
+            ex.printStackTrace();
+        }
+
+        if (startDate != null)
+            return LocalDate.parse(startDate);
+        else
+            return null;
+    }
+
+    public void updateEndDate(String ramqCode, int doctorLicense, String diagnosis,
+                               LocalDate startDate, LocalDate endDate) {
+        String query = "UPDATE MedicalHistories SET endDate = '" + endDate + "' WHERE patientRamqCode = '" +
+                ramqCode + "' AND doctorLicense = " + doctorLicense + " AND diagnosis = '" + diagnosis +
+                "' AND startDate = '" + startDate + "' AND endDate IS NULL";
+        executeQuery(query);
+    }
+
+
     /**
      * This method
      * @param query

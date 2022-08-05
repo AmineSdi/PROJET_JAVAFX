@@ -95,4 +95,7 @@ public class MedicalHistory implements Visitable {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+
+
+
 }

@@ -120,6 +120,20 @@ public class PatientFile {
         return medicalHistories;
     }
 
+    /**
+     * Updates the end date of a specific medical history.
+     */
+    public void updateEndDate(int doctorLicense, String diagnosis, LocalDate startDate,
+                              LocalDate endDate) {
+        for (MedicalHistory history: medicalHistories) {
+            if (history.getDoctorLicense() == doctorLicense
+                    && history.getDiagnosis() == diagnosis
+                    && history.getStartDate().isEqual(startDate)
+                    && history.endDate == null)
+                history.setEndDate(endDate);
+        }
+    }
+
     // For Builder pattern
     public void setMedicalHistories(List<MedicalHistory> medicalHistories) {
         this.medicalHistories = medicalHistories;
