@@ -35,6 +35,10 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
+      <Button id="blue" fx:id="btnUpdateMedicalHistory" layoutX="592.0" layoutY="739.0" mnemonicParsing="false" onAction="#handleBtnUpdateMH" prefHeight="51.0" prefWidth="210.0" stylesheets="@../css/stylesheet.css" text="Update History">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Text layoutX="896.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FirstName">
          <font>
             <Font name="AnjaliOldLipi Regular" size="15.0" />

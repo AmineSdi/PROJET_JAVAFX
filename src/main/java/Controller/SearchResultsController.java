@@ -37,6 +37,9 @@ public class SearchResultsController implements Initializable {
     MedicalVisit medicalVisit = null;
     MedicalHistory medicalHistory = null;
 
+    ObservableList<MedicalVisit> visitObservableList;
+    ObservableList<MedicalHistory> historyObservableList;
+
     //*************************//
     // FXML TextField variables//
     //*************************//
@@ -147,6 +150,11 @@ public class SearchResultsController implements Initializable {
         goToAddHistoryPage(event);
     }
 
+    @FXML
+    public void handleBtnUpdateMH(ActionEvent event) throws Exception {
+        goToUpdateHistoryPage(event);
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -175,7 +183,7 @@ public class SearchResultsController implements Initializable {
 
     public void showPatientVisits(DataAccessObject dao, String ramqCode){
         this.dataAccessObject = dao;
-        ObservableList<MedicalVisit> visitObservableList = dataAccessObject.getObservableVisitsList(ramqCode);
+        visitObservableList = dataAccessObject.getObservableVisitsList(ramqCode);
         colDateOfVisit.setCellValueFactory(new PropertyValueFactory<>("visitDate"));
         colDiagnosisVisit.setCellValueFactory(new PropertyValueFactory<>("diagnosis"));
         colTreatmentVisit.setCellValueFactory(new PropertyValueFactory<>("treatment"));
@@ -187,7 +195,7 @@ public class SearchResultsController implements Initializable {
 
     public void showPatientHistory(DataAccessObject dao, String ramqCode){
         this.dataAccessObject = dao;
-        ObservableList<MedicalHistory> historyObservableList = dataAccessObject.getObservableHistoryList(ramqCode);
+        historyObservableList = dataAccessObject.getObservableHistoryList(ramqCode);
         colDiagnosisHistory.setCellValueFactory(new PropertyValueFactory<MedicalHistory, String>("diagnosis"));
         colTreatmentHistory.setCellValueFactory(new PropertyValueFactory<MedicalHistory, String>("treatment"));
         colStartHistory.setCellValueFactory(new PropertyValueFactory<MedicalHistory, String>("startDate"));
@@ -228,6 +236,26 @@ public class SearchResultsController implements Initializable {
         AddHistoryController addHistoryController = loader.getController();
         addHistoryController.setResources(doctor, patientFile, medicalVisit, medicalHistory,
                 dataAccessObject);
+
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * Goes to the update history page, passing any required data.
+     *
+     * @param event The ActionEvent
+     * @throws IOException
+     */
+    private void goToUpdateHistoryPage(ActionEvent event) throws IOException {
+        // Pass data to the next controller
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/updateHistory.fxml"));
+        root = loader.load();
+        UpdateHistoryController updateHistoryController = loader.getController();
+        updateHistoryController.setResources(doctor, patientFile, medicalVisit, medicalHistory,
+                dataAccessObject, historyObservableList);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
