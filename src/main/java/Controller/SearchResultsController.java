@@ -126,12 +126,14 @@ public class SearchResultsController implements Initializable {
         if(medicalVisit != null) {
             dataAccessObject.addMedicalVisit(patientFile.getRamqCode(), medicalVisit);
             patientFile.addMedicalVisit(medicalVisit);
+            showPatientVisits(dataAccessObject, patientFile.getRamqCode());
             medicalVisit = null;
         }
 
         if(medicalHistory != null) {
             dataAccessObject.addMedicalHistory(patientFile.getRamqCode(), medicalHistory);
             patientFile.addMedicalHistory(medicalHistory);
+            showPatientHistory(dataAccessObject, patientFile.getRamqCode());
             medicalHistory = null;
         }
     }
