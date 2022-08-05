@@ -6,7 +6,6 @@ DROP Table IF EXISTS PatientFiles;
 DROP Table IF EXISTS Users;
 DROP Table IF EXISTS ContactInformation;
 
-
 CREATE Table Users (
    id INTEGER PRIMARY KEY AUTOINCREMENT,
    firstName varchar(30) NOT NULL,
@@ -20,15 +19,15 @@ CREATE Table ContactInformation (
     number INTEGER NOT NULL,
     street varchar(30),
     city varchar (30),
-    postalCode varchar (6), 
+    postalCode varchar (6),
     phone varchar(13),
     email varchar(30)
 );
 
 CREATE Table MedicalEstablishments(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name varchar(150) NOT NULL, 
-    contactInfoId INTEGER NOT NULL, 
+    name varchar(150) NOT NULL,
+    contactInfoId INTEGER NOT NULL,
     FOREIGN KEY (contactInfoId) REFERENCES ContactInformation(id)
 );
 
@@ -49,7 +48,7 @@ CREATE Table PatientFiles (
    birthCity varchar(30) NOT NULL,
    birthDate text NOT NULL,
    parentsName varchar(80) NOT NULL,
-   contactInfoId INTEGER NOT NULL, 
+   contactInfoId INTEGER NOT NULL,
    FOREIGN KEY (contactInfoId) REFERENCES ContactInformation(id)
 );
 
@@ -60,9 +59,10 @@ CREATE Table MedicalHistories (
    diagnosis varchar(50) NOT NULL,
    treatment varchar(50) NOT NULL,
    startDate text NOT NULL,
-   endDate text, 
+   endDate text,
    FOREIGN KEY (patientRamqCode) REFERENCES PatientFiles(ramqCode),
-   FOREIGN KEY (doctorLicense) REFERENCES Doctors(license)
+   FOREIGN KEY (doctorLicense) REFERENCES Doctors(license),
+   unique (patientRamqCode, doctorLicense, diagnosis, startDate)
 );
 
 CREATE Table MedicalVisits (
@@ -73,7 +73,7 @@ CREATE Table MedicalVisits (
    diagnosis varchar(50) NOT NULL,
    treatment varchar(50) NOT NULL,
    summary text NOT NULL,
-   notes text NOT NULL, 
+   notes text NOT NULL,
    FOREIGN KEY (patientRamqCode) REFERENCES PatientFiles(ramqCode),
    FOREIGN KEY (doctorLicense) REFERENCES Doctors(license)
 );
@@ -107,21 +107,14 @@ INSERT into PatientFiles VALUES ("CHAC70110503", "Charlie", "Chaplin", "MALE", "
 
 -- Add some medical histories and medical visits
 
--- Alice saw Dr House on July 8th and was diagnosed with a common cold. 
+-- Alice saw Dr House on July 8th and was diagnosed with a common cold.
 INSERT into MedicalHistories VALUES (1, "ALLA60050501", 11111, "Common cold", "Rest", "2022-07-08", "2022-07-08");
 INSERT into MedicalVisits VALUES (1, "ALLA60050501", 11111, "2022-07-08", "Common cold", "Rest", "Patient complained of runny nose.", "Patient was asked to follow-up if symptoms persisted. ");
 
--- Bob saw Dr Wilson on October 10th and was diagnosed with arthrosis. 
+-- Bob saw Dr Wilson on October 10th and was diagnosed with arthrosis.
 INSERT into MedicalHistories VALUES (2, "BAKB68120102", 11112, "Knee arthrosis", "Tylenol", "2022-10-10", NULL);
 INSERT into MedicalVisits VALUES (2, "BAKB68120102", 11112, "2022-10-10", "Knee arthrosis", "Tylenol", "Patient complained of painful right knee when walking up the stairs.", "Follow-up in one month.");
 
--- Charlie saw Dr Cox on October 12th and was diagnosed with Diabetes. 
+-- Charlie saw Dr Cox on October 12th and was diagnosed with Diabetes.
 INSERT into MedicalHistories VALUES (3, "CHAC70110503", 11113, "Diabetes", "Metformin", "2022-10-12", NULL);
 INSERT into MedicalVisits VALUES (3, "CHAC70110503", 11113, "2022-10-12", "Diabetes", "Metformin", "Patient's test results indicated Diabetes.", "Started treatment. Follow-up with another test in 3 months.");
-
-
--- Test
-SELECT * FROM ContactInformation WHERE id = (SELECT contactInfoId FROM PatientFiles WHERE ramqCode = "ALLA60050501");
-
-
-
