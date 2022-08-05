@@ -54,6 +54,9 @@ public class UpdateHistoryController implements Initializable {
      */
     @FXML
     public void handleBtnUpdate(ActionEvent event) throws Exception {
+
+        // End date must be same or more than Start date.
+
         if(medicalVisit != null) {
             dataAccessObject.addMedicalVisit(patientFile.getRamqCode(), medicalVisit);
             patientFile.addMedicalVisit(medicalVisit);
