@@ -11,7 +11,7 @@ public class MedicalEstablishmentTest {
     ContactInformation ci;
 
     @BeforeEach
-    public void initialize() {
+    void initialize() {
 
         ci = new ContactInformation(1000, "St-Denis Street",
                                     "Montreal", "H2X0C1", "(514) 890-8000", "help@chum.qc");
@@ -27,19 +27,19 @@ public class MedicalEstablishmentTest {
 
     }
 
-    @Test public void validateEstablishmentId_Valid() {
+    @Test void validateEstablishmentId_Valid() {
         assertEquals(2022, me1.getEstablishmentId());
     }
 
-    @Test public void validateEstablishmentId_Invalid() {
+    @Test void validateEstablishmentId_Invalid() {
         assertEquals(0, me2.getEstablishmentId());
     }
 
-    @Test public void validateName_Valid() {
+    @Test void validateName_Valid() {
         assertEquals("Charles-Lemoyne Hopital", me1.getName());
     }
 
-    @Test public void validateName_Invalid() {
+    @Test void validateName_Invalid() {
         assertEquals(null, me3.getName());
     }
 
