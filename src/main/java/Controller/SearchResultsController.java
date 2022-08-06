@@ -191,7 +191,9 @@ public class SearchResultsController implements Initializable {
         tfFirstName.setText(patientFile.getFirstName());
         tfLastName.setText(patientFile.getLastName());
         tfCity.setText(patientFile.getBirthCity());
-        tfBirthDate.setText(patientFile.getBirthDate().toString());
+        if(patientFile.getBirthDate() != null) {
+            tfBirthDate.setText(patientFile.getBirthDate().toString());
+        }
         tfKnownParents.setText(patientFile.getKnownParents());
         tfPhone.setText(patientFile.getContactInformation().getPhone());
         tfEmail.setText(patientFile.getContactInformation().getEmail());
