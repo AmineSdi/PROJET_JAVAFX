@@ -1,20 +1,21 @@
 package Controller;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.sql.Date;
 import java.util.ResourceBundle;
 import Model.Database.DataAccessObject;
 import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import Model.PatientFile.PatientFile;
 import Model.User.Doctor;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.StringConverter;
 
 /**
@@ -37,8 +39,7 @@ public class AddHistoryController implements Initializable {
     PatientFile patientFile;
     MedicalVisit medicalVisit;
     MedicalHistory medicalHistory;
-
-
+    Timeline automaticUpdate;
 
     //*************************//
     // FXML TextField variables//
@@ -69,14 +70,22 @@ public class AddHistoryController implements Initializable {
     //*********************//
     @FXML
     public void handleBtnSaveMH(ActionEvent event) throws Exception {
-        medicalHistory = new MedicalHistory();
-        doctor.setHistoryDiagnosis(tfDiagnosis.getText());
-        doctor.setHistoryTreatment(tfTreatment.getText());
-        doctor.setHistoryStartDate(dpStartDate.getValue());
-        doctor.setHistoryEndDate(dpEndDate.getValue());//(LocalDate.now()); // For now.
+        updateMedicalHistory();
 
-        medicalHistory.accept(doctor);
-        goToSearchResultsPage(event);
+
+        if (tfDiagnosis.getText().isEmpty() || tfTreatment.getText().isEmpty()
+                || dpStartDate.getValue() == null) {
+            // TODO : Print error message to user.
+            System.out.println("Please complete medical history.");
+        } else if (dpEndDate.getValue() != null &&
+                (!dpStartDate.getValue().isBefore(dpEndDate.getValue())
+                && !dpStartDate.getValue().isEqual(dpEndDate.getValue()))) {
+            // TODO : Print error message to user.
+            System.out.println("Start date must be before end date.");
+        }
+        else {
+            goToSearchResultsPage(event);
+        }
 //        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
 //        Parent root = FXMLLoader.load(url);
 //        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -97,6 +106,38 @@ public class AddHistoryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setDateFormat(dpEndDate);
         setDateFormat(dpStartDate);
+        dpStartDate.getEditor().setDisable(true);
+        dpEndDate.getEditor().setDisable(true);
+    }
+
+    /**
+     * Updates the local MedicalHistory Object
+     */
+    private void updateMedicalHistory() {
+        System.out.println("Updated.");
+        medicalHistory = new MedicalHistory();
+        doctor.setHistoryDiagnosis(tfDiagnosis.getText());
+        doctor.setHistoryTreatment(tfTreatment.getText());
+        doctor.setHistoryStartDate(dpStartDate.getValue());
+        doctor.setHistoryEndDate(dpEndDate.getValue());
+        medicalHistory.accept(doctor);
+    }
+
+    private void setAllowedDates() {
+        LocalDate maxDate = LocalDate.now();
+        dpStartDate.setDayCellFactory(d ->
+                new DateCell() {
+                    @Override public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setDisable(item.isAfter(maxDate));
+                    }});
+
+        dpEndDate.setDayCellFactory(d ->
+                new DateCell() {
+                    @Override public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setDisable(item.isAfter(maxDate));
+                    }});
     }
 
     /**
@@ -143,12 +184,16 @@ public class AddHistoryController implements Initializable {
             tfTreatment.setText(medicalHistory.getTreatment());
             dpStartDate.setValue(medicalHistory.getStartDate());
             dpEndDate.setValue(medicalHistory.getEndDate());
+        } else {
+            dpStartDate.setValue(LocalDate.now());
         }
-    }
+        setAllowedDates();
 
-    public void getDate(ActionEvent event) {
-        setDateFormat(dpEndDate);
-        setDateFormat(dpStartDate);
+        automaticUpdate = new Timeline(
+                new KeyFrame(Duration.seconds(3),
+                        event -> updateMedicalHistory()));
+        automaticUpdate.setCycleCount(Timeline.INDEFINITE);
+        automaticUpdate.play();
     }
 
     /**
@@ -158,12 +203,16 @@ public class AddHistoryController implements Initializable {
      * @throws IOException
      */
     private void goToSearchResultsPage(ActionEvent event) throws IOException {
+        automaticUpdate.stop();
+        automaticUpdate = null;
+
         // Pass data to the next controller
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/searchResults.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/Application/searchResults.fxml"));
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
-        searchResultsController.setResources(doctor, patientFile, medicalVisit, medicalHistory,
-                dataAccessObject);
+        searchResultsController.setResources(doctor, patientFile, medicalVisit,
+                medicalHistory, dataAccessObject);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);

@@ -72,7 +72,9 @@ public class RamqSearchController implements Initializable {
 
     @FXML
     public void handleBtnSearch(ActionEvent event) throws Exception {
-        if (tfRamqCode.getText().isEmpty()) {
+        String ramqCode = tfRamqCode.getText();
+
+        if (ramqCode.isEmpty()) {
 
               errorNoPatient.setVisible(false);
               errorNoField.setVisible(true);
@@ -81,9 +83,12 @@ public class RamqSearchController implements Initializable {
         }
         else {
             Director director = new Director();
-            PatientFileBuilder builder = new PatientFileBuilder(tfRamqCode.getText(),
-                    dataAccessObject);
-            patientFile = director.buildPatientFile(builder, tfRamqCode.getText());
+            PatientFileBuilder builder = new PatientFileBuilder(ramqCode, dataAccessObject);
+            if(dataAccessObject.patientExistsInDB(ramqCode)) {
+                patientFile = director.buildPatientFile(builder, ramqCode);
+            } else {
+                patientFile = null;
+            }
 
 //            Doctor doctor = dataAccessObject.findUsernameAndPassword(tfUserName.getText(), tfPassword.getText());
             if (patientFile != null) {
