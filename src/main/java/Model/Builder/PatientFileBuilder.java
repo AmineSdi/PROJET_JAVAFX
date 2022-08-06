@@ -76,7 +76,8 @@ public class PatientFileBuilder implements Builder {
             String resultGender = result.get("gender");
             firstName = result.get("firstName");
             lastName = result.get("lastName");
-            gender = resultGender == "FEMALE" ? FEMALE : (resultGender == "MALE" ? MALE : OTHER);
+            gender = resultGender.equals("FEMALE") ? FEMALE :
+                    (resultGender.equals("MALE") ? MALE : OTHER);
             birthCity = result.get("birthCity");
             birthDate = LocalDate.parse(result.get("birthDate"));
             knownParents = result.get("parentsName");
