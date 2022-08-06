@@ -107,14 +107,32 @@ INSERT into PatientFiles VALUES ("CHAC70110503", "Charlie", "Chaplin", "MALE", "
 
 -- Add some medical histories and medical visits
 
--- Alice saw Dr House on July 8th and was diagnosed with a common cold.
-INSERT into MedicalHistories VALUES (1, "ALLA60050501", 11111, "Common cold", "Rest", "2022-07-08", "2022-07-08");
-INSERT into MedicalVisits VALUES (1, "ALLA60050501", 11111, "2022-07-08", "Common cold", "Rest", "Patient complained of runny nose.", "Patient was asked to follow-up if symptoms persisted. ");
+-- Medical history for Alice
+INSERT into MedicalHistories VALUES (1, "ALLA60050501", 11112, "Childhood ADHD", "Ritalin", "1965-05-05", "1970-05-05");
+INSERT into MedicalHistories VALUES (2, "ALLA60050501", 11111, "Hypertension", "ACE inhibitor", "2016-01-11", NULL);
+INSERT into MedicalHistories VALUES (3, "ALLA60050501", 11113, "Covid-19", "Isolation and Rest", "2022-05-08", "2022-05-22");
+INSERT into MedicalHistories VALUES (4, "ALLA60050501", 11111, "Benign breast tumor", "Regular follow-up", "2022-06-11", NULL);
+INSERT into MedicalHistories VALUES (5, "ALLA60050501", 11111, "Common cold", "Rest", "2022-07-08", "2022-07-10");
 
--- Bob saw Dr Wilson on October 10th and was diagnosed with arthrosis.
-INSERT into MedicalHistories VALUES (2, "BAKB68120102", 11112, "Knee arthrosis", "Tylenol", "2022-10-10", NULL);
-INSERT into MedicalVisits VALUES (2, "BAKB68120102", 11112, "2022-10-10", "Knee arthrosis", "Tylenol", "Patient complained of painful right knee when walking up the stairs.", "Follow-up in one month.");
+-- Alice's medical visits
+INSERT into MedicalVisits VALUES (1, "ALLA60050501", 11111, "2016-01-11", "Hypertension", "Ace inhibitor", "Patient presented 160/90. Treatment prescribed.", "Follow-up as needed.");
+INSERT into MedicalVisits VALUES (2, "ALLA60050501", 11113, "2022-05-08", "Covid-19", "Isolation and Rest", "Patient presented cough and fever, quick test was positive.", "Patient advised to go to ER if short of breath.");
+INSERT into MedicalVisits VALUES (3, "ALLA60050501", 11111, "2022-07-08", "Common cold", "Rest", "Patient complained of runny nose.", "Patient was asked to follow-up if symptoms persisted. ");
 
--- Charlie saw Dr Cox on October 12th and was diagnosed with Diabetes.
-INSERT into MedicalHistories VALUES (3, "CHAC70110503", 11113, "Diabetes", "Metformin", "2022-10-12", NULL);
-INSERT into MedicalVisits VALUES (3, "CHAC70110503", 11113, "2022-10-12", "Diabetes", "Metformin", "Patient's test results indicated Diabetes.", "Started treatment. Follow-up with another test in 3 months.");
+
+-- Medical history for Bob
+INSERT into MedicalHistories VALUES (6, "BAKB68120102", 11112, "Broken arm", "Surgery", "2019-01-25", "2019-05-25");
+INSERT into MedicalHistories VALUES (7, "BAKB68120102", 11112, "Knee arthrosis", "Tylenol", "2022-08-01", NULL);
+
+-- Bob's medical visits
+INSERT into MedicalVisits VALUES (4, "BAKB68120102", 11112, "2019-01-25", "Broken arm", "Surgery", "Patient fell on right arm and can't feel his fingers.", "Radiograph showed a severe fracture, patient was sent for immediate surgery.");
+INSERT into MedicalVisits VALUES (5, "BAKB68120102", 11112, "2022-08-01", "Knee arthrosis", "Tylenol", "Patient complained of painful right knee when walking up the stairs.", "Follow-up in one month.");
+
+
+-- Medical history for Charlie
+INSERT into MedicalHistories VALUES (8, "CHAC70110503", 11113, "Diabetes", "Metformin", "2022-07-12", NULL);
+INSERT into MedicalHistories VALUES (9, "CHAC70110503", 11113, "Hypertension", "Exercise", "2022-07-12", NULL);
+INSERT into MedicalHistories VALUES (10, "CHAC70110503", 11113, "High cholesterol", "Exercise", "2022-07-12", NULL);
+
+-- Charlie's medical visits.
+INSERT into MedicalVisits VALUES (6, "CHAC70110503", 11113, "2022-07-12", "Diabetes, hypertension, cholesterol", "Metformin and exercise", "Patient's test results indicated Diabetes, hypertension and cholesterol. Started treatment.", "Patient says he will do exercise but I am not convinced. Follow-up in 3 months.");
