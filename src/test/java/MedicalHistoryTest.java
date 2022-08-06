@@ -56,6 +56,7 @@ public class MedicalHistoryTest {
                 "Sleep", LocalDate.now(), null);
     }
 
+
     @Test void validateDiagnosis_Valid() {
         assertEquals("He's sick", mh1.getDiagnosis());
     }
@@ -103,6 +104,7 @@ public class MedicalHistoryTest {
     @Test void validateEndDate_Invalid() {
         assertEquals(null, mh7.getEndDate());
     }
+
 
     @Test void validateDoctorFirstModify_Valid() {
         assertEquals("John Smith", mmh.getDoctorName());

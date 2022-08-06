@@ -202,10 +202,6 @@ public class MedicalVisit implements Visitable {
         this.doctorName = firstName + " " + lastName;
         validateDoctorLicense(license);
         validateVisitDate(date);
-        //this.diagnosis = diagnosis;
-        //this.treatment = treatment;
-        //this.visitSummary = visitSummary;
-        //this.notes = notes;
         validateDiagnosis(diagnosis);
         validateTreatment(treatment);
         validateVisitSummary(summary);
