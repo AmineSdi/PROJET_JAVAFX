@@ -47,6 +47,8 @@ public class SearchResultsController implements Initializable {
     @FXML
     private TextField tfLastName;
     @FXML
+    private TextField tfGender;
+    @FXML
     private TextField tfRamqCode;
     @FXML
     private TextField tfBirthDate;
@@ -190,6 +192,7 @@ public class SearchResultsController implements Initializable {
         tfRamqCode.setText(patientFile.getRamqCode());
         tfFirstName.setText(patientFile.getFirstName());
         tfLastName.setText(patientFile.getLastName());
+        tfGender.setText(patientFile.getGender().toString());
         tfCity.setText(patientFile.getBirthCity());
         tfBirthDate.setText(patientFile.getBirthDate().toString());
         tfKnownParents.setText(patientFile.getKnownParents());
