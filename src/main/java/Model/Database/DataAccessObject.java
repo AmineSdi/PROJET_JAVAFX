@@ -8,6 +8,7 @@ import Model.PatientFile.PatientFile;
 import Model.User.Doctor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,6 +16,29 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DataAccessObject {
+
+    /**
+     * Checks if the patient RAMQ code exists in the database.
+     * @param ramqCode The patient RAMQ code
+     * @return true if it exists, false otherwise.
+     */
+    public boolean patientExistsInDB(String ramqCode) {
+        String query = "SELECT * FROM PatientFiles WHERE ramqCode = \""
+                + ramqCode + "\" LIMIT 1";
+        boolean isFound = false;
+        Connection conn = DBConnection.getInstance().getConnection();
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(query);
+            isFound = resultSet.isBeforeFirst();
+        } catch ( Exception ex ) {
+            ex.printStackTrace();
+        }
+
+        return isFound;
+    }
 
     public HashMap<String, String> getPatientFileInfoFromDB(String ramqCode) {
         String userQuery = "SELECT * FROM PatientFiles WHERE ramqCode = \""
@@ -116,24 +140,6 @@ public class DataAccessObject {
         }
         return patientFiles;
     }
-
-    public void insertRecord(String ramqCode, String firstName, String lastName) {
-        String query = "INSERT INTO PatientFiles VALUES (" + ramqCode +
-                       ",'" + firstName + "','" + lastName + "')";
-        executeQuery(query);
-    }
-
-    public void updateRecord(String firstName, String lastName, String ramqCode) {
-        String query = "UPDATE PatientFiles SET firstName  = '" + firstName + "', lastName = '"
-                       + lastName + "' WHERE ramqCode = " + ramqCode + "";
-        executeQuery(query);
-    }
-
-    public void deleteButton(String ramqCode) {
-        String query = "DELETE FROM PatientFiles WHERE ramqCode =" + ramqCode + "";
-        executeQuery(query);
-    }
-
     /**
      * This method makes a query to the database in order to get all medical visits of a patient file.
      * @return
@@ -211,13 +217,22 @@ public class DataAccessObject {
                 String doctorName = doctorNameRS.getString("firstName")
                                     + " " + doctorNameRS.getString("lastName");
 
+                String startDate = resultSet.getString(("startDate"));
+                LocalDate localStartDate = null;
+                if (startDate != null)
+                    localStartDate = LocalDate.parse(startDate);
+                String endDate = resultSet.getString(("endDate"));
+                LocalDate localEndDate = null;
+                if (endDate != null) {
+                    localEndDate = LocalDate.parse(endDate);
+                }
                 history = new MedicalHistory(
                     resultSet.getString("diagnosis"),
                     resultSet.getString("treatment"),
                     doctorName,
                     doctorLicense,
-                    LocalDate.parse(resultSet.getString("startDate")),
-                    LocalDate.parse(resultSet.getString("endDate")));
+                    localStartDate,
+                    localEndDate);
                 histories.add(history);
             }
         } catch(Exception ex) {
@@ -260,6 +275,90 @@ public class DataAccessObject {
         }
 
         return doctor;
+    }
+
+    public ObservableList<MedicalVisit> getObservableVisitsList(String ramqCode){
+        ObservableList<MedicalVisit> medicalVisits = FXCollections.observableArrayList();
+        String query = "SELECT * FROM MedicalVisits WHERE patientRamqCode = \"" + ramqCode + "\"";
+        medicalVisits = getObservableVisitsDB(query);
+        return medicalVisits;
+    }
+
+    private ObservableList<MedicalVisit> getObservableVisitsDB(String query){
+            Statement statement;
+            ResultSet resultSet;
+            ObservableList<MedicalVisit> visits = FXCollections.observableArrayList();
+            Connection conn = DBConnection.getInstance().getConnection();
+            try {
+                statement = conn.createStatement();
+                resultSet = statement.executeQuery(query);
+                MedicalVisit visit;
+                while(resultSet.next()) {
+                    int doctorLicense = resultSet.getInt("doctorLicense");
+
+                    // Get doctor name for that visit.
+                    ResultSet doctorNameRS = getDoctorName(doctorLicense, conn);
+                    String doctorName = doctorNameRS.getString("firstName")
+                            + " " + doctorNameRS.getString("lastName");
+
+                    // Get establishment name for that visit.
+                    ResultSet establishmentNameRS = getEstablishmentName(doctorLicense, conn);
+                    String establishmentName = establishmentNameRS.getString("name");
+
+                    visit = new MedicalVisit(
+                            establishmentName,
+                            doctorName,
+                            doctorLicense,
+                            LocalDate.parse(resultSet.getString("visitDate")),
+                            resultSet.getString("diagnosis"),
+                            resultSet.getString("treatment"),
+                            resultSet.getString("summary"),
+                            resultSet.getString("notes"));
+                    visits.add(visit);
+                }
+            } catch(Exception ex) {
+                ex.printStackTrace();
+            }
+            return visits;
+    }
+
+    public ObservableList<MedicalHistory> getObservableHistoryList(String ramqCode){
+        ObservableList<MedicalHistory> medicalHistory = FXCollections.observableArrayList();
+        String query = "SELECT * FROM MedicalHistories WHERE patientRamqCode = \"" + ramqCode + "\"";
+        medicalHistory = getObservableHistoryDB(query);
+        return medicalHistory;
+    }
+
+    private ObservableList<MedicalHistory> getObservableHistoryDB(String query){
+        Statement statement;
+        ResultSet resultSet;
+        ObservableList<MedicalHistory> historyObservableList = FXCollections.observableArrayList();
+        Connection conn = DBConnection.getInstance().getConnection();
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(query);
+            MedicalHistory history;
+            while(resultSet.next()) {
+                int doctorLicense = resultSet.getInt("doctorLicense");
+
+                // Get doctor name for that history.
+                ResultSet doctorNameRS = getDoctorName(doctorLicense, conn);
+                String doctorName = doctorNameRS.getString("firstName")
+                        + " " + doctorNameRS.getString("lastName");
+
+                history = new MedicalHistory(
+                        resultSet.getString("diagnosis"),
+                        resultSet.getString("treatment"),
+                        doctorName,
+                        doctorLicense,
+                        LocalDate.parse(resultSet.getString("startDate")),
+                        LocalDate.parse(resultSet.getString("endDate")));
+                historyObservableList.add(history);
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return historyObservableList;
     }
 
     /**
@@ -407,7 +506,7 @@ public class DataAccessObject {
         String visitDate = medicalVisit.getVisitDate().toString();
         String diagnosis = medicalVisit.getDiagnosis();
         String treatment = medicalVisit.getTreatment();
-        String summary = medicalVisit.getVisitSummary();
+        String summary = medicalVisit.getSummary();
         String notes = medicalVisit.getNotes();
         String query =  "INSERT INTO MedicalVisits(patientRamqCode," +
                         " doctorLicense, visitDate, diagnosis, treatment, summary, notes) " +
@@ -434,7 +533,11 @@ public class DataAccessObject {
         String query =  "INSERT INTO MedicalHistories(patientRamqCode, doctorLicense," +
                         "diagnosis, treatment, startDate, endDate) VALUES ('" +
                         ramqCode + "','" + doctorLicense +  "','" + diagnosis + "','" +
-                        treatment +  "','" + startDate + "','" + endDate +"')";
+                        treatment +  "','" + startDate;
+        if (endDate != null)
+            query = query + "','" + endDate + "')";
+        else
+            query = query + "', NULL)";
         executeQuery(query);
     }
     /**
