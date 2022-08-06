@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -52,6 +53,22 @@ public class AddHistoryController implements Initializable {
     private DatePicker dpStartDate;
     @FXML
     private DatePicker dpEndDate;
+    
+
+    //*************************//
+    // FXML Label variables (error messages)//
+    //*************************//
+    @FXML
+    private Label errorCompleteMH;
+    @FXML
+    private Label errorDate;
+
+    //*************************//
+    // FXML imageView variables (error messages)//
+    //*************************//
+    @FXML
+    private ImageView errorCaution;
+
 
     //*********************//
     //FXML Button Variables//
@@ -71,15 +88,57 @@ public class AddHistoryController implements Initializable {
         updateMedicalHistory();
 
 
+
+        if(tfDiagnosis.getText().isEmpty()) {
+            tfDiagnosis.setStyle("-fx-border-color: red");
+            
+        } else {
+            tfDiagnosis.setStyle("-fx-border-color: #66adff");
+        }
+
+        if(tfTreatment.getText().isEmpty()) {
+            tfTreatment.setStyle("-fx-border-color: red");
+           
+        } else {
+            tfTreatment.setStyle("-fx-border-color: #66adff");
+        }
+        
+        if (dpStartDate.getValue() == null) {
+            dpStartDate.setStyle("-fx-border-color: red");
+            dpEndDate.setStyle("-fx-border-color: red");
+    
+        } else {
+            dpStartDate.setStyle("-fx-border-color: transparent");
+            dpEndDate.setStyle("-fx-border-color: transaprent");
+        }
+       
+
+
         if (tfDiagnosis.getText().isEmpty() || tfTreatment.getText().isEmpty()
                 || dpStartDate.getValue() == null) {
-            // TODO : Print error message to user.
+          
+
+                errorDate.setVisible( false);
+                errorCompleteMH.setVisible(true);
+                errorCaution.setVisible(true);
+                
+
             System.out.println("Please complete medical history.");
+
         } else if (dpEndDate.getValue() != null &&
                 (!dpStartDate.getValue().isBefore(dpEndDate.getValue())
                 && !dpStartDate.getValue().isEqual(dpEndDate.getValue()))) {
-            // TODO : Print error message to user.
+
+            
+                errorCompleteMH.setVisible(false);
+                errorDate.setVisible(true);
+                errorCaution.setVisible(true);
+
+                dpStartDate.setStyle("-fx-border-color: red");
+                dpEndDate.setStyle("-fx-border-color: red");
+
             System.out.println("Start date must be before end date.");
+
         }
         else {
             goToSearchResultsPage(event);
@@ -162,7 +221,7 @@ public class AddHistoryController implements Initializable {
                 new DateCell() {
                     @Override public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
-                        setDisable(item.isAfter(maxDate));
+                        // setDisable(item.isAfter(maxDate)); // ligne commentée pour permettre de choisir une date ultérieure à la date du jour
                     }});
     }
 
