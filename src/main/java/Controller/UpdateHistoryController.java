@@ -50,7 +50,7 @@ public class UpdateHistoryController implements Initializable {
     @FXML
     private Label lbErrorEndDateBfStart;
 
-    
+
 
   //*********************//
     //FXML ImageView variable (error messages)//
@@ -65,6 +65,7 @@ public class UpdateHistoryController implements Initializable {
     public void handleBtnCancel(ActionEvent event) throws Exception {
         goToSearchResultsPage(event);
     }
+
     /**
      * This button handler sends the local MedicalVisit and/or MedicalHistory to the database,
      * resetting them to null.
