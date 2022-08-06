@@ -1,5 +1,4 @@
 package Controller;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
@@ -10,6 +9,8 @@ import Model.PatientFile.MedicalVisit;
 import Model.PatientFile.PatientFile;
 import Model.User.Doctor;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -43,6 +44,7 @@ public class AddVisitController implements Initializable {
 
     @FXML
     private AnchorPane AnchorPane;
+    Timeline automaticUpdate;
 
     //*************************//
     // FXML TextField variables//
@@ -97,50 +99,33 @@ public class AddVisitController implements Initializable {
     
     @FXML
     public void handleBtnSaveMV(ActionEvent event) throws Exception {
-        
         updateMedicalVisit();
-                
-        
-
         if(tfDiagnosis.getText().isEmpty()) {
             tfDiagnosis.setStyle("-fx-border-color: red");
-            
         } else {
             tfDiagnosis.setStyle("-fx-border-color: #66adff");
         }
-
         if(tfTreatment.getText().isEmpty()) {
             tfTreatment.setStyle("-fx-border-color: red");
-           
         } else {
             tfTreatment.setStyle("-fx-border-color: #66adff");
         }
-
         if(tfSummary.getText().isEmpty()) {
             tfSummary.setStyle("-fx-border-color: red");
-           
         } else {
             tfSummary.setStyle("-fx-border-color: #66adff");
         }
-
         if(tfNote.getText().isEmpty()) {
             tfNote.setStyle("-fx-border-color: red");
            
         } else {
             tfNote.setStyle("-fx-border-color: #66adff");
         }
-
-       
         if (tfDiagnosis.getText().isEmpty() || tfTreatment.getText().isEmpty()
         || tfSummary.getText().isEmpty() || tfNote.getText().isEmpty()) {
-  
-
             errorMessageMV();
-
         } else {
-
             goToSearchResultsPage(event);
-
         }
 
         // else {
@@ -153,6 +138,15 @@ public class AddVisitController implements Initializable {
 //        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 //        window.setScene(new Scene(root, 750, 600));
 //        window.show();
+
+
+        if (tfDiagnosis.getText().isEmpty() || tfTreatment.getText().isEmpty()
+                || tfSummary.getText().isEmpty() || tfNote.getText().isEmpty()) {
+            // TODO : print error message to user.
+            System.out.println("Please complete medical visit.");
+        } else {
+            goToSearchResultsPage(event);
+        }
     }
 
     @FXML
@@ -181,33 +175,10 @@ public class AddVisitController implements Initializable {
      /**
      * Updates the local MedicalVisit Object
      */
-    @FXML
-    public void updateMedicalVisit() {
-        System.out.println("Updated.");
-        medicalVisit = new MedicalVisit();
-        doctor.setVisitDiagnosis(tfDiagnosis.getText());
-        doctor.setVisitTreatment(tfTreatment.getText());
-        doctor.setVisitNotes(tfNote.getText());
-        doctor.setVisitSummary(tfSummary.getText());
-        medicalVisit.accept(doctor);
-        // goToSearchResultsPage(event);
-        
-
-//        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
-//        Parent root = FXMLLoader.load(url);
-//        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        window.setScene(new Scene(root, 750, 600));
-//        window.show();
-    }
-
-
-   
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-               
-    }
 
+    }
 
     /**
      * This function creates a pop-up box asking if the user is certain of wanting to clear the
@@ -229,6 +200,19 @@ public class AddVisitController implements Initializable {
         return false;
     }
 
+    /**
+     * Updates the local MedicalVisit Object
+     */
+    private void updateMedicalVisit() {
+        System.out.println("updated.");
+        medicalVisit = new MedicalVisit();
+        doctor.setVisitDiagnosis(tfDiagnosis.getText());
+        doctor.setVisitTreatment(tfTreatment.getText());
+        doctor.setVisitNotes(tfNote.getText());
+        doctor.setVisitSummary(tfSummary.getText());
+        medicalVisit.accept(doctor);
+    }
+
     public void setResources(Doctor doctor, PatientFile patientFile, MedicalVisit medicalVisit,
                              MedicalHistory medicalHistory, DataAccessObject dataAccessObject) {
         this.doctor = doctor;
@@ -242,6 +226,12 @@ public class AddVisitController implements Initializable {
             tfSummary.setText(medicalVisit.getSummary());
             tfNote.setText(medicalVisit.getNotes());
         }
+
+        automaticUpdate = new Timeline(
+                new KeyFrame(Duration.seconds(3),
+                        event -> updateMedicalVisit()));
+        automaticUpdate.setCycleCount(Timeline.INDEFINITE);
+        automaticUpdate.play();
     }
 
     /**
@@ -251,16 +241,22 @@ public class AddVisitController implements Initializable {
      * @throws IOException
      */
     private void goToSearchResultsPage(ActionEvent event) throws IOException {
+        automaticUpdate.stop();
+        automaticUpdate = null;
+
         // Pass data to the next controller
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/searchResults.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/Application/searchResults.fxml"));
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
-        searchResultsController.setResources(doctor, patientFile, medicalVisit, medicalHistory, dataAccessObject);
+        searchResultsController.setResources(doctor, patientFile, medicalVisit, medicalHistory,
+                dataAccessObject);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
 
 }

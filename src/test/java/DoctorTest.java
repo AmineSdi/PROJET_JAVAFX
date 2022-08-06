@@ -97,7 +97,7 @@ public class DoctorTest {
         d5.setLicense(5);
     }
 
-    
+
 
     @Test void createVisitTest() {
         MedicalVisit mv = d1.createVisit();

@@ -130,11 +130,9 @@ public class SearchResultsController implements Initializable {
         if(medicalVisit != null) {
             dataAccessObject.addMedicalVisit(patientFile.getRamqCode(), medicalVisit);
             patientFile.addMedicalVisit(medicalVisit);
-            showPatientVisits(dataAccessObject, patientFile.getRamqCode());
             medicalVisit = null;
-            alertConfirmSubmit();
-
         }
+
         if(medicalHistory != null) {
             dataAccessObject.addMedicalHistory(patientFile.getRamqCode(), medicalHistory);
             patientFile.addMedicalHistory(medicalHistory);
@@ -154,7 +152,8 @@ public class SearchResultsController implements Initializable {
         medicalVisit = null;
         medicalHistory = null;
         
-    }
+        }
+
     
     @FXML
     public void handleBtnAddMV(ActionEvent event) throws Exception {
