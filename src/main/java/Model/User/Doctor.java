@@ -1,15 +1,33 @@
 package Model.User;
-
 import Model.ContactInformation.MedicalEstablishment;
 import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import Model.Visitor.Visitor;
-
 import java.time.LocalDate;
 
 public class Doctor extends User implements Visitor {
+    //VARIABLES
+    /** Note : Pour faire fonctionner le patron Visiteur, on doit garder certaines informations
+     * dans la classe Doctor : diagnosis, treatment, visitSummary et notes pour le
+     * MedicalVisit, et diagnosis, treatment, endDate pour le medicalHistory... Alors on va
+     * voir si c'est ok de garder ces attributs ici en attendant une meilleure solution...
+     * Ces infos vont venir des textfields à partir du MainController...
+     * */
+    private int license;
+    private String specialty;
+    private MedicalEstablishment medicalEstablishment;
+    private String visitDiagnosis;
+    private String visitTreatment;
+    private String visitSummary;
+    private String visitNotes;
+    private String historyDiagnosis;
+    private String historyTreatment;
+    private LocalDate historyStartDate;
+    private LocalDate historyEndDate;
 
-
+    //**************//
+    //Public Methods//
+    //**************//
     //CONSTRUCTEUR
     public Doctor(int userId, String firstName, String lastName, String userName, String password,
                   int license, String specialty,
@@ -19,23 +37,6 @@ public class Doctor extends User implements Visitor {
         this.specialty = specialty;
         this.medicalEstablishment = medicalEstablishment;
     }
-
-    int license;
-    String specialty;
-    MedicalEstablishment medicalEstablishment;
-
-
-    /** Note : Pour faire fonctionner le patron Visiteur, on doit garder certaines informations
-     * dans la classe Doctor : diagnosis, treatment, visitSummary et notes pour le
-     * MedicalVisit, et diagnosis, treatment, endDate pour le medicalHistory... Alors on va
-     * voir si c'est ok de garder ces attributs ici en attendant une meilleure solution...
-     * Ces infos vont venir des textfields à partir du MainController...
-     * */
-    //VARIABLES
-    String visitDiagnosis;
-    String visitTreatment;
-    String visitSummary;
-    String visitNotes;
 
     public String getHistoryDiagnosis() {
         return historyDiagnosis;
@@ -61,9 +62,6 @@ public class Doctor extends User implements Visitor {
         this.historyEndDate = historyEndDate;
     }
 
-    String historyDiagnosis;
-    String historyTreatment;
-
     public LocalDate getHistoryStartDate() {
         return historyStartDate;
     }
@@ -71,9 +69,6 @@ public class Doctor extends User implements Visitor {
     public void setHistoryStartDate(LocalDate historyStartDate) {
         this.historyStartDate = historyStartDate;
     }
-
-    LocalDate historyStartDate;
-    LocalDate historyEndDate;
 
     //SETTERS AND GETTERS
     public String getVisitDiagnosis() {
@@ -161,7 +156,7 @@ public class Doctor extends User implements Visitor {
     @Override
     public void visitMedicalHistory(MedicalHistory history) {
         history.modifyHistory(firstName, lastName, license, historyDiagnosis, historyTreatment,
-                historyStartDate, historyEndDate);
+                              historyStartDate, historyEndDate);
     }
 
     @Override

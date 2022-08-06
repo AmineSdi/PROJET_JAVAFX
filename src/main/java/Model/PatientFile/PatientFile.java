@@ -1,15 +1,25 @@
 package Model.PatientFile;
-
 import Model.ContactInformation.ContactInformation;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PatientFile {
+    //VARIABLES
+    private String ramqCode;
+    private String firstName;
+    private String lastName;
+    private Gender gender;
+    private LocalDate birthDate;
+    private String birthCity;
+    private String knownParents;
+    private ContactInformation contactInformation;
+    private List<MedicalVisit> medicalVisits = new ArrayList<MedicalVisit>();
+    private List<MedicalHistory> medicalHistories = new ArrayList<MedicalHistory>();
 
-    // TODO : Private constructor for builder pattern?
+    //**************//
+    //Public Methods//
+    //**************//
     public PatientFile(String ramqCode, String firstName, String lastName, Gender gender,
                        String birthCity, LocalDate birthDate, String knownParents) {
         this.ramqCode = ramqCode;
@@ -20,17 +30,6 @@ public class PatientFile {
         this.birthDate = birthDate;
         this.knownParents = knownParents;
     }
-
-    String ramqCode;
-    String firstName;
-    String lastName;
-    Gender gender;
-    LocalDate birthDate;
-    String birthCity;
-    String knownParents;
-    ContactInformation contactInformation;
-    List<MedicalVisit> medicalVisits = new ArrayList<MedicalVisit>();
-    List<MedicalHistory> medicalHistories = new ArrayList<MedicalHistory>();
 
     public void addMedicalVisit(MedicalVisit mv) {
         if (mv != null)
@@ -102,7 +101,7 @@ public class PatientFile {
         return contactInformation;
     }
 
-    // For Builder pattern
+
     public void setContactInformation(ContactInformation contactInformation) {
         this.contactInformation = contactInformation;
     }
@@ -111,7 +110,7 @@ public class PatientFile {
         return medicalVisits;
     }
 
-    // For Builder pattern
+
     public void setMedicalVisits(List<MedicalVisit> medicalVisits) {
         this.medicalVisits = medicalVisits;
     }
@@ -134,7 +133,6 @@ public class PatientFile {
         }
     }
 
-    // For Builder pattern
     public void setMedicalHistories(List<MedicalHistory> medicalHistories) {
         this.medicalHistories = medicalHistories;
     }

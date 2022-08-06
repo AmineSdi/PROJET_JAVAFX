@@ -1,7 +1,16 @@
 package Model.ContactInformation;
-import  java.util.regex.*;
 public class ContactInformation {
+    //VARIABLES
+    private int number;
+    private String street;
+    private String city;
+    private String postalCode;
+    private String phone;
+    private String email;
 
+    //**************//
+    //Public Methods//
+    //**************//
     public ContactInformation(int number, String street, String city, String postalCode,
                               String phone, String email) {
         validateNumber(number);
@@ -12,12 +21,7 @@ public class ContactInformation {
         validatePostalCode(postalCode);
     }
 
-    int number;
-    String street;
-    String city;
-    String postalCode;
-    String phone;
-    String email;
+
 
     public int getNumber() {
         return number;
@@ -43,6 +47,9 @@ public class ContactInformation {
         return email;
     }
 
+    //**************//
+    //Private Methods//
+    //**************//
     private void validateNumber(int number) {
         // Valid number example : 201
         // Invalid number examples : 201A, 201 room 1, 201-B
@@ -57,10 +64,8 @@ public class ContactInformation {
         // Invalid street example : 201 President-Kennedy
         boolean isValid = false;
         String validFormat = "^([a-zA-Z-\\s])*$";
-
         if (street.matches(validFormat))
             isValid = true;
-
         if (!isValid)
             this.street = null;
         else
@@ -72,10 +77,8 @@ public class ContactInformation {
         // Invalid street example : Montréal
         boolean isValid = false;
         String validFormat = "^([a-zA-Z-\\s])*$";
-        //"^\\w+( \\w+)*$";
         if (city.matches(validFormat))
             isValid = true;
-
         if (!isValid)
             this.city = null;
         else
@@ -87,10 +90,8 @@ public class ContactInformation {
         // Invalid phone examples : 514 987-3000, (514) 9873000, 514 987 3000
         boolean isValid = false;
         String validFormat = "\\(\\d{3}\\)\\s\\d{3}-\\d{4}";
-
         if (phone.matches(validFormat))
             isValid = true;
-
         if (!isValid)
             this.phone = null;
         else
@@ -101,10 +102,8 @@ public class ContactInformation {
         // Valid email example : bigl@uqam.ca
         boolean isValid = false;
         String validFormat = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
-
         if (email.matches(validFormat))
             isValid = true;
-
         if (!isValid)
             this.email = null;
         else
@@ -115,14 +114,11 @@ public class ContactInformation {
         // Valid postal code example : H2X3Y7 (no spaces)
         boolean isValid = false;
         String validFormat = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z][0-9][A-Z][0-9]$";
-
         if (postalCode.matches(validFormat))
             isValid = true;
-
         if (!isValid)
             this.postalCode = null;
         else
             this.postalCode = postalCode;
     }
-
 }

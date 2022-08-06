@@ -1,15 +1,12 @@
 package Controller;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.time.Duration;
 import java.util.ResourceBundle;
 import Model.Database.DataAccessObject;
 import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import Model.PatientFile.PatientFile;
 import Model.User.Doctor;
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,15 +32,13 @@ public class AddVisitController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    DataAccessObject dataAccessObject = new DataAccessObject();
-    Doctor doctor;
-    PatientFile patientFile;
-    MedicalVisit medicalVisit;
-    MedicalHistory medicalHistory;
-
+    private DataAccessObject dataAccessObject = new DataAccessObject();
+    private Doctor doctor;
+    private PatientFile patientFile;
+    private MedicalVisit medicalVisit;
+    private MedicalHistory medicalHistory;
     @FXML
     private AnchorPane AnchorPane;
-
     //*************************//
     // FXML TextField variables//
     //*************************//
@@ -55,23 +50,18 @@ public class AddVisitController implements Initializable {
     private TextArea tfSummary;
     @FXML
     private TextArea tfNote;
-    // @FXML
-    // private TextField tfDate;
-    // @FXML
-    // private TextField tfDoctorLicense;
 
-     //*************************//
+    //*************************//
     // FXML Label variables (error messages)//
     //*************************//
     @FXML
     private Label errorCompleteMV;
-  
-     //*************************//
+
+    //*************************//
     // FXML imageView variables (error messages)//
     //*************************//
     @FXML
     private ImageView errorCaution1;
-
 
     //*********************//
     //FXML Button Variables//
@@ -81,8 +71,6 @@ public class AddVisitController implements Initializable {
     @FXML
     private Button btnCancelAddMV;
 
-
-
     //*********************//
     //Handle Button Methods//
     //*********************//
@@ -91,68 +79,36 @@ public class AddVisitController implements Initializable {
      * @param event
      * @throws Exception
      */
-
-
-  
-    
     @FXML
     public void handleBtnSaveMV(ActionEvent event) throws Exception {
-        
         updateMedicalVisit();
-                
-        
-
         if(tfDiagnosis.getText().isEmpty()) {
             tfDiagnosis.setStyle("-fx-border-color: red");
-            
         } else {
             tfDiagnosis.setStyle("-fx-border-color: #66adff");
         }
-
         if(tfTreatment.getText().isEmpty()) {
             tfTreatment.setStyle("-fx-border-color: red");
-           
         } else {
             tfTreatment.setStyle("-fx-border-color: #66adff");
         }
-
         if(tfSummary.getText().isEmpty()) {
             tfSummary.setStyle("-fx-border-color: red");
-           
+
         } else {
             tfSummary.setStyle("-fx-border-color: #66adff");
         }
-
         if(tfNote.getText().isEmpty()) {
             tfNote.setStyle("-fx-border-color: red");
-           
         } else {
             tfNote.setStyle("-fx-border-color: #66adff");
         }
-
-       
         if (tfDiagnosis.getText().isEmpty() || tfTreatment.getText().isEmpty()
-        || tfSummary.getText().isEmpty() || tfNote.getText().isEmpty()) {
-  
-
+                || tfSummary.getText().isEmpty() || tfNote.getText().isEmpty()) {
             errorMessageMV();
-
         } else {
-
             goToSearchResultsPage(event);
-
         }
-
-        // else {
-
-
-        //     goToSearchResultsPage(event);
-        // }
-//        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
-//        Parent root = FXMLLoader.load(url);
-//        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        window.setScene(new Scene(root, 750, 600));
-//        window.show();
     }
 
     @FXML
@@ -161,26 +117,20 @@ public class AddVisitController implements Initializable {
             this.medicalVisit = null;
             goToSearchResultsPage(event);
         }
-//        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
-//        Parent root = FXMLLoader.load(url);
-//        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        window.setScene(new Scene(root, 750, 600));
-//        window.show();
     }
-
-
+    //**************//
+    //Public Methods//
+    //**************//
     @FXML
-    // method who prints who set visible error message 
     public void errorMessageMV()  {
         errorCompleteMV.setVisible(true);
         errorCaution1.setVisible(true);
         System.out.println("Please complete medical visit.");
-
     }
 
-     /**
-     * Updates the local MedicalVisit Object
-     */
+    /**
+    * Updates the local MedicalVisit Object
+    */
     @FXML
     public void updateMedicalVisit() {
         System.out.println("Updated.");
@@ -190,43 +140,11 @@ public class AddVisitController implements Initializable {
         doctor.setVisitNotes(tfNote.getText());
         doctor.setVisitSummary(tfSummary.getText());
         medicalVisit.accept(doctor);
-        // goToSearchResultsPage(event);
-        
 
-//        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
-//        Parent root = FXMLLoader.load(url);
-//        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        window.setScene(new Scene(root, 750, 600));
-//        window.show();
     }
-
-
-   
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-               
-    }
-
-
-    /**
-     * This function creates a pop-up box asking if the user is certain of wanting to clear the
-     * local changes to the medical visit.
-     * @return A boolean.
-     */
-    private boolean confirmClear() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Medical program");
-        alert.setHeaderText("Erase all local changes to this medical visit?");
-        alert.setContentText("Click OK to erase, click cancel to return.");
-
-        if(alert.showAndWait().get() == ButtonType.OK) {
-            //Code à effectuer lorsque le programme se termine
-            stage = (Stage) AnchorPane.getScene().getWindow();
-            stage.close();
-            return true;
-        }
-        return false;
     }
 
     public void setResources(Doctor doctor, PatientFile patientFile, MedicalVisit medicalVisit,
@@ -244,6 +162,28 @@ public class AddVisitController implements Initializable {
         }
     }
 
+    //***************//
+    //Private Methods//
+    //***************//
+    /**
+     * This function creates a pop-up box asking if the user is certain of wanting to clear the
+     * local changes to the medical visit.
+     * @return A boolean.
+     */
+    private boolean confirmClear() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Medical program");
+        alert.setHeaderText("Erase all local changes to this medical visit?");
+        alert.setContentText("Click OK to erase, click cancel to return.");
+        if(alert.showAndWait().get() == ButtonType.OK) {
+            //Code à effectuer lorsque le programme se termine
+            stage = (Stage) AnchorPane.getScene().getWindow();
+            stage.close();
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Goes to the search results, passing any required data.
      *
@@ -252,15 +192,16 @@ public class AddVisitController implements Initializable {
      */
     private void goToSearchResultsPage(ActionEvent event) throws IOException {
         // Pass data to the next controller
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/searchResults.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass()
+                                    .getResource("/Application/searchResults.fxml"));
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
-        searchResultsController.setResources(doctor, patientFile, medicalVisit, medicalHistory, dataAccessObject);
+        searchResultsController.setResources(doctor, patientFile, medicalVisit,
+                                                    medicalHistory, dataAccessObject);
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
-
 }

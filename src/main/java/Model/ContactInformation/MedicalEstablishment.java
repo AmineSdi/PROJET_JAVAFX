@@ -1,17 +1,19 @@
 package Model.ContactInformation;
-
 public class MedicalEstablishment {
+    //VARIABLES
+    private int establishmentId;
+    private String name;
+    private ContactInformation contactInformation;
 
+    //**************//
+    //Public Methods//
+    //**************//
     public MedicalEstablishment(int establishmentId, String name,
                                 ContactInformation contactInformation) {
         validateEstablishmentId(establishmentId);
         validateName(name);
         addContactInformation(contactInformation);
     }
-
-    int establishmentId;
-    String name;
-    ContactInformation contactInformation;
 
     public int getEstablishmentId() {
         return establishmentId;
@@ -25,6 +27,9 @@ public class MedicalEstablishment {
         return contactInformation;
     }
 
+    //***************//
+    //Private Methods//
+    //***************//
     private void validateEstablishmentId(int establishmentId) {
         // Valid establishmentId example : 2022
         // Invalid establishmentId examples : MTL-2022, MTL2002
@@ -39,10 +44,8 @@ public class MedicalEstablishment {
         // Invalid name examples : Hospital 1
         boolean isValid = false;
         String validFormat = "^[A-Z]+([a-zA-Z-\\s]+)*$";
-
         if (name.matches(validFormat))
             isValid = true;
-
         if (!isValid)
             this.name = null;
         else

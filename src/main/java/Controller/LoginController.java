@@ -2,13 +2,11 @@ package Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import Model.Database.DataAccessObject;
 import Model.User.Doctor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -18,10 +16,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import javax.xml.crypto.Data;
-
-import org.w3c.dom.Text;
-
 /**
  * This class handles ''WHAT'' and will provide information
  */
@@ -30,7 +24,7 @@ public class LoginController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    DataAccessObject dataAccessObject;
+    private DataAccessObject dataAccessObject;
 
     //*************************//
     // FXML TextField variables//
@@ -48,13 +42,11 @@ public class LoginController implements Initializable {
     @FXML
     private Label errorNoUserPassword;
 
-
     //*********************//
     //FXML Button Variables//
     //*********************//
     @FXML
     private Button btnLogin;
-
 
     //*********************//
     //Handle Button Methods//
@@ -62,27 +54,26 @@ public class LoginController implements Initializable {
     @FXML
     public void handleBtnLogin(ActionEvent event) throws Exception {
         if (tfUserName.getText().isEmpty() || tfPassword.getText().isEmpty()) {
-
-                errorNoUserPassword.setVisible(false);
-                errorNoFields.setVisible(true);
-        
-                System.out.println("Please fill all the fields.");
+            errorNoUserPassword.setVisible(false);
+            errorNoFields.setVisible(true);
+            System.out.println("Please fill all the fields.");
         }
         else {
-            Doctor doctor = dataAccessObject.findUsernameAndPassword(tfUserName.getText(), tfPassword.getText());
+            Doctor doctor = dataAccessObject.findUsernameAndPassword(tfUserName.getText(),
+                                                    tfPassword.getText());
             if (doctor != null) {
                 goToRamqSearchPage(event, doctor);
-
             } else {
-
                 errorNoFields.setVisible(false);
                 errorNoUserPassword.setVisible(true);
-
                 System.out.println("Wrong username or password.");
             }
         }
     }
 
+    //**************//
+    //Public Methods//
+    //**************//
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // showPatientFiles();
@@ -96,6 +87,10 @@ public class LoginController implements Initializable {
         this.dataAccessObject = dataAccessObject;
     }
 
+
+    //***************//
+    //Private Methods//
+    //***************//
     /**
      * Goes to the RAMQ search page, passing any required data.
      *
@@ -104,7 +99,8 @@ public class LoginController implements Initializable {
      * @throws IOException
      */
     private void goToRamqSearchPage(ActionEvent event, Doctor doctor) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/ramqSearch.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass()
+                                    .getResource("/Application/ramqSearch.fxml"));
         root = loader.load();
         RamqSearchController ramqSearchController = loader.getController();
         ramqSearchController.setResources(doctor, dataAccessObject);

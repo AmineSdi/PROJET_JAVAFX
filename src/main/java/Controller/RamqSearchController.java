@@ -1,9 +1,7 @@
 package Controller;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import Model.Builder.Director;
 import Model.Builder.PatientFileBuilder;
 import Model.Database.DataAccessObject;
@@ -27,9 +25,9 @@ public class RamqSearchController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    DataAccessObject dataAccessObject;
-    Doctor doctor;
-    PatientFile patientFile;
+    private DataAccessObject dataAccessObject;
+    private Doctor doctor;
+    private PatientFile patientFile;
 
     //*************************//
     // FXML TextField variables//
@@ -61,7 +59,6 @@ public class RamqSearchController implements Initializable {
     @FXML
     Label doctorLicense;
 
-
     //*********************//
     //Handle Button Methods//
     //*********************//
@@ -73,12 +70,9 @@ public class RamqSearchController implements Initializable {
     @FXML
     public void handleBtnSearch(ActionEvent event) throws Exception {
         String ramqCode = tfRamqCode.getText();
-
         if (ramqCode.isEmpty()) {
-
-              errorNoPatient.setVisible(false);
-              errorNoField.setVisible(true);
-
+            errorNoPatient.setVisible(false);
+            errorNoField.setVisible(true);
             System.out.println("Please fill all the fields.");
         }
         else {
@@ -89,35 +83,21 @@ public class RamqSearchController implements Initializable {
             } else {
                 patientFile = null;
             }
-
-//            Doctor doctor = dataAccessObject.findUsernameAndPassword(tfUserName.getText(), tfPassword.getText());
             if (patientFile != null) {
                 goToSearchResults(event);
             } else {
-
                 errorNoField.setVisible(false);
                 errorNoPatient.setVisible(true);
-
                 System.out.println("Patient not found.");
             }
         }
-
-
-
-//        patientFile = builder.assemble();
-
-
-
-//        URL url = new File("src/main/resources/Application/searchResults.fxml").toURI().toURL();
-//        Parent root = FXMLLoader.load(url);
-//        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        window.setScene(new Scene(root, 750, 600));
-//        window.show();
     }
 
+    //**************//
+    //Public Methods//
+    //**************//
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // showPatientFiles();
     }
 
     public void setResources(Doctor doctor, DataAccessObject dataAccessObject) {
@@ -127,6 +107,9 @@ public class RamqSearchController implements Initializable {
         this.dataAccessObject = dataAccessObject;
     }
 
+    //***************//
+    //Private Methods//
+    //***************//
     /**
      * Goes to the login page, passing any required data.
      * Since the doctor object is not passed, it will simply be reset to null.
@@ -141,7 +124,6 @@ public class RamqSearchController implements Initializable {
         root = loader.load();
         LoginController loginController = loader.getController();
         loginController.setResources(dataAccessObject);
-
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -156,10 +138,12 @@ public class RamqSearchController implements Initializable {
      * @throws IOException
      */
     private void goToSearchResults(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/searchResults.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass()
+                                    .getResource("/Application/searchResults.fxml"));
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
-        searchResultsController.setResources(doctor, patientFile, null, null, dataAccessObject);
+        searchResultsController.setResources(doctor, patientFile, null,
+                                                    null, dataAccessObject);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

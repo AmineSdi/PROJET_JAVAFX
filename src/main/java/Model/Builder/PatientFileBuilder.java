@@ -1,28 +1,18 @@
 package Model.Builder;
-
 import Model.ContactInformation.ContactInformation;
 import Model.Database.DataAccessObject;
 import Model.PatientFile.Gender;
 import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import Model.PatientFile.PatientFile;
-
-import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import static Model.PatientFile.Gender.*;
 
 public class PatientFileBuilder implements Builder {
-
-    public PatientFileBuilder(String ramqCode, DataAccessObject dataAccessObject) {
-        this.ramqCode = ramqCode;
-        this.dataAccessObject = dataAccessObject;
-        fetchPatientInfoFromDB();
-    }
-
+    //VARIABLES
     String ramqCode;
     String firstName;
     String lastName;
@@ -30,63 +20,39 @@ public class PatientFileBuilder implements Builder {
     LocalDate birthDate;
     String birthCity;
     String knownParents;
-
     List<MedicalVisit> visits = new ArrayList<>();
     List<MedicalHistory> histories = new ArrayList<>();
     ContactInformation contactInformation;
-
     DataAccessObject dataAccessObject;
+
+    //**************//
+    //Public Methods//
+    //**************//
+    public PatientFileBuilder(String ramqCode, DataAccessObject dataAccessObject) {
+        this.ramqCode = ramqCode;
+        this.dataAccessObject = dataAccessObject;
+        fetchPatientInfoFromDB();
+    }
 
     @Override
     public void buildVisits(String ramqCode) {
-
-        /* TODO : Use DAO to :
-               -connect to Database
-               -fetch an ArrayList of MedicalVisits for this patient :
-                "SELECT * FROM MedicalVisits WHERE patientRamqCode = " + ramqCode
-         */
         visits = dataAccessObject.getMedicalVisits(ramqCode);
     }
 
     @Override
     public void buildHistories(String ramqCode) {
-
-        /* TODO : Use DAO to :
-               -connect to Database
-               -fetch an ArrayList of MedicalHistories for this patient :
-                "SELECT * FROM MedicalHistories WHERE patientRamqCode = " + ramqCode
-         */
         histories = dataAccessObject.getMedicalHistories(ramqCode);
     }
 
     @Override
     public void buildContactInfo(String ramqCode) {
-
-        /* TODO : Use DAO to :
-               -connect to Database
-               -fetch contactInfoId
-                "SELECT contactInfoId FROM PatientFiles WHERE patientRamqCode = " + ramqCode
-               -fetch the contact information for that patient using the contactInfoId.
-               "SELECT * FROM ContactInformation WHERE id = " + contactInfoId
-         */
-
-        // Use fetched data to construct ContactInformation.
-        contactInformation = dataAccessObject.getContactInformation(ramqCode); // new ContactInformation(...);
-
+        contactInformation = dataAccessObject.getContactInformation(ramqCode);// new ContactInformation(...);
     }
 
     @Override
     public PatientFile assemble() {
-
-        /* TODO : Use DAO to :
-               -connect to Database
-               -fetch the info for that Patient :
-                "SELECT * FROM MedicalVisits WHERE patientRamqCode = " + ramqCode
-         */
-        // Use fetched data to construct PatientFile.
         PatientFile patientFile = new PatientFile(ramqCode, firstName,
                 lastName, gender,birthCity,birthDate,knownParents);
-
         if (patientFile.getRamqCode() == null) {
             patientFile = null;
         } else {
@@ -94,26 +60,20 @@ public class PatientFileBuilder implements Builder {
             patientFile.setMedicalHistories(histories);
             patientFile.setContactInformation(contactInformation);
         }
-
         return patientFile;
     }
 
+    //**************//
+    //Private Methods//
+    //**************//
     /**
      * Sets the attributes of the current class to the values fetched from the Database.
      *
      * */
     private void fetchPatientInfoFromDB() {
-        /* TODO : Use DAO to :
-              -connect to Database
-              "SELECT firstName, lastName, gender, birthCity, birthDate, parentsName
-              FROM PatientFiles WHERE ramqCode = " + ramqCode;
-        */
-
         HashMap<String, String> result = dataAccessObject.getPatientFileInfoFromDB(ramqCode);
-
         if (result != null) {
             String resultGender = result.get("gender");
-
             firstName = result.get("firstName");
             lastName = result.get("lastName");
             gender = resultGender == "FEMALE" ? FEMALE : (resultGender == "MALE" ? MALE : OTHER);
@@ -123,6 +83,5 @@ public class PatientFileBuilder implements Builder {
         } else {
             this.ramqCode = null;
         }
-
     }
 }

@@ -1,22 +1,23 @@
 package Model.User;
 
 public abstract class User {
+    //VARIABLES
+    private int userId;
+    String firstName;
+    String lastName;
+    private String userName;
+    private String password;
 
+    //**************//
+    //Public Methods//
+    //**************//
     public User(int userId, String firstName, String lastName, String userName, String password) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
-        // TODO : userName and password are useless here?
-        // TODO : is this a Useless class? (User user = new Doctor()... doesn't have appropriate methods)
         this.userName = userName;
         this.password = password;
     }
-
-    int userId;
-    String firstName;
-    String lastName;
-    String userName;
-    String password;
 
     public int getId() {
         return userId;

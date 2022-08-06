@@ -23,7 +23,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-
 /**
  * This class handles ''WHAT'' and will provide information
  */
@@ -32,19 +31,17 @@ public class SearchResultsController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    DataAccessObject dataAccessObject;
-    Doctor doctor;
-    PatientFile patientFile;
-    MedicalVisit medicalVisit = null;
-    MedicalHistory medicalHistory = null;
-
-    ObservableList<MedicalVisit> visitObservableList;
-    ObservableList<MedicalHistory> historyObservableList;
+    private DataAccessObject dataAccessObject;
+    private Doctor doctor;
+    private PatientFile patientFile;
+    private MedicalVisit medicalVisit = null;
+    private MedicalHistory medicalHistory = null;
+    private ObservableList<MedicalVisit> visitObservableList;
+    private ObservableList<MedicalHistory> historyObservableList;
 
     //*************************//
     // FXML TextField variables//
     //*************************//
-    // TODO : Add fields as needed
     @FXML
     private TextField tfFirstName;
     @FXML
@@ -88,14 +85,15 @@ public class SearchResultsController implements Initializable {
     @FXML
     private TableView<MedicalHistory> medicalHistoryTableView = new TableView<>();
     @FXML
-    private TableColumn<MedicalHistory, String> colDiagnosisHistory = new TableColumn<>("diagnosis");
+    private TableColumn<MedicalHistory, String> colDiagnosisHistory =
+                                                    new TableColumn<>("diagnosis");
     @FXML
-    private TableColumn<MedicalHistory, String> colTreatmentHistory = new TableColumn<>("treatment");
+    private TableColumn<MedicalHistory, String> colTreatmentHistory =
+                                                    new TableColumn<>("treatment");
     @FXML
     private TableColumn<MedicalHistory, String> colStartHistory = new TableColumn<>("startDate");
     @FXML
     private TableColumn<MedicalHistory, String> colEndHistory = new TableColumn<>("endDate");
-
 
     //*********************//
     //FXML Button Variables//
@@ -109,8 +107,6 @@ public class SearchResultsController implements Initializable {
     @FXML
     private Button btnAddMedicalHistory;
 
-
-
     //*********************//
     //Handle Button Methods//
     //*********************//
@@ -118,6 +114,7 @@ public class SearchResultsController implements Initializable {
     public void handleBtnBackToSearch(ActionEvent event) throws Exception {
         goToRamqSearchPage(event);
     }
+
     /**
      * This button handler sends the local MedicalVisit and/or MedicalHistory to the database,
      * resetting them to null.
@@ -133,7 +130,6 @@ public class SearchResultsController implements Initializable {
             showPatientVisits(dataAccessObject, patientFile.getRamqCode());
             medicalVisit = null;
             alertConfirmSubmit();
-
         }
         if(medicalHistory != null) {
             dataAccessObject.addMedicalHistory(patientFile.getRamqCode(), medicalHistory);
@@ -142,7 +138,6 @@ public class SearchResultsController implements Initializable {
             medicalHistory = null;
             alertConfirmSubmit();
         }
-
         if(medicalVisit == null && medicalHistory == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Medical Program");
@@ -150,12 +145,11 @@ public class SearchResultsController implements Initializable {
             alert.setContentText("Patient notes incomplete.");
             alert.showAndWait();
         }
-
         medicalVisit = null;
         medicalHistory = null;
-        
+
     }
-    
+
     @FXML
     public void handleBtnAddMV(ActionEvent event) throws Exception {
         goToAddVisitPage(event);
@@ -170,6 +164,10 @@ public class SearchResultsController implements Initializable {
     public void handleBtnUpdateMH(ActionEvent event) throws Exception {
         goToUpdateHistoryPage(event);
     }
+
+    //**************//
+    //Public Methods//
+    //**************//
     public void alertConfirmSubmit() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Medical Program");
@@ -177,6 +175,7 @@ public class SearchResultsController implements Initializable {
         alert.setContentText("Patient notes saved.");
         alert.showAndWait();
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
@@ -202,7 +201,7 @@ public class SearchResultsController implements Initializable {
         showPatientHistory(dataAccessObject, patientFile.getRamqCode());
     }
 
-    public void showPatientVisits(DataAccessObject dao, String ramqCode){
+    public void showPatientVisits(DataAccessObject dao, String ramqCode) {
         this.dataAccessObject = dao;
         visitObservableList = dataAccessObject.getObservableVisitsList(ramqCode);
         colDateOfVisit.setCellValueFactory(new PropertyValueFactory<>("visitDate"));
@@ -214,16 +213,23 @@ public class SearchResultsController implements Initializable {
     }
 
 
-    public void showPatientHistory(DataAccessObject dao, String ramqCode){
+    public void showPatientHistory(DataAccessObject dao, String ramqCode) {
         this.dataAccessObject = dao;
         historyObservableList = dataAccessObject.getObservableHistoryList(ramqCode);
-        colDiagnosisHistory.setCellValueFactory(new PropertyValueFactory<MedicalHistory, String>("diagnosis"));
-        colTreatmentHistory.setCellValueFactory(new PropertyValueFactory<MedicalHistory, String>("treatment"));
-        colStartHistory.setCellValueFactory(new PropertyValueFactory<MedicalHistory, String>("startDate"));
-        colEndHistory.setCellValueFactory(new PropertyValueFactory<MedicalHistory, String>("endDate"));
+        colDiagnosisHistory.setCellValueFactory(
+                                new PropertyValueFactory<MedicalHistory, String>("diagnosis"));
+        colTreatmentHistory.setCellValueFactory(
+                                new PropertyValueFactory<MedicalHistory, String>("treatment"));
+        colStartHistory.setCellValueFactory(
+                                new PropertyValueFactory<MedicalHistory, String>("startDate"));
+        colEndHistory.setCellValueFactory(
+                                new PropertyValueFactory<MedicalHistory, String>("endDate"));
         medicalHistoryTableView.setItems(historyObservableList);
     }
 
+    //**************//
+    //Private Methods//
+    //**************//
     /**
      * Goes to the add visit page, passing any required data.
      *
@@ -232,12 +238,12 @@ public class SearchResultsController implements Initializable {
      */
     private void goToAddVisitPage(ActionEvent event) throws IOException {
         // Pass data to the next controller
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/addVisit.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass()
+                                    .getResource("/Application/addVisit.fxml"));
         root = loader.load();
         AddVisitController addVisitController = loader.getController();
         addVisitController.setResources(doctor, patientFile, medicalVisit, medicalHistory,
-                dataAccessObject);
-
+                                        dataAccessObject);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -252,12 +258,12 @@ public class SearchResultsController implements Initializable {
      */
     private void goToAddHistoryPage(ActionEvent event) throws IOException {
         // Pass data to the next controller
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/addHistory.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass()
+                                    .getResource("/Application/addHistory.fxml"));
         root = loader.load();
         AddHistoryController addHistoryController = loader.getController();
         addHistoryController.setResources(doctor, patientFile, medicalVisit, medicalHistory,
-                dataAccessObject);
-
+                                          dataAccessObject);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -272,12 +278,12 @@ public class SearchResultsController implements Initializable {
      */
     private void goToUpdateHistoryPage(ActionEvent event) throws IOException {
         // Pass data to the next controller
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/updateHistory.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass()
+                                    .getResource("/Application/updateHistory.fxml"));
         root = loader.load();
         UpdateHistoryController updateHistoryController = loader.getController();
         updateHistoryController.setResources(doctor, patientFile, medicalVisit, medicalHistory,
-                dataAccessObject, historyObservableList);
-
+                                             dataAccessObject, historyObservableList);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -292,11 +298,11 @@ public class SearchResultsController implements Initializable {
      */
     private void goToRamqSearchPage(ActionEvent event) throws IOException {
         // Pass data to the next controller
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/ramqSearch.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass()
+                                    .getResource("/Application/ramqSearch.fxml"));
         root = loader.load();
         RamqSearchController ramqSearchController = loader.getController();
         ramqSearchController.setResources(doctor, dataAccessObject);
-
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

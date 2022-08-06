@@ -1,13 +1,21 @@
 package Model.PatientFile;
-
 import Model.Visitor.Visitable;
 import Model.Visitor.Visitor;
-
 import java.time.LocalDate;
 
 public class MedicalHistory implements Visitable {
+    //VARIABLES
+    private String diagnosis;
+    private String treatment;
+    private String doctorName;
+    private int doctorLicense;
+    private LocalDate startDate;
+    LocalDate endDate;
 
-    public MedicalHistory(){}
+    //**************//
+    //Public Methods//
+    //**************//
+    public MedicalHistory() {}
 
     public MedicalHistory(String diagnosis, String treatment, String doctorName, int doctorLicense,
                           LocalDate startDate, LocalDate endDate) {
@@ -18,13 +26,6 @@ public class MedicalHistory implements Visitable {
         this.startDate = startDate;
         this.endDate = endDate;
     }
-
-    String diagnosis;
-    String treatment;
-    String doctorName;
-    int doctorLicense;
-    LocalDate startDate;
-    LocalDate endDate;
 
     public int getDoctorLicense() {
         return doctorLicense;
@@ -81,9 +82,6 @@ public class MedicalHistory implements Visitable {
 
     /**
      * Sets the diagnosis, treatment, and endDate this medical history.
-     *
-     * TODO : Manage if endDate is null??
-     * TODO : Validators?
      * */
     public void modifyHistory(String firstName, String lastName, int license,
                               String diagnosis, String treatment, LocalDate startDate,
@@ -95,7 +93,4 @@ public class MedicalHistory implements Visitable {
         this.startDate = startDate;
         this.endDate = endDate;
     }
-
-
-
 }

@@ -1,5 +1,4 @@
 package Model.Database;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -20,7 +19,6 @@ class DBConnection {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
     // Factory method to provide the users with instances
     static public DBConnection getInstance()
     {
@@ -28,9 +26,7 @@ class DBConnection {
             instance = new DBConnection();
         return instance;
     }
-
     public Connection getConnection() {
         return this.connection;
     }
-
 }

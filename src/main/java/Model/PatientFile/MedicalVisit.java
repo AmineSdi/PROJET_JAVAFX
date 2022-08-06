@@ -1,11 +1,22 @@
 package Model.PatientFile;
-
 import Model.Visitor.Visitable;
 import Model.Visitor.Visitor;
-
 import java.time.LocalDate;
 
 public class MedicalVisit implements Visitable {
+    //VARIABLES
+    private String establishmentName;
+    private String doctorName; // not in Database
+    private int doctorLicense;
+    private LocalDate visitDate;
+    private String diagnosis;
+    private String treatment;
+    private String summary;
+    private String notes;
+
+    //**************//
+    //Public Methods//
+    //**************//
     public MedicalVisit() {}
     public MedicalVisit(String establishmentName, String doctorName, int doctorLicense,
                         LocalDate visitDate, String diagnosis, String treatment,
@@ -13,24 +24,12 @@ public class MedicalVisit implements Visitable {
         validateEstablishmentName(establishmentName);
         validateDoctorName(doctorName);
         validateDoctorLicense(doctorLicense);
-//        validateVisitDate(visitDate);
         validateDiagnosis(diagnosis);
         validateTreatment(treatment);
-//        validateVisitSummary(visitSummary); //
-//        validateNotes(notes);
         this.visitDate = visitDate;
         this.summary = summary;
         this.notes = notes;
     }
-
-    String establishmentName;
-    String doctorName; // not in Database
-    int doctorLicense;
-    LocalDate visitDate;
-    String diagnosis;
-    String treatment;
-    String summary;
-    String notes;
 
     public String getEstablishmentName() {
         return establishmentName;
@@ -41,10 +40,8 @@ public class MedicalVisit implements Visitable {
         // Invalid establishmentName example : CHUM 3
         boolean isValid = false;
         String validFormat = "^([a-zA-Z-\\s])*$";
-
         if (establishmentName.matches(validFormat))
             isValid = true;
-
         if (!isValid)
             this.establishmentName = null;
         else
@@ -60,10 +57,8 @@ public class MedicalVisit implements Visitable {
         // Invalid doctorName example : Dr House licence 852147
         boolean isValid = false;
         String validFormat = "^([a-zA-Z-\\s])*$";
-
         if (doctorName.matches(validFormat))
             isValid = true;
-
         if (!isValid)
             this.doctorName = null;
         else
@@ -91,12 +86,9 @@ public class MedicalVisit implements Visitable {
         // Valid visitDate example : today date
         // Invalid phone examples : not today date
         boolean isValid = false;
-        //String validFormat = "\\d{4}-\\d{2}-\\d{2}";
-
         LocalDate date = LocalDate.now();
         if (visitDate.equals(date))
             isValid = true;
-
         if (!isValid)
             this.visitDate = null;
         else
@@ -115,7 +107,6 @@ public class MedicalVisit implements Visitable {
         if (diagnosis != null) {
             if (diagnosis.matches(validFormat))
                 isValid = true;
-
             if (!isValid)
                 this.diagnosis = null;
             else
@@ -133,10 +124,8 @@ public class MedicalVisit implements Visitable {
         boolean isValid = false;
         String validFormat = "^\\w+(\\s\\w+)*$";
         if (treatment != null) {
-
             if (treatment.matches(validFormat))
                 isValid = true;
-
             if (!isValid)
                 this.treatment = null;
             else
@@ -157,7 +146,6 @@ public class MedicalVisit implements Visitable {
 
             if (visitSummary.matches(validFormat))
                 isValid = true;
-
             if (!isValid)
                 this.summary = null;
             else
@@ -175,7 +163,6 @@ public class MedicalVisit implements Visitable {
         boolean isValid = false;
         String validFormat = "^\\w+(\\s\\w+)*$";
         if (notes != null) {
-
             if (notes.matches(validFormat))
                 isValid = true;
             if (!isValid)
@@ -189,7 +176,6 @@ public class MedicalVisit implements Visitable {
     public void accept(Visitor visitor) {
         visitor.visitMedicalVisit(this);
     }
-
 
     /**
      * Sets the diagnosis, treatment, visitSummary and notes for this medical visit.
@@ -205,9 +191,5 @@ public class MedicalVisit implements Visitable {
         this.treatment = treatment;
         this.summary = summary;
         this.notes = notes;
-//        validateDiagnosis(diagnosis);
-//        validateTreatment(treatment);
-//        validateVisitSummary(visitSummary);
-//        validateNotes(notes);
     }
 }

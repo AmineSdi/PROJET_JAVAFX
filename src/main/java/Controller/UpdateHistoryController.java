@@ -20,7 +20,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 /**
  * This class handles ''WHAT'' and will provide information
  */
@@ -29,16 +28,14 @@ public class UpdateHistoryController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    DataAccessObject dataAccessObject;
-    Doctor doctor;
-    PatientFile patientFile;
-    MedicalVisit medicalVisit = null;
-    MedicalHistory medicalHistory = null;
-    ObservableList<String> historyDiagnosis = FXCollections.observableArrayList();;
-
+    private DataAccessObject dataAccessObject;
+    private Doctor doctor;
+    private PatientFile patientFile;
+    private MedicalVisit medicalVisit = null;
+    private MedicalHistory medicalHistory = null;
+    private ObservableList<String> historyDiagnosis = FXCollections.observableArrayList();;
     @FXML
     private ComboBox<String> comboBox = new ComboBox<>();
-
     @FXML
     private DatePicker dpEndDate;
 
@@ -60,30 +57,28 @@ public class UpdateHistoryController implements Initializable {
     public void handleBtnUpdate(ActionEvent event) throws Exception {
         // End date must be same or more than Start date.
         if(dpEndDate.getValue() == null) {
-            //TODO : show error message to user.
             System.out.println("End date of disease is empty.");
         } else if (comboBox.getValue() == null) {
-            //TODO : show error message to user.
             System.out.println("Diagnosis is empty.");
         } else {
             LocalDate startDate = dataAccessObject.getStartDate(patientFile.getRamqCode(),
-                    doctor.getLicense(), comboBox.getValue());
-
+                                  doctor.getLicense(), comboBox.getValue());
             if (!startDate.isBefore(dpEndDate.getValue())
                     && !startDate.isEqual(dpEndDate.getValue())) {
-                //TODO : show error message to user.
                 System.out.println("End date of disease precedes start date of disease.");
             } else {
                 patientFile.updateEndDate(doctor.getLicense(),
-                        comboBox.getValue(), startDate, dpEndDate.getValue());
-
+                                          comboBox.getValue(), startDate, dpEndDate.getValue());
                 dataAccessObject.updateEndDate(patientFile.getRamqCode(), doctor.getLicense(),
-                        comboBox.getValue(), startDate, dpEndDate.getValue());
+                                               comboBox.getValue(), startDate, dpEndDate.getValue());
             }
         }
         goToSearchResultsPage(event);
     }
 
+    //**************//
+    //Public Methods//
+    //**************//
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
@@ -96,12 +91,13 @@ public class UpdateHistoryController implements Initializable {
         this.medicalVisit = medicalVisit;
         this.medicalHistory = medicalHistory;
         this.dataAccessObject = dataAccessObject;
-
         setDiagnosisList(historyObservableList);
-
         this.comboBox.setItems(historyDiagnosis);
     }
 
+    //**************//
+    //Private Methods//
+    //**************//
     private void setDiagnosisList(ObservableList<MedicalHistory> historyObservableList) {
         for (MedicalHistory history : historyObservableList) {
             if (history.getEndDate() == null)
@@ -116,15 +112,13 @@ public class UpdateHistoryController implements Initializable {
      * @throws IOException
      */
     private void goToSearchResultsPage(ActionEvent event) throws IOException {
-
         // Pass data to the next controller
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/Application/searchResults.fxml"));
+                                           .getResource("/Application/searchResults.fxml"));
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
         searchResultsController.setResources(doctor, patientFile, medicalVisit,
-                medicalHistory, dataAccessObject);
-
+                                             medicalHistory, dataAccessObject);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
