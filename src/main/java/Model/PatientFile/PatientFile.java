@@ -32,12 +32,14 @@ public class PatientFile {
     List<MedicalVisit> medicalVisits = new ArrayList<MedicalVisit>();
     List<MedicalHistory> medicalHistories = new ArrayList<MedicalHistory>();
 
-    private void addMedicalVisit(MedicalVisit mv) {
-        medicalVisits.add(mv);
+    public void addMedicalVisit(MedicalVisit mv) {
+        if (mv != null)
+            medicalVisits.add(mv);
     }
 
-    private void addMedicalHistory(MedicalHistory mh) {
-        medicalHistories.add(mh);
+    public void addMedicalHistory(MedicalHistory mh) {
+        if (mh != null)
+            medicalHistories.add(mh);
     }
 
     public String getRamqCode() {
@@ -196,6 +198,5 @@ public class PatientFile {
     public void setMedicalHistories(List<MedicalHistory> medicalHistories) {
         this.medicalHistories = medicalHistories;
     }
-
 
 }
