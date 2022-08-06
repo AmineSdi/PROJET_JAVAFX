@@ -1,0 +1,61 @@
+@startuml
+'https://plantuml.com/class-diagram
+!include _common.style
+title Adapter class diagram
+center footer Adapter class diagram
+
+class DataAccessObject {
+    'patientExistsInDB(RamqCode)
+    +getPatientFileInfoFromDB(RamqCode)
+    +findUsernameAndPassword(username, password)
+    '-getPatientFileDB()
+    '+getMedicalVisits()
+    '-getMedicalVisitDB()
+    '+getMedicalHistories()
+    '-getMedicalHistoryDB()
+    '-getDoctor()
+    '+getObservableVisitsList()
+    '-getObservableVisitsDB()
+    '+getObservableHistoryList()
+    '-getObservableHistoryDB()
+    '-getMedicalEstablishment()
+    '-getContactInformation()
+    '-getDoctorName()
+    '-getEstablishmentName()
+    '+getContactInformation()
+    +addMedicalVisit(RamqCode, medicalVisit)
+    +addMedicalHistory(RamqCode, medicalHistory)
+    -executeQuery(query)
+}
+
+class RamqSearchController {
+    +handleBtnSearch()
+}
+
+class SearchResultController {
+    +handleBtnSaveToDB()
+}
+
+class LoginController {
+    +handleBtnLogin()
+}
+
+
+class PatientFileBuilder {
+    +buildVisits()
+    +buildHistories()
+    +buildContactInfo()
+    -fetchPatientInfoFromDB()
+}
+
+class DBConnection {
+    +getInstance()
+}
+
+
+RamqSearchController --> DataAccessObject
+PatientFileBuilder --> DataAccessObject
+LoginController --> DataAccessObject
+SearchResultController -> DataAccessObject
+DataAccessObject -> DBConnection
+@enduml
