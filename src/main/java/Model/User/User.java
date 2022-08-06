@@ -1,5 +1,9 @@
 package Model.User;
 
+/**
+ * This class models an Abstract User. Right now, it is not of much use
+ * but is still implemented to facilitate the evolution of the application
+ */
 public abstract class User {
     //VARIABLES
     private int userId;

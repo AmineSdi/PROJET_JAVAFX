@@ -3,6 +3,11 @@ import Model.Visitor.Visitable;
 import Model.Visitor.Visitor;
 import java.time.LocalDate;
 
+/**
+ * This class models a MedicalVisit and various validation methods.
+ * It also notably plays a role in our Visitor software-design pattern
+ * by implementing Visitable which makes it visitable by the class Doctor
+ */
 public class MedicalVisit implements Visitable {
     //VARIABLES
     private String establishmentName;

@@ -108,7 +108,9 @@ public class Doctor extends User implements Visitor {
         this.specialty = specialty;
     }
 
-    //PRIVATE METHODS
+    //***************//
+    //PRIVATE METHODS//
+    //***************//
     /**
      * Validates that the license number of the Doctor.
      * If invalid, sets the license to 0, which prevents the Doctor from using the application.
