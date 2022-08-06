@@ -62,7 +62,7 @@ Afin d'ajouter une visite médicale, il faut remplir les champs `Diagnosis`, `Tr
 
 En cliquant sur le bouton `Clear`, il est possible d'annuler les changements apportés dans les champs. Ce bouton reviendra aussi à la page du dossier du patient. 
 
-En cliquant sur le bouton `Save`, il est possible de sauvegarder localement la visite médicale du patient. Tant que le bouton `Submit` de la page contenant les informations du patient n'est pas cliqué, aucun changement ne sera sauvegardé dans la base de données.  
+En cliquant sur le bouton `Save`, il est possible de sauvegarder localement la visite médicale du patient. Tant que le bouton `Submit` de la page du dossier du patient n'est pas cliqué, aucun changement ne sera sauvegardé dans la base de données.  
 
 Il est à noter que l'utilisateur n'a pas besoin d'entrer la date de la visite médicale, car la date de visite est automatiquement mise à la date actuelle.  
 
@@ -74,7 +74,7 @@ Le champ `End date` est optionnel car on ne connaît pas nécessairement la date
 
 En cliquant sur le bouton `Clear`, il est possible d'annuler les changements apportés dans les champs. Ce bouton reviendra aussi à la page du dossier du patient.  
 
-En cliquant sur le bouton `Save`, il est possible de sauvegarder localement l'antécédent médical du patient. Tant que le bouton `Submit` de la page contenant les informations du patient n'est pas cliqué, aucun changement ne sera sauvegardé dans la base de données.
+En cliquant sur le bouton `Save`, il est possible de sauvegarder localement l'antécédent médical du patient. Tant que le bouton `Submit` de la page du dossier du patient n'est pas cliqué, aucun changement ne sera sauvegardé dans la base de données.
 
 ### Page de modification de la date de fin d'un antécédent médical  
 
