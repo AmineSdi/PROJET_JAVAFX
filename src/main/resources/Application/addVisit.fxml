@@ -80,6 +80,12 @@
             <Image url="@../img/medical.png" />
          </image>
       </ImageView>
+      <Label fx:id="errorCompleteMV" layoutX="191.0" layoutY="801.0" text="Please complete medical visit." textFill="RED" visible="false" />
+      <ImageView fx:id="errorCaution1" fitHeight="25.0" fitWidth="21.0" layoutX="400.0" layoutY="800.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../img/PngItem_1190874.png" />
+         </image>
+      </ImageView>
    </children>
    <effect>
       <DropShadow radius="4.75" width="0.0" />

@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -131,6 +132,7 @@ public class SearchResultsController implements Initializable {
             patientFile.addMedicalVisit(medicalVisit);
             showPatientVisits(dataAccessObject, patientFile.getRamqCode());
             medicalVisit = null;
+            alertConfirmSubmit();
         }
 
         if(medicalHistory != null) {
@@ -138,8 +140,22 @@ public class SearchResultsController implements Initializable {
             patientFile.addMedicalHistory(medicalHistory);
             showPatientHistory(dataAccessObject, patientFile.getRamqCode());
             medicalHistory = null;
+            alertConfirmSubmit();
         }
+
+        if(medicalVisit == null && medicalHistory == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Medical Program");
+            alert.setHeaderText(null);
+            alert.setContentText("Patient notes incomplete.");
+            alert.showAndWait();
+        }
+
+        medicalVisit = null;
+        medicalHistory = null;
+        
     }
+    
     @FXML
     public void handleBtnAddMV(ActionEvent event) throws Exception {
         goToAddVisitPage(event);
@@ -154,8 +170,13 @@ public class SearchResultsController implements Initializable {
     public void handleBtnUpdateMH(ActionEvent event) throws Exception {
         goToUpdateHistoryPage(event);
     }
-
-
+    public void alertConfirmSubmit() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Medical Program");
+        alert.setHeaderText(null);
+        alert.setContentText("Patient notes saved.");
+        alert.showAndWait();
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
