@@ -184,9 +184,13 @@ public class AddHistoryController implements Initializable {
         alert.setHeaderText("Erase all local changes to this medical history?");
         alert.setContentText("Click OK to erase, click cancel to return.");
         if(alert.showAndWait().get() == ButtonType.OK) {
-            //Code à effectuer lorsque le programme se termine
-            stage = (Stage) AnchorPane.getScene().getWindow();
-            stage.close();
+
+            /**
+             * Code commenté pour que la fenêtre SearchResults.fxml s'ouvre en premier plan.
+             */
+            // //Code à effectuer lorsque le programme se termine
+            // stage = (Stage) AnchorPane.getScene().getWindow();
+            // stage.close();
             return true;
         }
         return false;

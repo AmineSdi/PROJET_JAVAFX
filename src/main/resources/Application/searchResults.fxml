@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="824.0" prefWidth="1229.0" style="-fx-background-color: #e6f3ff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SearchResultsController">
    <children>
-      <Button id="blue" fx:id="btnSaveToDB" defaultButton="true" layoutX="1045.0" layoutY="739.0" mnemonicParsing="false" onAction="#handleBtnSaveToDB" prefHeight="48.0" prefWidth="141.0" stylesheets="@../css/stylesheet.css" text="Submit">
+      <Button id="blue" fx:id="btnSaveToDB" defaultButton="true" layoutX="1026.0" layoutY="739.0" mnemonicParsing="false" onAction="#handleBtnSaveToDB" prefHeight="51.0" prefWidth="163.0" stylesheets="@../css/stylesheet.css" text="Submit">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -30,15 +30,15 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button id="lion" fx:id="btnAddMedicalVisit" layoutX="46.0" layoutY="739.0" mnemonicParsing="false" onAction="#handleBtnAddMV" prefHeight="51.0" prefWidth="210.0" stylesheets="@../css/stylesheet.css" text="Add Medical Visit">
+      <Button id="line" fx:id="btnAddMedicalVisit" layoutX="39.0" layoutY="739.0" mnemonicParsing="false" onAction="#handleBtnAddMV" prefHeight="51.0" prefWidth="210.0" stylesheets="@../css/stylesheet.css" text="Add Medical Visit">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button id="lion" fx:id="btnAddMedicalHistory" layoutX="319.0" layoutY="739.0" mnemonicParsing="false" onAction="#handleBtnAddMH" prefHeight="51.0" prefWidth="210.0" stylesheets="@../css/stylesheet.css" text="Add Medical History">
+      <Button id="line" fx:id="btnAddMedicalHistory" layoutX="276.0" layoutY="739.0" mnemonicParsing="false" onAction="#handleBtnAddMH" prefHeight="51.0" prefWidth="210.0" stylesheets="@../css/stylesheet.css" text="Add Medical History">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button id="blue" fx:id="btnUpdateMedicalHistory" layoutX="592.0" layoutY="739.0" mnemonicParsing="false" onAction="#handleBtnUpdateMH" prefHeight="51.0" prefWidth="210.0" stylesheets="@../css/stylesheet.css" text="Update History">
+      <Button id="lion" fx:id="btnUpdateMedicalHistory" layoutX="510.0" layoutY="739.0" mnemonicParsing="false" onAction="#handleBtnUpdateMH" prefHeight="51.0" prefWidth="210.0" stylesheets="@../css/stylesheet.css" text="Update History">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
@@ -46,47 +46,47 @@
          <font>
             <Font name="AnjaliOldLipi Regular" size="15.0" />
          </font></Text>
-      <TextField fx:id="tfFirstName" layoutX="974.0" layoutY="99.0" opacity="0.72" prefHeight="26.0" prefWidth="222.0" style="-fx-background-radius: 8px;" />
+      <TextField fx:id="tfFirstName" layoutX="974.0" layoutY="99.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: transparent; -fx-border-color: #66adff; -fx-border-width: 0px 0px 1px 0px;" />
       <Text layoutX="896.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LastName">
          <font>
             <Font name="AnjaliOldLipi Regular" size="15.0" />
          </font></Text>
-      <TextField fx:id="tfLastName" layoutX="974.0" layoutY="131.0" opacity="0.72" prefHeight="26.0" prefWidth="222.0" style="-fx-background-radius: 8px;" />
+      <TextField fx:id="tfLastName" layoutX="974.0" layoutY="131.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: transparent; -fx-border-color: #66adff; -fx-border-width: 0px 0px 1px 0px;" />
       <Text layoutX="899.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birthdate">
          <font>
             <Font name="AnjaliOldLipi Regular" size="15.0" />
          </font></Text>
-      <TextField fx:id="tfBirthDate" layoutX="974.0" layoutY="165.0" opacity="0.72" prefHeight="26.0" prefWidth="170.0" style="-fx-background-radius: 8px;" />
+      <TextField fx:id="tfBirthDate" layoutX="974.0" layoutY="165.0" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-border-color: #66adff; -fx-border-width: 0px 0px 1px 0px;" />
       <Text layoutX="929.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City">
          <font>
             <Font name="AnjaliOldLipi Regular" size="15.0" />
          </font></Text>
-      <TextField fx:id="tfCity" layoutX="976.0" layoutY="270.0" opacity="0.72" prefHeight="26.0" prefWidth="170.0" style="-fx-background-radius: 8px;" />
+      <TextField fx:id="tfCity" layoutX="976.0" layoutY="270.0" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-border-color: #66adff; -fx-border-width: 0px 0px 1px 0px;" />
       <Text layoutX="866.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Known Parents">
          <font>
             <Font name="AnjaliOldLipi Regular" size="15.0" />
          </font></Text>
-      <TextField fx:id="tfKnownParents" layoutX="977.0" layoutY="378.0" opacity="0.72" prefHeight="26.0" prefWidth="222.0" style="-fx-background-radius: 8px;" />
+      <TextField fx:id="tfKnownParents" layoutX="977.0" layoutY="378.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: transparent; -fx-border-color: #66adff; -fx-border-width: 0px 0px 1px 0px;" />
       <Text layoutX="920.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Street">
          <font>
             <Font name="AnjaliOldLipi Regular" size="15.0" />
          </font></Text>
-      <TextField fx:id="tfStreet" layoutX="974.0" layoutY="235.0" opacity="0.72" prefHeight="26.0" prefWidth="222.0" style="-fx-background-radius: 8px;" />
+      <TextField fx:id="tfStreet" layoutX="974.0" layoutY="235.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: transparent; -fx-border-color: #66adff; -fx-border-width: 0px 0px 1px 0px;" />
       <Text layoutX="884.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PostalCode">
          <font>
             <Font name="AnjaliOldLipi Regular" size="15.0" />
          </font></Text>
-      <TextField fx:id="tfPostalCode" layoutX="975.0" layoutY="304.0" opacity="0.72" prefHeight="26.0" prefWidth="170.0" style="-fx-background-radius: 8px;" />
+      <TextField fx:id="tfPostalCode" layoutX="975.0" layoutY="304.0" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-border-color: #66adff; -fx-border-width: 0px 0px 1px 0px;" />
       <Text layoutX="920.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone">
          <font>
             <Font name="AnjaliOldLipi Regular" size="15.0" />
          </font></Text>
-      <TextField fx:id="tfPhone" layoutX="974.0" layoutY="199.0" opacity="0.72" prefHeight="26.0" prefWidth="170.0" style="-fx-background-radius: 8px;" />
+      <TextField fx:id="tfPhone" layoutX="974.0" layoutY="199.0" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-border-color: #66adff; -fx-border-width: 0px 0px 1px 0px;" />
       <Text layoutX="921.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
          <font>
             <Font name="AnjaliOldLipi Regular" size="15.0" />
          </font></Text>
-      <TextField fx:id="tfEmail" layoutX="976.0" layoutY="338.0" opacity="0.72" prefHeight="26.0" prefWidth="170.0" style="-fx-background-radius: 8px;" />
+      <TextField fx:id="tfEmail" layoutX="976.0" layoutY="338.0" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-border-color: #66adff; -fx-border-width: 0px 0px 1px 0px;" />
       <TableView fx:id="medicalVisitTableView" layoutX="14.0" layoutY="459.0" prefHeight="258.0" prefWidth="1175.0">
         <columns>
             <TableColumn fx:id="colDateOfVisit" prefWidth="138.0" text="Date of visit" />
@@ -96,7 +96,7 @@
             <TableColumn fx:id="colNotesVisit" prefWidth="291.0" text="Notes" />
         </columns>
       </TableView>
-      <TableView id="dark" fx:id="medicalHistoryTableView" layoutX="14.0" layoutY="155.0" prefHeight="252.0" prefWidth="840.0">
+      <TableView fx:id="medicalHistoryTableView" layoutX="14.0" layoutY="155.0" prefHeight="252.0" prefWidth="840.0">
          <columns>
             <TableColumn fx:id="colDiagnosisHistory" minWidth="9.0" prefWidth="224.0" text="Diagnosis" />
             <TableColumn fx:id="colTreatmentHistory" prefWidth="325.0" text="Treatment" />

@@ -128,18 +128,18 @@ public class SearchResultsController implements Initializable {
             dataAccessObject.addMedicalVisit(patientFile.getRamqCode(), medicalVisit);
             patientFile.addMedicalVisit(medicalVisit);
             showPatientVisits(dataAccessObject, patientFile.getRamqCode());
-            medicalVisit = null;
+            // medicalVisit = null; MedicalVisit est mis à null à la fin de la méthode pour corriger le bug de 'notes incomplete'.
             alertConfirmSubmit();
         }
         if(medicalHistory != null) {
             dataAccessObject.addMedicalHistory(patientFile.getRamqCode(), medicalHistory);
             patientFile.addMedicalHistory(medicalHistory);
             showPatientHistory(dataAccessObject, patientFile.getRamqCode());
-            medicalHistory = null;
+            // medicalHistory = null; MedicalHistory est mis à null à la fin de la méthode pour corriger le bug de 'notes incomplete'.
             alertConfirmSubmit();
         }
         if(medicalVisit == null && medicalHistory == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Medical Program");
             alert.setHeaderText(null);
             alert.setContentText("Patient notes incomplete.");

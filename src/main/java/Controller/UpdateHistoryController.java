@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -39,6 +40,24 @@ public class UpdateHistoryController implements Initializable {
     @FXML
     private DatePicker dpEndDate;
 
+     //*********************//
+    //FXML Label variables (error messages)//
+    //*********************//
+    @FXML
+    private Label lbErrorEmptyDiagnosis;
+    @FXML
+    private Label lbErrorEmptyEndDate;
+    @FXML
+    private Label lbErrorEndDateBfStart;
+
+    
+
+  //*********************//
+    //FXML ImageView variable (error messages)//
+    //*********************//
+    @FXML
+    private ImageView errorCaution;
+
     //*********************//
     //Handle Button Methods//
     //*********************//
@@ -55,25 +74,41 @@ public class UpdateHistoryController implements Initializable {
      */
     @FXML
     public void handleBtnUpdate(ActionEvent event) throws Exception {
-        // End date must be same or more than Start date.
-        if(dpEndDate.getValue() == null) {
-            System.out.println("End date of disease is empty.");
-        } else if (comboBox.getValue() == null) {
-            System.out.println("Diagnosis is empty.");
+    // End date must be same or more than Start date.
+        if(comboBox.getValue() == null) {
+                comboBox.setStyle("-fx-border-color: red");
+                lbErrorEmptyDiagnosis.setVisible(true);
+                errorCaution.setVisible(true);
+                System.out.println("Diagnosis is empty");
         } else {
-            LocalDate startDate = dataAccessObject.getStartDate(patientFile.getRamqCode(),
-                                  doctor.getLicense(), comboBox.getValue());
+                comboBox.setStyle("-fx-border-color: none ; -fx-border-width: 0px ;");
+            if (dpEndDate.getValue() == null) {
+                dpEndDate.setStyle("-fx-border-color: red");
+                lbErrorEmptyDiagnosis.setVisible(false);
+                lbErrorEmptyEndDate.setVisible(true);
+                errorCaution.setVisible(true);
+            System.out.println("End date of disease is empty.");
+            } else {
+                dpEndDate.setStyle("-fx-border-color: none ; -fx-border-width: 0px ;");
+                LocalDate startDate = dataAccessObject.getStartDate(patientFile.getRamqCode(),
+                    doctor.getLicense(), comboBox.getValue());
             if (!startDate.isBefore(dpEndDate.getValue())
                     && !startDate.isEqual(dpEndDate.getValue())) {
+                lbErrorEmptyDiagnosis.setVisible(false);
+                lbErrorEmptyEndDate.setVisible(false);
+                lbErrorEndDateBfStart.setVisible(true);
+                errorCaution.setVisible(true);
                 System.out.println("End date of disease precedes start date of disease.");
             } else {
                 patientFile.updateEndDate(doctor.getLicense(),
                                           comboBox.getValue(), startDate, dpEndDate.getValue());
                 dataAccessObject.updateEndDate(patientFile.getRamqCode(), doctor.getLicense(),
-                                               comboBox.getValue(), startDate, dpEndDate.getValue());
+                        comboBox.getValue(), startDate, dpEndDate.getValue());
+                System.out.println("Medical History is updated.");
+                        goToSearchResultsPage(event);
             }
-        }
-        goToSearchResultsPage(event);
+         }
+    }
     }
 
     //**************//
@@ -81,6 +116,14 @@ public class UpdateHistoryController implements Initializable {
     //**************//
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //enable datepicker when combobox value is selected
+        comboBox.setOnAction(e -> {
+            if(comboBox.getValue() == null) {
+                dpEndDate.setDisable(true);
+            } else {
+                dpEndDate.setDisable(false);
+            }
+        });
     }
 
     public void setResources(Doctor doctor, PatientFile patientFile, MedicalVisit medicalVisit,
