@@ -355,7 +355,7 @@ public class DataAccessObject {
                         doctorName,
                         doctorLicense,
                         LocalDate.parse(resultSet.getString("startDate")),
-                        localEndDate);
+                        LocalDate.parse(resultSet.getString("endDate")));
                 historyObservableList.add(history);
             }
         } catch(Exception ex) {
