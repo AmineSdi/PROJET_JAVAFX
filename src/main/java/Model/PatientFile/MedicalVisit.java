@@ -9,14 +9,14 @@ public class MedicalVisit implements Visitable {
     public MedicalVisit() {}
     public MedicalVisit(String establishmentName, String doctorName, int doctorLicense,
                         LocalDate visitDate, String diagnosis, String treatment,
-                        String visitSummary, String notes) {
+                        String summary, String notes) {
         validateEstablishmentName(establishmentName);
         validateDoctorName(doctorName);
         validateDoctorLicense(doctorLicense);
         validateVisitDate(visitDate);
         validateDiagnosis(diagnosis);
         validateTreatment(treatment);
-        validateVisitSummary(visitSummary); //
+        validateVisitSummary(summary);
         validateNotes(notes);
         //this.visitDate = visitDate;
         //this.visitSummary = visitSummary;
@@ -29,7 +29,7 @@ public class MedicalVisit implements Visitable {
     LocalDate visitDate;
     String diagnosis;
     String treatment;
-    String visitSummary;
+    String summary;
     String notes;
 
     public String getEstablishmentName() {
@@ -110,9 +110,9 @@ public class MedicalVisit implements Visitable {
         // Valid diagnosis examples : Cancer, Cold + temperature 39, end with punctuation
         // Invalid diagnosis example : empty field, does not end with punctuation
         boolean isValid = false;
-        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
         if (diagnosis != null) {
-            if (diagnosis.matches(validFormat))
+            if (diagnosis.matches(validFormat) && diagnosis.length() > 0)
                 isValid = true;
 
             if (!isValid)
@@ -130,10 +130,10 @@ public class MedicalVisit implements Visitable {
         // Valid treatment examples : Sleep, pills, end with punctuation
         // Invalid treatment example : empty field, does not end with punctuation
         boolean isValid = false;
-        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
         if (treatment != null) {
 
-            if (treatment.matches(validFormat))
+            if (treatment.matches(validFormat) && treatment.length() > 0)
                 isValid = true;
 
             if (!isValid)
@@ -143,24 +143,24 @@ public class MedicalVisit implements Visitable {
         }
     }
 
-    public String getVisitSummary() {
-        return visitSummary;
+    public String getSummary() {
+        return summary;
     }
 
     public void validateVisitSummary(String visitSummary) {
-        // Valid visitSummary examples : High temperature for 2 days, end with punctuation
-        // Invalid visitSummary example : empty field, does not end with punctuation
+        // Valid visitSummary examples : High temperature for 2 days, punctuation
+        // Invalid visitSummary example : empty field,
         boolean isValid = false;
-        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
         if (visitSummary != null) {
 
-            if (visitSummary.matches(validFormat))
+            if (visitSummary.matches(validFormat) && visitSummary.length() > 0)
                 isValid = true;
 
             if (!isValid)
-                this.visitSummary = null;
+                this.summary = null;
             else
-                this.visitSummary = visitSummary;
+                this.summary = visitSummary;
         }
     }
 
@@ -169,13 +169,13 @@ public class MedicalVisit implements Visitable {
     }
 
     public void validateNotes(String notes) {
-        // Valid visitSummary examples : Had cold in the past, end with punctuation
-        // Invalid notes example : empty field, does not end with punctuation
+        // Valid notes examples : Had cold in the past, punctuation
+        // Invalid notes example : empty field,
         boolean isValid = false;
-        String validFormat = "^[A-Za-z0-9,;?.'\"\\s]+[.?!]$";
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
         if (notes != null) {
 
-            if (notes.matches(validFormat))
+            if (notes.matches(validFormat) && notes.length() > 0)
                 isValid = true;
             if (!isValid)
                 this.notes = null;
@@ -195,18 +195,20 @@ public class MedicalVisit implements Visitable {
      * */
     public void modifyVisit(String medicalEstablishmentName, String firstName, String lastName,
                             int license, LocalDate date, String diagnosis, String treatment,
-                            String visitSummary, String notes) {
-        this.establishmentName = medicalEstablishmentName;
+                            String summary, String notes) {
+        validateEstablishmentName(medicalEstablishmentName);
+        validateDoctorName(firstName);
+        validateDoctorName(lastName);
         this.doctorName = firstName + " " + lastName;
-        this.doctorLicense = license;
-        this.visitDate = date;
+        validateDoctorLicense(license);
+        validateVisitDate(date);
         //this.diagnosis = diagnosis;
         //this.treatment = treatment;
         //this.visitSummary = visitSummary;
         //this.notes = notes;
         validateDiagnosis(diagnosis);
         validateTreatment(treatment);
-        validateVisitSummary(visitSummary);
+        validateVisitSummary(summary);
         validateNotes(notes);
     }
 }
