@@ -34,41 +34,147 @@ public class Doctor extends User implements Visitor {
                   MedicalEstablishment medicalEstablishment) {
         super(userId, firstName, lastName, userName, password);
         validateLicense(license);
-        this.specialty = specialty;
+        setSpecialty(specialty);
         this.medicalEstablishment = medicalEstablishment;
     }
 
     public void setHistoryDiagnosis(String historyDiagnosis) {
-        this.historyDiagnosis = historyDiagnosis;
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        if (historyDiagnosis != null) {
+            if (historyDiagnosis.matches(validFormat) && historyDiagnosis.length() > 0)
+                isValid = true;
+
+            if (!isValid)
+                this.historyDiagnosis = null;
+            else
+                this.historyDiagnosis = historyDiagnosis;
+        }
     }
 
     public void setHistoryTreatment(String historyTreatment) {
-        this.historyTreatment = historyTreatment;
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        if (historyTreatment != null) {
+
+            if (historyTreatment.matches(validFormat) && historyTreatment.length() > 0)
+                isValid = true;
+
+            if (!isValid)
+                this.historyTreatment = null;
+            else
+                this.historyTreatment = historyTreatment;
+        }
     }
 
     public void setHistoryEndDate(LocalDate historyEndDate) {
         this.historyEndDate = historyEndDate;
+        /*boolean isValid = false;
+
+        LocalDate date = LocalDate.now();
+        if (historyEndDate.equals(date))
+            isValid = true;
+
+        if (!isValid)
+            this.historyEndDate = null;
+        else
+            this.historyEndDate = historyEndDate;*/
     }
 
     public void setHistoryStartDate(LocalDate historyStartDate) {
-        this.historyStartDate = historyStartDate;
+        boolean isValid = false;
+
+        LocalDate date = LocalDate.now();
+        if (historyStartDate.equals(date))
+            isValid = true;
+
+        if (!isValid)
+            this.historyStartDate = null;
+        else
+            this.historyStartDate = historyStartDate;
     }
 
     //SETTERS AND GETTERS
     public void setVisitDiagnosis(String visitDiagnosis) {
-        this.visitDiagnosis = visitDiagnosis;
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        if (visitDiagnosis != null) {
+            if (visitDiagnosis.matches(validFormat) && visitDiagnosis.length() > 0)
+                isValid = true;
+
+            if (!isValid)
+                this.visitDiagnosis = null;
+            else
+                this.visitDiagnosis = visitDiagnosis;
+        }
     }
     public void setVisitTreatment(String visitTreatment) {
-        this.visitTreatment = visitTreatment;
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        if (visitTreatment != null) {
+
+            if (visitTreatment.matches(validFormat) && visitTreatment.length() > 0)
+
+                isValid = true;
+
+            if (!isValid)
+                this.visitTreatment = null;
+            else
+                this.visitTreatment = visitTreatment;
+        }
     }
     public void setVisitSummary(String visitSummary) {
-        this.visitSummary = visitSummary;
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        if (visitSummary != null) {
+
+            if (visitSummary.matches(validFormat) && visitSummary.length() > 0)
+                isValid = true;
+
+            if (!isValid)
+                this.visitSummary = null;
+            else
+                this.visitSummary = visitSummary;
+        }
     }
     public void setVisitNotes(String visitNotes) {
-        this.visitNotes = visitNotes;
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        if (visitNotes != null) {
+
+            if (visitNotes.matches(validFormat) && visitNotes.length() > 0)
+                isValid = true;
+            if (!isValid)
+                this.visitNotes = null;
+            else
+                this.visitNotes = visitNotes;
+        }
     }
     public int getLicense() {
         return license;
+    }
+
+    public void setLicense(int license) {
+        if (license >= 10000 && license <= 99999)
+            this.license = license;
+        else
+            this.license = 0;
+    }
+    public String getSpecialty() {
+        return specialty;
+    }
+    public void setSpecialty(String specialty) {
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        if (specialty != null) {
+            if (specialty.matches(validFormat) && specialty.length() > 0)
+                isValid = true;
+
+            if (!isValid)
+                this.specialty = null;
+            else
+                this.specialty = specialty;
+        }
     }
 
     //***************//

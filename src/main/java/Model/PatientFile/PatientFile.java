@@ -27,13 +27,13 @@ public class PatientFile {
     //**************//
     public PatientFile(String ramqCode, String firstName, String lastName, Gender gender,
                        String birthCity, LocalDate birthDate, String knownParents) {
-        this.ramqCode = ramqCode;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.birthCity = birthCity;
+        setRamqCode(ramqCode);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setGender(gender);
+        setBirthCity(birthCity);
         this.birthDate = birthDate;
-        this.knownParents = knownParents;
+        setKnownParents(knownParents);
     }
 
     public void addMedicalVisit(MedicalVisit mv) {
@@ -50,35 +50,113 @@ public class PatientFile {
         return ramqCode;
     }
 
+    public void setRamqCode(String ramqCode) {
+        boolean isValid = false;
+        String validFormat = "^[A-Z]{4}\\d{8}$";
 
+        if (ramqCode.matches(validFormat))
+            isValid = true;
 
+        if (!isValid)
+            this.ramqCode = null;
+        else
+            this.ramqCode = ramqCode;
+    }
     public String getFirstName() {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z-\\s])*$";
+
+        if (firstName.matches(validFormat) && firstName.length() > 0)
+            isValid = true;
+
+        if (!isValid)
+            this.firstName = null;
+        else
+            this.firstName = firstName;
+    }
 
     public String getLastName() {
         return lastName;
     }
 
+    public void setLastName(String lastName) {
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z-\\s])*$";
 
+        if (lastName.matches(validFormat) && lastName.length() > 0)
+            isValid = true;
+
+        if (!isValid)
+            this.lastName = null;
+        else
+            this.lastName = lastName;
+    }
 
     public Gender getGender() {
         return gender;
     }
 
+    public void setGender(Gender gender) {
+        boolean isValid = gender.equals(Gender.MALE) || gender.equals(Gender.FEMALE)
+                || gender.equals(Gender.OTHER);
+
+        if (!isValid)
+            this.gender = null;
+        else
+            this.gender = gender;
+    }
 
     public LocalDate getBirthDate() {
         return birthDate;
     }
 
+    public void setBirthDate(LocalDate birthDate) {
+        boolean isValid = false;
+
+        LocalDate date = LocalDate.now();
+        if (birthDate.equals(date))
+            isValid = true;
+
+        if (!isValid)
+            this.birthDate = null;
+        else
+            this.birthDate = birthDate;
+    }
 
     public String getBirthCity() {
         return birthCity;
     }
 
+    public void setBirthCity(String birthCity) {
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z-\\s])*$";
+
+        if (birthCity.matches(validFormat) && birthCity.length() > 0)
+            isValid = true;
+
+        if (!isValid)
+            this.birthCity = null;
+        else
+            this.birthCity = birthCity;
+    }
+
     public String getKnownParents() {
         return knownParents;
+    }
+
+    public void setKnownParents(String knownParents) {
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z-,\\s])*$";
+        if (knownParents.matches(validFormat) && knownParents.length() > 0)
+            isValid = true;
+        if (!isValid)
+            this.knownParents = null;
+        else
+            this.knownParents = knownParents;
     }
 
     public ContactInformation getContactInformation() {
