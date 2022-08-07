@@ -1,6 +1,8 @@
 import Model.ContactInformation.ContactInformation;
 import Model.Database.DataAccessObject;
+import Model.PatientFile.Gender;
 import Model.PatientFile.MedicalVisit;
+import Model.PatientFile.PatientFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,8 +10,10 @@ import org.junit.jupiter.api.Test;
 import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DataAccessObjectTest {
 
@@ -108,12 +112,12 @@ public class DataAccessObjectTest {
         connection.close();
     }
 
-    @AfterEach
-    public void cleanUp() throws SQLException {
-        connection = getConnection();
-        executeQuery(cleanUpQuery);
-        connection.close();
-    }
+//    @AfterEach
+//    public void cleanUp() throws SQLException {
+//        connection = getConnection();
+//        executeQuery(cleanUpQuery);
+//        connection.close();
+//    }
 
     @Test
     public void addMedicalVisitTest() throws SQLException {
@@ -122,7 +126,6 @@ public class DataAccessObjectTest {
         dataAccessObject.addMedicalVisit("ALLA60050501", mv);
         Statement statement;
         ResultSet resultSet;
-
         try {
             String selectQuery = "select * from MedicalVisits;";
             statement = connection.createStatement();
@@ -139,15 +142,48 @@ public class DataAccessObjectTest {
         connection.close();
     }
 
-//    @Test
-//    public void test2() throws SQLException {
-////        System.out.println("INSERTING");
-//        String query = "INSERT into MedicalVisits(patientRamqCode, doctorLicense, visitDate, diagnosis, treatment, summary, notes) VALUES (\"ALLA60050501\", 11111, \"2022-08-01\", \"Headache\", \"Rest\", \"No neuro sx.\", \"No red flags\");";
-//        executeQuery(query);
-//        connection.close();
-//    }
+    @Test
+    public void patientExistsInDBTest() throws SQLException{
+        connection = getConnection();
+        Statement statement;
+        boolean testResult;
+        try {
+            String insertQuery = "INSERT into PatientFiles VALUES (\"CHAC70110503\", \"Charlie\", \"Chaplin\", \"MALE\", \"Montreal\", \"1970-11-05\", \"Father: Chris, Mother: Caroline\", 4);";
+            statement = connection.createStatement();
+            statement.executeUpdate(insertQuery);
+            testResult = dataAccessObject.patientExistsInDB("CHAC70110503");
+            assertTrue(testResult);
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        connection.close();
+    }
 
-    private void executeQuery(String query) {
+    @Test
+    public void getPatientFileInfoFromDBTest() throws SQLException {
+        connection = getConnection();
+        Statement statement;
+        HashMap<String, String> resultHashMap = new HashMap<String, String>();
+        try {
+            String insertQuery = "INSERT into PatientFiles VALUES (\"CHAC70110503\", \"Charles-Valentin\", \"Alkan\", \"MALE\", \"Montreal\", \"1970-11-05\", \"Father: Chris, Mother: Caroline\", 4);";
+            statement = connection.createStatement();
+            statement.executeUpdate(insertQuery);
+            resultHashMap = dataAccessObject.getPatientFileInfoFromDB("CHAC70110503");
+            assertEquals("CHAC70110503", resultHashMap.get("ramqCode"));
+            assertEquals("Charles-Valentin", resultHashMap.get("firstName"));
+            assertEquals("Alkan", resultHashMap.get("lastName"));
+            assertEquals("MALE", resultHashMap.get("gender"));
+            assertEquals("Montreal", resultHashMap.get("birthCity"));
+            assertEquals("1970-11-05", resultHashMap.get("birthDate"));
+            assertEquals("Father: Chris, Mother: Caroline", resultHashMap.get("parentsName"));
+            assertEquals("4", resultHashMap.get("contactInfoId"));
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        connection.close();
+    }
+
+    private void executeQuery(String query) throws SQLException {
         Statement st;
         try {
             st = connection.createStatement();
@@ -155,6 +191,7 @@ public class DataAccessObjectTest {
         } catch(Exception ex) {
             ex.printStackTrace();
         }
+        connection.close();
     }
 
     private Connection getConnection() {
@@ -166,6 +203,7 @@ public class DataAccessObjectTest {
             return null;
         }
     }
+
 
 
 

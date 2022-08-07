@@ -187,17 +187,6 @@ public class DataAccessObject {
     }
 
     /**
-     * This method makes a query to the in order to get all patient files
-     * @return
-     */
-    public ObservableList<PatientFile> getPatientFiles() {
-        ObservableList<PatientFile> patientFiles = FXCollections.observableArrayList();
-        String query = "SELECT * FROM PatientFiles";
-        patientFiles = getPatientFileDB(query);
-        return patientFiles;
-    }
-
-    /**
      * This method makes a query to the database in order to get all medical
      * visits of a patient file.
      * @return
@@ -265,32 +254,6 @@ public class DataAccessObject {
     //**************//
     //Private Methods//
     //**************//
-    private ObservableList<PatientFile> getPatientFileDB(String query) {
-        Statement statement;
-        ResultSet resultSet;
-        ObservableList<PatientFile> patientFiles = FXCollections.observableArrayList();
-        Connection conn = DBConnection.getInstance(databasePath).getConnection();
-        try {
-            statement = conn.createStatement();
-            resultSet = statement.executeQuery(query);
-            PatientFile file;
-            while(resultSet.next()) {
-                file = new PatientFile(
-                    resultSet.getString("ramqCode"),
-                    resultSet.getString("firstName"),
-                    resultSet.getString("lastName"),
-                    Gender.FEMALE,
-                    resultSet.getString("birthCity"),
-                    LocalDate.parse(resultSet.getString("birthDate")),
-                    resultSet.getString("parentsName"));
-                patientFiles.add(file);
-            }
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        }
-        return patientFiles;
-    }
-
     private List<MedicalVisit> getMedicalVisitDB(String query) {
         Statement statement;
         ResultSet resultSet;
