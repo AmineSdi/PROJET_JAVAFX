@@ -1,4 +1,9 @@
 package Model.ContactInformation;
+
+/**
+ * This class models a patient contact information.
+ * It also ensures that they are valid.
+ */
 public class ContactInformation {
     //VARIABLES
     private int number;

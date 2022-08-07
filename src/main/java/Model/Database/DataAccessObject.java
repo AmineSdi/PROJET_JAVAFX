@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This class handles all queries done to the database.
+ * It also handles the singleton DBConnection
+ */
 public class DataAccessObject {
 
     public DataAccessObject(String databasePath) {
@@ -100,6 +104,15 @@ public class DataAccessObject {
             return null;
     }
 
+    /**
+     * This method will update the end date for a medical history
+     * which end date has initially been left null.
+     * @param ramqCode
+     * @param doctorLicense
+     * @param diagnosis
+     * @param startDate
+     * @param endDate
+     */
     public void updateEndDate(String ramqCode, int doctorLicense, String diagnosis,
                               LocalDate startDate, LocalDate endDate) {
         String query = "UPDATE MedicalHistories SET endDate = '" +
@@ -131,6 +144,12 @@ public class DataAccessObject {
         return isFound;
     }
 
+    /**
+     * This method looks in the database for the patient file
+     * of a single patient
+     * @param ramqCode
+     * @return
+     */
     public HashMap<String, String> getPatientFileInfoFromDB(String ramqCode) {
         String userQuery = "SELECT * FROM PatientFiles WHERE ramqCode = \""
                            + ramqCode + "\" LIMIT 1";
@@ -212,13 +231,22 @@ public class DataAccessObject {
         return medicalHistories;
     }
 
+    /**
+     * This method returns an ObservableList of MedicalVisit that is
+     * necessary for showing the patient's visits in the front-end
+     * @param ramqCode
+     * @return medicalVisits
+     */
     public ObservableList<MedicalVisit> getObservableVisitsList(String ramqCode) {
         ObservableList<MedicalVisit> medicalVisits = FXCollections.observableArrayList();
         String query = "SELECT * FROM MedicalVisits WHERE patientRamqCode = \"" + ramqCode + "\"";
         medicalVisits = getObservableVisitsDB(query);
         return medicalVisits;
     }
-
+    /**
+     * This method returns an ObservableList of MedicalHistory that is
+     * necessary for showing the patient's history in the front-end
+     */
     public ObservableList<MedicalHistory> getObservableHistoryList(String ramqCode) {
         ObservableList<MedicalHistory> medicalHistory = FXCollections.observableArrayList();
         String query = "SELECT * FROM MedicalHistories WHERE patientRamqCode = \"" + ramqCode + "\"";
@@ -257,9 +285,42 @@ public class DataAccessObject {
     //Private Methods//
     //**************//
     /**
-     * Gets all the medical visits from the database.
-     * @param query The select query
-     * @return A list of medical visits.
+     * This method queries the database to return an ObservableList of patient files
+     * @param query
+     * @return
+     */
+    private ObservableList<PatientFile> getPatientFileDB(String query) {
+        Statement statement;
+        ResultSet resultSet;
+        ObservableList<PatientFile> patientFiles = FXCollections.observableArrayList();
+        Connection conn = DBConnection.getInstance(databasePath).getConnection();
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery(query);
+            PatientFile file;
+            while(resultSet.next()) {
+                file = new PatientFile(
+                    resultSet.getString("ramqCode"),
+                    resultSet.getString("firstName"),
+                    resultSet.getString("lastName"),
+                    Gender.FEMALE,
+                    resultSet.getString("birthCity"),
+                    LocalDate.parse(resultSet.getString("birthDate")),
+                    resultSet.getString("parentsName"));
+                patientFiles.add(file);
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return patientFiles;
+    }
+
+    /**
+     * This method queries the database to return a list of MedicalVisit
+     * NOTE: Many of the following methods share a same structure, and the repeated
+     * lines of codes could be refactored since they only differ in return types.
+     * @param query
+     * @return
      */
     private List<MedicalVisit> getMedicalVisitDB(String query) {
         Statement statement;
@@ -294,6 +355,11 @@ public class DataAccessObject {
         return visits;
     }
 
+    /**
+     * This method queries the database to obtain a List of MedicalHistory
+     * @param query
+     * @return
+     */
     private List<MedicalHistory> getMedicalHistoryDB(String query) {
         Statement statement;
         ResultSet resultSet;
@@ -364,6 +430,11 @@ public class DataAccessObject {
         return doctor;
     }
 
+    /**
+     * This method queries the database to obtain an ObservableList of MedicalVisit
+     * @param query
+     * @return
+     */
     private ObservableList<MedicalVisit> getObservableVisitsDB(String query) {
         Statement statement;
         ResultSet resultSet;
@@ -397,6 +468,11 @@ public class DataAccessObject {
         return visits;
     }
 
+    /**
+     * This method queries the database to obtain an ObservableList of MedicalHistory
+     * @param query
+     * @return
+     */
     private ObservableList<MedicalHistory> getObservableHistoryDB(String query) {
         Statement statement;
         ResultSet resultSet;

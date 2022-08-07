@@ -11,23 +11,33 @@ import java.util.HashMap;
 import java.util.List;
 import static Model.PatientFile.Gender.*;
 
+/**
+ * This class implements a Builder software-design pattern in order
+ * to ensure the proper construction of the complex PatientFile object
+ */
 public class PatientFileBuilder implements Builder {
     //VARIABLES
-    String ramqCode;
-    String firstName;
-    String lastName;
-    Gender gender;
-    LocalDate birthDate;
-    String birthCity;
-    String knownParents;
-    List<MedicalVisit> visits = new ArrayList<>();
-    List<MedicalHistory> histories = new ArrayList<>();
-    ContactInformation contactInformation;
-    DataAccessObject dataAccessObject;
+    private String ramqCode;
+    private String firstName;
+    private String lastName;
+    private Gender gender;
+    private LocalDate birthDate;
+    private String birthCity;
+    private String knownParents;
+    private List<MedicalVisit> visits = new ArrayList<>();
+    private List<MedicalHistory> histories = new ArrayList<>();
+    private ContactInformation contactInformation;
+    private DataAccessObject dataAccessObject;
 
     //**************//
     //Public Methods//
     //**************//
+
+    /**
+     * Instantiates a PatientFileBuilder
+     * @param ramqCode : the id used to find the patient file in the database
+     * @param dataAccessObject : allows to interact with the database
+     */
     public PatientFileBuilder(String ramqCode, DataAccessObject dataAccessObject) {
         this.ramqCode = ramqCode;
         this.dataAccessObject = dataAccessObject;
@@ -49,6 +59,10 @@ public class PatientFileBuilder implements Builder {
         contactInformation = dataAccessObject.getContactInformation(ramqCode);
     }
 
+    /**
+     * This methods combine the different objects to build a PatientFile
+     * @return a properly built PatientFile
+     */
     @Override
     public PatientFile assemble() {
         PatientFile patientFile = new PatientFile(ramqCode, firstName,

@@ -1,5 +1,4 @@
 package Application;
-
 import Controller.LoginController;
 import Model.Database.DataAccessObject;
 import javafx.application.Application;
@@ -11,7 +10,17 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+/**
+ * This class handles the lauching of the application as well as its closing
+ */
 public class GUILauncher extends Application {
+
+    /**
+     * This method starts the application by setting up the proper pagers
+     * @param stage object used by JavaFX, it is somewhat analogous to a
+     * HTML page.
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/login.fxml"));
@@ -26,6 +35,13 @@ public class GUILauncher extends Application {
             logoutMedicalProgram(stage);
         });
     }
+
+    /**
+     * This method ensures that a confirmation is displayed on any page when
+     * attempting to close it. It also also closes the connection
+     * @param stage any stage from which the
+     * user might try to close the application by clicking X.
+     */
     public void logoutMedicalProgram(Stage stage) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Medical program");

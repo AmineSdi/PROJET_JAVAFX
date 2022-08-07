@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class models a patient file. Some of its attributes are lists of other objetcs,
+ * like MedicalVisit and MedicalHistory. We use the Builder software-design pattern in order
+ * to instantiate PatientFile objects.
+ */
 public class PatientFile {
     //VARIABLES
     private String ramqCode;
