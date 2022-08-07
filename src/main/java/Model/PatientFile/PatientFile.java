@@ -33,7 +33,7 @@ public class PatientFile {
         setGender(gender);
         setBirthCity(birthCity);
         this.birthDate = birthDate;
-        setKnownParents(knownParents);
+        this.knownParents = knownParents;
     }
 
     public void addMedicalVisit(MedicalVisit mv) {
@@ -53,10 +53,8 @@ public class PatientFile {
     public void setRamqCode(String ramqCode) {
         boolean isValid = false;
         String validFormat = "^[A-Z]{4}\\d{8}$";
-
         if (ramqCode.matches(validFormat))
             isValid = true;
-
         if (!isValid)
             this.ramqCode = null;
         else
@@ -69,10 +67,8 @@ public class PatientFile {
     public void setFirstName(String firstName) {
         boolean isValid = false;
         String validFormat = "^([a-zA-Z-\\s])*$";
-
         if (firstName.matches(validFormat) && firstName.length() > 0)
             isValid = true;
-
         if (!isValid)
             this.firstName = null;
         else
@@ -86,10 +82,8 @@ public class PatientFile {
     public void setLastName(String lastName) {
         boolean isValid = false;
         String validFormat = "^([a-zA-Z-\\s])*$";
-
         if (lastName.matches(validFormat) && lastName.length() > 0)
             isValid = true;
-
         if (!isValid)
             this.lastName = null;
         else
@@ -103,7 +97,6 @@ public class PatientFile {
     public void setGender(Gender gender) {
         boolean isValid = gender.equals(Gender.MALE) || gender.equals(Gender.FEMALE)
                 || gender.equals(Gender.OTHER);
-
         if (!isValid)
             this.gender = null;
         else
@@ -112,19 +105,6 @@ public class PatientFile {
 
     public LocalDate getBirthDate() {
         return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        boolean isValid = false;
-
-        LocalDate date = LocalDate.now();
-        if (birthDate.equals(date))
-            isValid = true;
-
-        if (!isValid)
-            this.birthDate = null;
-        else
-            this.birthDate = birthDate;
     }
 
     public String getBirthCity() {
@@ -146,17 +126,6 @@ public class PatientFile {
 
     public String getKnownParents() {
         return knownParents;
-    }
-
-    public void setKnownParents(String knownParents) {
-        boolean isValid = false;
-        String validFormat = "^([a-zA-Z-,\\s])*$";
-        if (knownParents.matches(validFormat) && knownParents.length() > 0)
-            isValid = true;
-        if (!isValid)
-            this.knownParents = null;
-        else
-            this.knownParents = knownParents;
     }
 
     public ContactInformation getContactInformation() {

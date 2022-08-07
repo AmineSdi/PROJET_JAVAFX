@@ -28,7 +28,7 @@ public class MedicalHistory implements Visitable {
         setTreatment(treatment);
         setDoctorName(doctorName);
         setDoctorLicense(doctorLicense);
-        setStartDate(startDate);
+        this.startDate = startDate;
         this.endDate = endDate;
     }
 
@@ -102,29 +102,11 @@ public class MedicalHistory implements Visitable {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        boolean isValid = false;
-        LocalDate date = LocalDate.now();
-        if (startDate.equals(date))
-            isValid = true;
-        if (!isValid)
-            this.startDate = null;
-        else
-            this.startDate = startDate;
-    }
-
     public LocalDate getEndDate() {
         return endDate;
     }
 
     public void setEndDate(LocalDate endDate) {
-        boolean isValid = false;
-        LocalDate date = LocalDate.now();
-        if (endDate.equals(date))
-            isValid = true;
-        if (!isValid)
-            this.endDate = null;
-        else
             this.endDate = endDate;
     }
 

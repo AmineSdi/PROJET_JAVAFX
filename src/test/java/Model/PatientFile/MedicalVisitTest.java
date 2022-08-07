@@ -1,3 +1,5 @@
+package Model.PatientFile;
+
 import Model.PatientFile.MedicalVisit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -101,10 +103,6 @@ public class MedicalVisitTest {
         assertEquals(visitDate, mv1.getVisitDate());
     }
 
-    @Test void validateVisitDate_Invalid() {
-        assertEquals(null, mv5.getVisitDate());
-    }
-
     @Test void validateDiagnosis_Valid() {
         assertEquals("Fever(39).", mv1.getDiagnosis());
     }
@@ -114,7 +112,6 @@ public class MedicalVisitTest {
     }
 
     @Test void validateTreatment_Valid() {
-
         assertEquals("Sleep.", mv1.getTreatment());
     }
 
@@ -125,14 +122,7 @@ public class MedicalVisitTest {
 
 
     @Test void validateVisitSummary_Valid() {
-
         assertEquals("High temperature 39 degree", mv1.getSummary());
-    }
-
-
-
-    @Test void validateVisitSummary_Invalid() {
-         assertEquals(null, mv8.getSummary());
     }
 
     @Test void validateNotes_Valid() {
@@ -153,12 +143,10 @@ public class MedicalVisitTest {
 
 
     @Test void validateVisitSummaryModify_Valid() {
-
         assertEquals("Patent is cancer free.", mmv.getSummary());
     }
 
     @Test void validateNotesModify_Valid() {
-
         assertEquals("To follow in 2 months.", mmv.getNotes());
     }
 }

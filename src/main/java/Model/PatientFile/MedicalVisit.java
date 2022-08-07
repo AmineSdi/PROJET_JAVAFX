@@ -31,8 +31,8 @@ public class MedicalVisit implements Visitable {
         validateDoctorLicense(doctorLicense);
         validateDiagnosis(diagnosis);
         validateTreatment(treatment);
-        validateVisitDate(visitDate);
-        validateVisitSummary(summary);
+        this.visitDate = visitDate;
+        this.summary = summary;
         validateNotes(notes);
     }
 
@@ -128,20 +128,6 @@ public class MedicalVisit implements Visitable {
 
     public String getSummary() {
         return summary;
-    }
-
-    public void validateVisitSummary(String visitSummary) {
-        boolean isValid = false;
-        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
-        if (visitSummary != null) {
-
-            if (visitSummary.matches(validFormat) && visitSummary.length() > 0)
-                isValid = true;
-            if (!isValid)
-                this.summary = null;
-            else
-                this.summary = visitSummary;
-        }
     }
 
     public String getNotes() {

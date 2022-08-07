@@ -129,10 +129,7 @@ public class DoctorTest {
     }
 
 
-    @Test void medicalEstablishment_Valid() {
-        assertEquals("Pierre-Boucher Hospital", d1.getEstablishmentName());
 
-    }
 
     @Test void validateLicenseTest_Valid() {
         assertEquals(51471, d4.getLicense());
@@ -150,64 +147,9 @@ public class DoctorTest {
         assertEquals(null, d3.getSpecialty());
     }
 
-    @Test void validateDiagnosisHistory_Valid() {
-        assertEquals("Pain", d1.getHistoryDiagnosis());
-    }
-
-    @Test void validateDiagnosisHistory_Invalid() {
-        assertEquals(null, d2.getHistoryDiagnosis());
-    }
-
-    @Test void validateTreatmentHistory_Valid() {
-        assertEquals("He takes 3 pills. For 2 weeks", d1.getHistoryTreatment());
-    }
-
-    @Test void validateTreatmentHistory_Invalid() {
-        assertEquals(null, d2.getHistoryTreatment());
-    }
-
-    @Test void validateStartDateHistory_Valid() {
-        assertEquals(startDate, d1.getHistoryStartDate());
-    }
-
-    @Test void validateStartDateHistory_Invalid() {
-        assertEquals(null, d2.getHistoryStartDate());
-    }
-
-    @Test void validateDiagnosisVisit_Valid() {
-        assertEquals("Broken bones", d1.getVisitDiagnosis());
-    }
-
-    @Test void validateDiagnosisVisit_Invalid() {
-        assertEquals(null, d2.getVisitDiagnosis());
-    }
-
-    @Test void validateTreatmentVisit_Valid() {
-        assertEquals("Surgery right now", d1.getVisitTreatment());
-    }
-
-    @Test void validateTreatmentVisit_Invalid() {
-        assertEquals(null, d2.getVisitTreatment());
-    }
-
-    @Test void validateSummaryVisit_Valid() {
-        assertEquals("Feel bad.", d1.getVisitSummary());
-    }
-
-    @Test void validateSummaryVisit_Invalid() {
-        assertEquals(null, d2.getVisitSummary());
-    }
-
-    @Test void validateSummaryNotes_Valid() {
-        assertEquals("Danger", d1.getVisitNotes());
-    }
-
-    @Test void validateSummaryNotes_Invalid() {
-        assertEquals(null, d2.getVisitNotes());
     }
 
 
 
-}
 
 

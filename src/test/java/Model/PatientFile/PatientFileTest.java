@@ -128,10 +128,6 @@ public class PatientFileTest {
         assertEquals("John House, Mary Smith", pf1.getKnownParents());
     }
 
-    @Test void validateKnownParent_Invalid () {
-        assertEquals(null, pf6.getKnownParents());
-    }
-
     @Test void validateGender_Valid () {
         assertEquals(Gender.MALE, pf1.getGender());
     }
@@ -150,13 +146,7 @@ public class PatientFileTest {
         assertEquals("pb@qc.ca", pf1.getContactInformation().getEmail());
     }
 
-    @Test void createMedicalVisit() {
-        assertNotNull(pf1.getMedicalVisits());
-    }
 
-    @Test void createMedicalHistory() {
-        assertNotNull(pf1.getMedicalHistories());
-    }
 
     @Test void addMedicalVisitTest() {
         assertEquals(1, medicalVisitList.size());

@@ -95,10 +95,6 @@ public class MedicalHistoryTest {
         assertEquals(startDate, mh1.getStartDate());
     }
 
-    @Test void validateStartDate_Invalid() {
-        assertEquals(null, mh6.getStartDate());
-    }
-
     @Test void validateEndDate_Valid() {
         assertEquals(null, mh1.getEndDate());
     }
@@ -106,7 +102,6 @@ public class MedicalHistoryTest {
     @Test void validateEndDate_Invalid() {
         assertEquals(null, mh7.getEndDate());
     }
-
 
     @Test void validateDoctorFirstModify_Valid() {
         assertEquals("Dr Gibson", mmh.getDoctorName());
@@ -123,9 +118,7 @@ public class MedicalHistoryTest {
     @Test void validateTreatmentModify_Valid() {
         assertEquals("Sleep", mmh.getTreatment());
     }
-
-
-
+    
     @Test void validateModifyHistory_Valid(){
         // Changes for modifyHistory
         mmh.modifyHistory("Joe", "Smith", 44444, "Covid-19",
