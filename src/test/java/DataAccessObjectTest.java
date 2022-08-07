@@ -1,28 +1,25 @@
 import Model.ContactInformation.ContactInformation;
 import Model.Database.DataAccessObject;
 import Model.PatientFile.Gender;
+import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import Model.PatientFile.PatientFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.HashMap;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 public class DataAccessObjectTest {
-
     private String mockDatabasePath = "jdbc:sqlite:src/test/java/resources/MockDatabase.db";
     DataAccessObject dataAccessObject =
             new DataAccessObject(mockDatabasePath);
-
     Connection connection;
-
     private String cleanUpQuery =
             "DROP Table IF EXISTS MedicalHistories;\n" +
                     "DROP Table IF EXISTS MedicalVisits;\n" +
@@ -160,6 +157,27 @@ public class DataAccessObjectTest {
     }
 
     @Test
+    public void getStartDateTest() throws SQLException {
+        MedicalHistory mh;
+        connection = getConnection();
+        mh = new MedicalHistory("dia","tre","House",11111, LocalDate.now(),null);
+        dataAccessObject.addMedicalHistory("ALLA60050501", mh);
+        LocalDate date = dataAccessObject.getStartDate("ALLA60050501", 11111, "dia");
+        assertEquals(LocalDate.now(), date);
+        connection.close();
+    }
+
+    @Test void updateEndDateTest() throws SQLException {
+        MedicalHistory mh;
+        connection = getConnection();
+        mh = new MedicalHistory("dia","tre","House",11111, LocalDate.now(),LocalDate.now());
+        dataAccessObject.addMedicalHistory("ALLA60050501", mh);
+        LocalDate date = mh.getEndDate();
+        assertNotNull(date);
+        connection.close();
+    }
+
+    @Test
     public void getPatientFileInfoFromDBTest() throws SQLException {
         connection = getConnection();
         Statement statement;
@@ -203,8 +221,4 @@ public class DataAccessObjectTest {
             return null;
         }
     }
-
-
-
-
 }
