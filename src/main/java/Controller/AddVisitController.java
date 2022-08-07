@@ -32,7 +32,7 @@ public class AddVisitController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    private DataAccessObject dataAccessObject = new DataAccessObject();
+    private DataAccessObject dataAccessObject;
     private Doctor doctor;
     private PatientFile patientFile;
     private MedicalVisit medicalVisit;

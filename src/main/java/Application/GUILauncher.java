@@ -17,7 +17,7 @@ public class GUILauncher extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Application/login.fxml"));
         Parent root = loader.load();
         LoginController loginController = loader.getController();
-        loginController.setResources(new DataAccessObject());
+        loginController.setResources(new DataAccessObject("jdbc:sqlite:MedicalSystem.db"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

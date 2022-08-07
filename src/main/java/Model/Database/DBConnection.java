@@ -10,19 +10,19 @@ import java.sql.SQLException;
 class DBConnection {
     private static DBConnection instance = null;
     private Connection connection = null;
-    private DBConnection() {
-        String jdbcUrl = "jdbc:sqlite:MedicalSystem.db";
+    private DBConnection(String databasePath) {
+//        String jdbcUrl = "jdbc:sqlite:MedicalSystem.db";
         try {
-            connection = DriverManager.getConnection(jdbcUrl);
+            connection = DriverManager.getConnection(databasePath);
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
     // Factory method to provide the users with instances
-    static public DBConnection getInstance()
+    static public DBConnection getInstance(String databasePath)
     {
         if (instance == null)
-            instance = new DBConnection();
+            instance = new DBConnection(databasePath);
         return instance;
     }
     public Connection getConnection() {

@@ -86,6 +86,35 @@ public class Doctor extends User implements Visitor {
     }
 
     //PUBLIC METHODS
+    /**
+     * Creates a new MedicalVisit, filling in the information about the Doctor and the Date.
+     * The rest of the information (diagnosis, treatment, etc.) is initially empty and is set
+     * through the user interface text fields.
+     *
+     * @return The new medical visit.
+     */
+    public MedicalVisit createVisit() {
+        MedicalVisit mv = new MedicalVisit(this.medicalEstablishment.getName(),
+                                           this.firstName + " " + this.lastName, this.license, LocalDate.now(),
+                                           null, null, null, null);
+
+        return mv;
+    }
+
+    /**
+     * Creates a new MedicalHistory, filling in the information about the Doctor and the Date.
+     * The rest of the information (diagnosis, treatment, etc.) is initially empty and is set
+     * through the user interface text fields.
+     *
+     * @return The new medical history.
+     */
+    public MedicalHistory createHistory() {
+        MedicalHistory mh = new MedicalHistory(null, null,
+                                               this.firstName + " " + this.lastName, this.license,
+                                               LocalDate.now(), null);
+        return mh;
+    }
+
     @Override
     public void visitMedicalHistory(MedicalHistory history) {
         history.modifyHistory(firstName, lastName, license, historyDiagnosis, historyTreatment,
