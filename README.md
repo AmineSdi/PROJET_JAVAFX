@@ -2,7 +2,12 @@
 
 ## Introduction  
 
-Ceci est une application Maven/JavaFX qui permet à un médecin de modifier le dossier médical de patients vus lors de rendez-vous médicaux. Les fonctionnalités de cette application sont décrites dans ce document. À la racine du projet, il y a aussi une courte vidéo de disponible contenant une démonstration de l'application en question.  
+Ceci est une application Maven/JavaFX qui permet à un médecin de modifier le dossier médical de patients vus lors de rendez-vous médicaux. Les fonctionnalités de cette application sont décrites dans ce document.   
+
+À la racine du projet, il y a aussi une courte vidéo (`INF5153_Équipe3.mp4`) de disponible contenant une démonstration de l'application en question.  
+
+Le dossier `Conception` contient les diagrammes pour les patrons de conception implémentés. Le fichier `partie2.md` à la racine du projet contient une description de ces patrons. 
+
 
 ## Spécifications  
 
