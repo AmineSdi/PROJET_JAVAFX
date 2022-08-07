@@ -54,26 +54,8 @@ public class MedicalHistoryTest {
         mmh = new MedicalHistory("Cold", "Sleep", "Dr Gibson",
                 55555, startDate, null);
 
-
     }
 
-
-
-    @Test void validateDiagnosis_Valid() {
-        assertEquals("He's sick", mh1.getDiagnosis());
-    }
-
-    @Test void validateDiagnosis_Invalid() {
-        assertEquals(null, mh2.getDiagnosis());
-    }
-
-    @Test void validateTreatment_Valid() {
-        assertEquals("He takes 3 pills. For 2 weeks", mh1.getTreatment());
-    }
-
-    @Test void validateTreatment_Invalid() {
-        assertEquals(null, mh3.getTreatment());
-    }
 
     @Test void validateDoctorName_Valid() {
         assertEquals("Dr House", mh1.getDoctorName());

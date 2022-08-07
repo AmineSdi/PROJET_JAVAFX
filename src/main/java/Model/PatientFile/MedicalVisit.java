@@ -26,29 +26,18 @@ public class MedicalVisit implements Visitable {
     public MedicalVisit(String establishmentName, String doctorName, int doctorLicense,
                         LocalDate visitDate, String diagnosis, String treatment,
                         String summary, String notes) {
-        validateEstablishmentName(establishmentName);
+        this.establishmentName = establishmentName;
         validateDoctorName(doctorName);
         validateDoctorLicense(doctorLicense);
-        validateDiagnosis(diagnosis);
-        validateTreatment(treatment);
+        this.diagnosis = diagnosis;
+        this.treatment = treatment;
         this.visitDate = visitDate;
         this.summary = summary;
-        validateNotes(notes);
+        this.notes = notes;
     }
 
     public String getEstablishmentName() {
         return establishmentName;
-    }
-
-    public void validateEstablishmentName(String establishmentName) {
-        boolean isValid = false;
-        String validFormat = "^([a-zA-Z-\\s])*$";
-        if (establishmentName.matches(validFormat))
-            isValid = true;
-        if (!isValid)
-            this.establishmentName = null;
-        else
-            this.establishmentName = establishmentName;
     }
 
     public String getDoctorName() {
@@ -81,49 +70,12 @@ public class MedicalVisit implements Visitable {
         return visitDate;
     }
 
-    public void validateVisitDate(LocalDate visitDate) {
-        boolean isValid = false;
-        LocalDate date = LocalDate.now();
-        if (visitDate.equals(date))
-            isValid = true;
-        if (!isValid)
-            this.visitDate = null;
-        else
-            this.visitDate = visitDate;
-    }
-
     public String getDiagnosis() {
         return diagnosis;
     }
 
-    public void validateDiagnosis(String diagnosis) {
-        boolean isValid = false;
-        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
-        if (diagnosis != null) {
-            if (diagnosis.matches(validFormat) && diagnosis.length() > 0)
-                isValid = true;
-            if (!isValid)
-                this.diagnosis = null;
-            else
-                this.diagnosis = diagnosis;
-        }
-    }
-
     public String getTreatment() {
         return treatment;
-    }
-
-    public void validateTreatment(String treatment) {
-        boolean isValid = false;
-        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
-        if (treatment != null) {
-            if (treatment.matches(validFormat) && treatment.length() > 0)
-                isValid = true;
-            if (!isValid)
-                this.treatment = null;
-            else
-                this.treatment = treatment;
-        }
     }
 
     public String getSummary() {
@@ -132,19 +84,6 @@ public class MedicalVisit implements Visitable {
 
     public String getNotes() {
         return notes;
-    }
-
-    public void validateNotes(String notes) {
-        boolean isValid = false;
-        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
-        if (notes != null) {
-            if (notes.matches(validFormat) && notes.length() > 0)
-                isValid = true;
-            if (!isValid)
-                this.notes = null;
-            else
-                this.notes = notes;
-        }
     }
 
     @Override

@@ -75,13 +75,6 @@ public class MedicalVisitTest {
 
     }
 
-    @Test void validateEstablishmentName_Valid() {
-        assertEquals("Montreal General Hospital", mv1.getEstablishmentName());
-    }
-
-    @Test void validateEstablishmentName_Invalid() {
-        assertEquals(null, mv2.getEstablishmentName());
-    }
 
     @Test void validateDoctorName_Valid() {
         assertEquals("Dr House", mv1.getDoctorName());
@@ -103,34 +96,8 @@ public class MedicalVisitTest {
         assertEquals(visitDate, mv1.getVisitDate());
     }
 
-    @Test void validateDiagnosis_Valid() {
-        assertEquals("Fever(39).", mv1.getDiagnosis());
-    }
-
-    @Test void validateDiagnosis_Invalid() {
-        assertEquals(null, mv6.getDiagnosis());
-    }
-
-    @Test void validateTreatment_Valid() {
-        assertEquals("Sleep.", mv1.getTreatment());
-    }
-
-    @Test void validateTreatment_Invalid() {
-        assertEquals(null, mv7.getTreatment());
-    }
-
-
-
     @Test void validateVisitSummary_Valid() {
         assertEquals("High temperature 39 degree", mv1.getSummary());
-    }
-
-    @Test void validateNotes_Valid() {
-        assertEquals("Happy.", mv1.getNotes());
-    }
-
-    @Test void validateNotes_Invalid() {
-        assertEquals(null, mv9.getNotes());
     }
 
     @Test void validateDiagnosisModify_Valid() {

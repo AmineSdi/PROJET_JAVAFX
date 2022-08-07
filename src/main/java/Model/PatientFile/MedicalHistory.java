@@ -24,8 +24,8 @@ public class MedicalHistory implements Visitable {
 
     public MedicalHistory(String diagnosis, String treatment, String doctorName, int doctorLicense,
                           LocalDate startDate, LocalDate endDate) {
-        setDiagnosis(diagnosis);
-        setTreatment(treatment);
+        this.diagnosis = diagnosis;
+        this.treatment = treatment;
         setDoctorName(doctorName);
         setDoctorLicense(doctorLicense);
         this.startDate = startDate;
@@ -47,39 +47,11 @@ public class MedicalHistory implements Visitable {
         return diagnosis;
     }
 
-    public void setDiagnosis(String diagnosis) {
-        boolean isValid = false;
-        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
-
-        if (diagnosis != null) {
-            if (diagnosis.matches(validFormat) && diagnosis.length() > 0)
-                isValid = true;
-
-            if (!isValid)
-                this.diagnosis = null;
-            else
-                this.diagnosis = diagnosis;
-        }
-    }
-
     public String getTreatment() {
         return treatment;
     }
 
-    public void setTreatment(String treatment) {
-        boolean isValid = false;
-        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
-        if (treatment != null) {
 
-            if (treatment.matches(validFormat) && treatment.length() > 0)
-                isValid = true;
-
-            if (!isValid)
-                this.treatment = null;
-            else
-                this.treatment = treatment;
-        }
-    }
 
     public String getDoctorName() {
         return doctorName;
