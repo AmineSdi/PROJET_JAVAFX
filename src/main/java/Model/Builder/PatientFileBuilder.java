@@ -46,7 +46,7 @@ public class PatientFileBuilder implements Builder {
 
     @Override
     public void buildContactInfo(String ramqCode) {
-        contactInformation = dataAccessObject.getContactInformation(ramqCode);// new ContactInformation(...);
+        contactInformation = dataAccessObject.getContactInformation(ramqCode);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class PatientFileBuilder implements Builder {
             firstName = result.get("firstName");
             lastName = result.get("lastName");
             gender = resultGender.equals("FEMALE") ? FEMALE :
-                    (resultGender.equals("MALE") ? MALE : OTHER);
+                     (resultGender.equals("MALE") ? MALE : OTHER);
             birthCity = result.get("birthCity");
             birthDate = LocalDate.parse(result.get("birthDate"));
             knownParents = result.get("parentsName");

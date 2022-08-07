@@ -108,7 +108,6 @@ public class AddHistoryController implements Initializable {
             errorDate.setVisible( false);
             errorCompleteMH.setVisible(true);
             errorCaution.setVisible(true);
-            System.out.println("Please complete medical history.");
         } else if (dpEndDate.getValue() != null &&
                    (!dpStartDate.getValue().isBefore(dpEndDate.getValue())
                     && !dpStartDate.getValue().isEqual(dpEndDate.getValue()))) {
@@ -117,9 +116,6 @@ public class AddHistoryController implements Initializable {
             errorCaution.setVisible(true);
             dpStartDate.setStyle("-fx-border-color: red");
             dpEndDate.setStyle("-fx-border-color: red");
-
-            System.out.println("Start date must be before end date.");
-
         }
         else {
             goToSearchResultsPage(event);
@@ -133,7 +129,6 @@ public class AddHistoryController implements Initializable {
             goToSearchResultsPage(event);
         }
     }
-
 
     //**************//
     //Public Methods//
@@ -162,10 +157,9 @@ public class AddHistoryController implements Initializable {
             dpStartDate.setValue(LocalDate.now());
         }
         setAllowedDates();
-
         automaticUpdate = new Timeline(
-                new KeyFrame(Duration.seconds(3),
-                        event -> updateMedicalHistory()));
+            new KeyFrame(Duration.seconds(3),
+                         event -> updateMedicalHistory()));
         automaticUpdate.setCycleCount(Timeline.INDEFINITE);
         automaticUpdate.play();
     }
@@ -184,13 +178,6 @@ public class AddHistoryController implements Initializable {
         alert.setHeaderText("Erase all local changes to this medical history?");
         alert.setContentText("Click OK to erase, click cancel to return.");
         if(alert.showAndWait().get() == ButtonType.OK) {
-
-            /**
-             * Code commenté pour que la fenêtre SearchResults.fxml s'ouvre en premier plan.
-             */
-            // //Code à effectuer lorsque le programme se termine
-            // stage = (Stage) AnchorPane.getScene().getWindow();
-            // stage.close();
             return true;
         }
         return false;
@@ -200,7 +187,6 @@ public class AddHistoryController implements Initializable {
      * Updates the local MedicalHistory Object
      */
     private void updateMedicalHistory() {
-        System.out.println("Updated.");
         medicalHistory = new MedicalHistory();
         doctor.setHistoryDiagnosis(tfDiagnosis.getText());
         doctor.setHistoryTreatment(tfTreatment.getText());
@@ -222,8 +208,6 @@ public class AddHistoryController implements Initializable {
         new DateCell() {
             @Override public void updateItem(LocalDate item, boolean empty) {
                 super.updateItem(item, empty);
-                // setDisable(item.isAfter(maxDate)); // ligne commentée pour  permettre de choisir
-                                                      // une date ultérieure à la date du jour
             }
         });
     }
@@ -266,15 +250,12 @@ public class AddHistoryController implements Initializable {
     private void goToSearchResultsPage(ActionEvent event) throws IOException {
         automaticUpdate.stop();
         automaticUpdate = null;
-
-        // Pass data to the next controller
         FXMLLoader loader = new FXMLLoader(getClass()
                                            .getResource("/Application/searchResults.fxml"));
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
         searchResultsController.setResources(doctor, patientFile, medicalVisit,
                                              medicalHistory, dataAccessObject);
-
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

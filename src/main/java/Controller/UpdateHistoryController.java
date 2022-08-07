@@ -40,7 +40,7 @@ public class UpdateHistoryController implements Initializable {
     @FXML
     private DatePicker dpEndDate;
 
-     //*********************//
+    //*********************//
     //FXML Label variables (error messages)//
     //*********************//
     @FXML
@@ -50,9 +50,7 @@ public class UpdateHistoryController implements Initializable {
     @FXML
     private Label lbErrorEndDateBfStart;
 
-
-
-  //*********************//
+    //*********************//
     //FXML ImageView variable (error messages)//
     //*********************//
     @FXML
@@ -75,41 +73,37 @@ public class UpdateHistoryController implements Initializable {
      */
     @FXML
     public void handleBtnUpdate(ActionEvent event) throws Exception {
-    // End date must be same or more than Start date.
+        // End date must be same or more than Start date.
         if(comboBox.getValue() == null) {
-                comboBox.setStyle("-fx-border-color: red");
-                lbErrorEmptyDiagnosis.setVisible(true);
-                errorCaution.setVisible(true);
-                System.out.println("Diagnosis is empty");
+            comboBox.setStyle("-fx-border-color: red");
+            lbErrorEmptyDiagnosis.setVisible(true);
+            errorCaution.setVisible(true);
         } else {
-                comboBox.setStyle("-fx-border-color: none ; -fx-border-width: 0px ;");
+            comboBox.setStyle("-fx-border-color: none ; -fx-border-width: 0px ;");
             if (dpEndDate.getValue() == null) {
                 dpEndDate.setStyle("-fx-border-color: red");
                 lbErrorEmptyDiagnosis.setVisible(false);
                 lbErrorEmptyEndDate.setVisible(true);
                 errorCaution.setVisible(true);
-            System.out.println("End date of disease is empty.");
             } else {
                 dpEndDate.setStyle("-fx-border-color: none ; -fx-border-width: 0px ;");
                 LocalDate startDate = dataAccessObject.getStartDate(patientFile.getRamqCode(),
-                    doctor.getLicense(), comboBox.getValue());
-            if (!startDate.isBefore(dpEndDate.getValue())
-                    && !startDate.isEqual(dpEndDate.getValue())) {
-                lbErrorEmptyDiagnosis.setVisible(false);
-                lbErrorEmptyEndDate.setVisible(false);
-                lbErrorEndDateBfStart.setVisible(true);
-                errorCaution.setVisible(true);
-                System.out.println("End date of disease precedes start date of disease.");
-            } else {
-                patientFile.updateEndDate(doctor.getLicense(),
-                                          comboBox.getValue(), startDate, dpEndDate.getValue());
-                dataAccessObject.updateEndDate(patientFile.getRamqCode(), doctor.getLicense(),
-                        comboBox.getValue(), startDate, dpEndDate.getValue());
-                System.out.println("Medical History is updated.");
-                        goToSearchResultsPage(event);
+                                      doctor.getLicense(), comboBox.getValue());
+                if (!startDate.isBefore(dpEndDate.getValue())
+                        && !startDate.isEqual(dpEndDate.getValue())) {
+                    lbErrorEmptyDiagnosis.setVisible(false);
+                    lbErrorEmptyEndDate.setVisible(false);
+                    lbErrorEndDateBfStart.setVisible(true);
+                    errorCaution.setVisible(true);
+                } else {
+                    patientFile.updateEndDate(doctor.getLicense(),
+                                              comboBox.getValue(), startDate, dpEndDate.getValue());
+                    dataAccessObject.updateEndDate(patientFile.getRamqCode(), doctor.getLicense(),
+                                                   comboBox.getValue(), startDate, dpEndDate.getValue());
+                    goToSearchResultsPage(event);
+                }
             }
-         }
-    }
+        }
     }
 
     //**************//
@@ -156,7 +150,6 @@ public class UpdateHistoryController implements Initializable {
      * @throws IOException
      */
     private void goToSearchResultsPage(ActionEvent event) throws IOException {
-        // Pass data to the next controller
         FXMLLoader loader = new FXMLLoader(getClass()
                                            .getResource("/Application/searchResults.fxml"));
         root = loader.load();
@@ -168,5 +161,4 @@ public class UpdateHistoryController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
 }

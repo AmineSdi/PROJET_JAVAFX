@@ -9,7 +9,6 @@ import java.sql.SQLException;
  */
 class DBConnection {
     private static DBConnection instance = null;
-    //private String jdbcUrl = "jdbc:sqlite:MedicalSystem.db";
     private Connection connection = null;
     private DBConnection() {
         String jdbcUrl = "jdbc:sqlite:MedicalSystem.db";

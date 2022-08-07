@@ -31,9 +31,6 @@ public class MedicalHistory implements Visitable {
         return doctorLicense;
     }
 
-    public void setDoctorLicense(int doctorLicense) {
-        this.doctorLicense = doctorLicense;
-    }
 
     public String getDiagnosis() {
         return diagnosis;
@@ -51,20 +48,8 @@ public class MedicalHistory implements Visitable {
         this.treatment = treatment;
     }
 
-    public String getDoctorName() {
-        return doctorName;
-    }
-
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
-    }
-
     public LocalDate getStartDate() {
         return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
     }
 
     public LocalDate getEndDate() {

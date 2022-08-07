@@ -88,10 +88,10 @@ public class SearchResultsController implements Initializable {
     private TableView<MedicalHistory> medicalHistoryTableView = new TableView<>();
     @FXML
     private TableColumn<MedicalHistory, String> colDiagnosisHistory =
-                                                    new TableColumn<>("diagnosis");
+        new TableColumn<>("diagnosis");
     @FXML
     private TableColumn<MedicalHistory, String> colTreatmentHistory =
-                                                    new TableColumn<>("treatment");
+        new TableColumn<>("treatment");
     @FXML
     private TableColumn<MedicalHistory, String> colStartHistory = new TableColumn<>("startDate");
     @FXML
@@ -130,14 +130,12 @@ public class SearchResultsController implements Initializable {
             dataAccessObject.addMedicalVisit(patientFile.getRamqCode(), medicalVisit);
             patientFile.addMedicalVisit(medicalVisit);
             showPatientVisits(dataAccessObject, patientFile.getRamqCode());
-            // medicalVisit = null; MedicalVisit est mis à null à la fin de la méthode pour corriger le bug de 'notes incomplete'.
             alertConfirmSubmit();
         }
         if(medicalHistory != null) {
             dataAccessObject.addMedicalHistory(patientFile.getRamqCode(), medicalHistory);
             patientFile.addMedicalHistory(medicalHistory);
             showPatientHistory(dataAccessObject, patientFile.getRamqCode());
-            // medicalHistory = null; MedicalHistory est mis à null à la fin de la méthode pour corriger le bug de 'notes incomplete'.
             alertConfirmSubmit();
         }
         if(medicalVisit == null && medicalHistory == null) {
@@ -210,13 +208,13 @@ public class SearchResultsController implements Initializable {
         this.dataAccessObject = dao;
         historyObservableList = dataAccessObject.getObservableHistoryList(ramqCode);
         colDiagnosisHistory.setCellValueFactory(
-                                new PropertyValueFactory<MedicalHistory, String>("diagnosis"));
+            new PropertyValueFactory<MedicalHistory, String>("diagnosis"));
         colTreatmentHistory.setCellValueFactory(
-                                new PropertyValueFactory<MedicalHistory, String>("treatment"));
+            new PropertyValueFactory<MedicalHistory, String>("treatment"));
         colStartHistory.setCellValueFactory(
-                                new PropertyValueFactory<MedicalHistory, String>("startDate"));
+            new PropertyValueFactory<MedicalHistory, String>("startDate"));
         colEndHistory.setCellValueFactory(
-                                new PropertyValueFactory<MedicalHistory, String>("endDate"));
+            new PropertyValueFactory<MedicalHistory, String>("endDate"));
         medicalHistoryTableView.setItems(historyObservableList);
     }
 
@@ -266,9 +264,8 @@ public class SearchResultsController implements Initializable {
      * @throws IOException
      */
     private void goToAddVisitPage(ActionEvent event) throws IOException {
-        // Pass data to the next controller
         FXMLLoader loader = new FXMLLoader(getClass()
-                                    .getResource("/Application/addVisit.fxml"));
+                                           .getResource("/Application/addVisit.fxml"));
         root = loader.load();
         AddVisitController addVisitController = loader.getController();
         addVisitController.setResources(doctor, patientFile, medicalVisit, medicalHistory,
@@ -286,9 +283,8 @@ public class SearchResultsController implements Initializable {
      * @throws IOException
      */
     private void goToAddHistoryPage(ActionEvent event) throws IOException {
-        // Pass data to the next controller
         FXMLLoader loader = new FXMLLoader(getClass()
-                                    .getResource("/Application/addHistory.fxml"));
+                                           .getResource("/Application/addHistory.fxml"));
         root = loader.load();
         AddHistoryController addHistoryController = loader.getController();
         addHistoryController.setResources(doctor, patientFile, medicalVisit, medicalHistory,
@@ -306,9 +302,8 @@ public class SearchResultsController implements Initializable {
      * @throws IOException
      */
     private void goToUpdateHistoryPage(ActionEvent event) throws IOException {
-        // Pass data to the next controller
         FXMLLoader loader = new FXMLLoader(getClass()
-                                    .getResource("/Application/updateHistory.fxml"));
+                                           .getResource("/Application/updateHistory.fxml"));
         root = loader.load();
         UpdateHistoryController updateHistoryController = loader.getController();
         updateHistoryController.setResources(doctor, patientFile, medicalVisit, medicalHistory,
@@ -328,7 +323,7 @@ public class SearchResultsController implements Initializable {
     private void goToRamqSearchPage(ActionEvent event) throws IOException {
         // Pass data to the next controller
         FXMLLoader loader = new FXMLLoader(getClass()
-                                    .getResource("/Application/ramqSearch.fxml"));
+                                           .getResource("/Application/ramqSearch.fxml"));
         root = loader.load();
         RamqSearchController ramqSearchController = loader.getController();
         ramqSearchController.setResources(doctor, dataAccessObject);

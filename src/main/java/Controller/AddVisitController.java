@@ -94,7 +94,6 @@ public class AddVisitController implements Initializable {
         }
         if(tfSummary.getText().isEmpty()) {
             tfSummary.setStyle("-fx-border-color: red");
-
         } else {
             tfSummary.setStyle("-fx-border-color: #66adff");
         }
@@ -125,7 +124,6 @@ public class AddVisitController implements Initializable {
     public void errorMessageMV()  {
         errorCompleteMV.setVisible(true);
         errorCaution1.setVisible(true);
-        System.out.println("Please complete medical visit.");
     }
 
     /**
@@ -133,14 +131,12 @@ public class AddVisitController implements Initializable {
     */
     @FXML
     public void updateMedicalVisit() {
-        System.out.println("Updated.");
         medicalVisit = new MedicalVisit();
         doctor.setVisitDiagnosis(tfDiagnosis.getText());
         doctor.setVisitTreatment(tfTreatment.getText());
         doctor.setVisitNotes(tfNote.getText());
         doctor.setVisitSummary(tfSummary.getText());
         medicalVisit.accept(doctor);
-
     }
 
     @Override
@@ -176,14 +172,6 @@ public class AddVisitController implements Initializable {
         alert.setHeaderText("Erase all local changes to this medical visit?");
         alert.setContentText("Click OK to erase, click cancel to return.");
         if(alert.showAndWait().get() == ButtonType.OK) {
-
-            /**
-             * Code commenté pour que la fenêtre SearchResults.fxml s'ouvre en premier plan.
-             */
-        
-            // //Code à effectuer lorsque le programme se termine    
-            // stage = (Stage) AnchorPane.getScene().getWindow();
-            // stage.close();
             return true;
         }
         return false;
@@ -196,13 +184,12 @@ public class AddVisitController implements Initializable {
      * @throws IOException
      */
     private void goToSearchResultsPage(ActionEvent event) throws IOException {
-        // Pass data to the next controller
         FXMLLoader loader = new FXMLLoader(getClass()
-                                    .getResource("/Application/searchResults.fxml"));
+                                           .getResource("/Application/searchResults.fxml"));
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
         searchResultsController.setResources(doctor, patientFile, medicalVisit,
-                                                    medicalHistory, dataAccessObject);
+                                             medicalHistory, dataAccessObject);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

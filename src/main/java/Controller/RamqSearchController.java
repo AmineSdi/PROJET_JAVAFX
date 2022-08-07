@@ -73,7 +73,6 @@ public class RamqSearchController implements Initializable {
         if (ramqCode.isEmpty()) {
             errorNoPatient.setVisible(false);
             errorNoField.setVisible(true);
-            System.out.println("Please fill all the fields.");
         }
         else {
             Director director = new Director();
@@ -88,7 +87,6 @@ public class RamqSearchController implements Initializable {
             } else {
                 errorNoField.setVisible(false);
                 errorNoPatient.setVisible(true);
-                System.out.println("Patient not found.");
             }
         }
     }
@@ -139,11 +137,11 @@ public class RamqSearchController implements Initializable {
      */
     private void goToSearchResults(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
-                                    .getResource("/Application/searchResults.fxml"));
+                                           .getResource("/Application/searchResults.fxml"));
         root = loader.load();
         SearchResultsController searchResultsController = loader.getController();
         searchResultsController.setResources(doctor, patientFile, null,
-                                                    null, dataAccessObject);
+                                             null, dataAccessObject);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

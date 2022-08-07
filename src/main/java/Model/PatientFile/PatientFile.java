@@ -45,78 +45,47 @@ public class PatientFile {
         return ramqCode;
     }
 
-    public void setRamqCode(String ramqCode) {
-        this.ramqCode = ramqCode;
-    }
+
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+
 
     public Gender getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
 
     public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
 
     public String getBirthCity() {
         return birthCity;
-    }
-
-    public void setBirthCity(String birthCity) {
-        this.birthCity = birthCity;
     }
 
     public String getKnownParents() {
         return knownParents;
     }
 
-    public void setKnownParents(String knownParents) {
-        this.knownParents = knownParents;
-    }
-
     public ContactInformation getContactInformation() {
         return contactInformation;
     }
-
 
     public void setContactInformation(ContactInformation contactInformation) {
         this.contactInformation = contactInformation;
     }
 
-    public List<MedicalVisit> getMedicalVisits() {
-        return medicalVisits;
-    }
-
-
     public void setMedicalVisits(List<MedicalVisit> medicalVisits) {
         this.medicalVisits = medicalVisits;
-    }
-
-    public List<MedicalHistory> getMedicalHistories() {
-        return medicalHistories;
     }
 
     /**
