@@ -26,9 +26,9 @@ public class MedicalVisit implements Visitable {
         validateDoctorLicense(doctorLicense);
         validateDiagnosis(diagnosis);
         validateTreatment(treatment);
-        this.visitDate = visitDate;
-        this.summary = summary;
-        this.notes = notes;
+        validateVisitDate(visitDate);
+        validateVisitSummary(summary);
+        validateNotes(notes);
     }
 
     public String getEstablishmentName() {
@@ -36,8 +36,6 @@ public class MedicalVisit implements Visitable {
     }
 
     public void validateEstablishmentName(String establishmentName) {
-        // Valid establishmentName example : CHUM, Maisonneuve Rosemont Hopital
-        // Invalid establishmentName example : CHUM 3
         boolean isValid = false;
         String validFormat = "^([a-zA-Z-\\s])*$";
         if (establishmentName.matches(validFormat))
@@ -53,8 +51,6 @@ public class MedicalVisit implements Visitable {
     }
 
     public void validateDoctorName(String doctorName) {
-        // Valid doctorName example : Dr House, Smith
-        // Invalid doctorName example : Dr House licence 852147
         boolean isValid = false;
         String validFormat = "^([a-zA-Z-\\s])*$";
         if (doctorName.matches(validFormat))
@@ -70,8 +66,6 @@ public class MedicalVisit implements Visitable {
     }
 
     public void validateDoctorLicense(int doctorLicense) {
-        // Valid DoctorLicense example : 12345
-        // Invalid DoctorLicense examples : 97-8514, 2541-08
         if (doctorLicense >= 10000 && doctorLicense <= 99999)
             this.doctorLicense = doctorLicense;
         else
@@ -83,8 +77,6 @@ public class MedicalVisit implements Visitable {
     }
 
     public void validateVisitDate(LocalDate visitDate) {
-        // Valid visitDate example : today date
-        // Invalid phone examples : not today date
         boolean isValid = false;
         LocalDate date = LocalDate.now();
         if (visitDate.equals(date))
@@ -100,12 +92,10 @@ public class MedicalVisit implements Visitable {
     }
 
     public void validateDiagnosis(String diagnosis) {
-        // Valid diagnosis examples : Cancer, Cold + temperature 39
-        // Invalid diagnosis example : empty field
         boolean isValid = false;
-        String validFormat = "^\\w+(\\s\\w+)*$";
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
         if (diagnosis != null) {
-            if (diagnosis.matches(validFormat))
+            if (diagnosis.matches(validFormat) && diagnosis.length() > 0)
                 isValid = true;
             if (!isValid)
                 this.diagnosis = null;
@@ -119,12 +109,10 @@ public class MedicalVisit implements Visitable {
     }
 
     public void validateTreatment(String treatment) {
-        // Valid treatment examples : Sleep, pills
-        // Invalid treatment example : empty field
         boolean isValid = false;
-        String validFormat = "^\\w+(\\s\\w+)*$";
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
         if (treatment != null) {
-            if (treatment.matches(validFormat))
+            if (treatment.matches(validFormat) && treatment.length() > 0)
                 isValid = true;
             if (!isValid)
                 this.treatment = null;
@@ -138,13 +126,11 @@ public class MedicalVisit implements Visitable {
     }
 
     public void validateVisitSummary(String visitSummary) {
-        // Valid visitSummary examples : High temperature for 2 days
-        // Invalid visitSummary example : empty field
         boolean isValid = false;
-        String validFormat = "^\\w+(\\s\\w+)*$";
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
         if (visitSummary != null) {
 
-            if (visitSummary.matches(validFormat))
+            if (visitSummary.matches(validFormat) && visitSummary.length() > 0)
                 isValid = true;
             if (!isValid)
                 this.summary = null;
@@ -158,12 +144,10 @@ public class MedicalVisit implements Visitable {
     }
 
     public void validateNotes(String notes) {
-        // Valid visitSummary examples : Had cold in the past
-        // Invalid notes example : empty field
         boolean isValid = false;
-        String validFormat = "^\\w+(\\s\\w+)*$";
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
         if (notes != null) {
-            if (notes.matches(validFormat))
+            if (notes.matches(validFormat) && notes.length() > 0)
                 isValid = true;
             if (!isValid)
                 this.notes = null;
