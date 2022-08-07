@@ -101,8 +101,8 @@ public class RamqSearchController implements Initializable {
     }
 
     public void setResources(Doctor doctor, DataAccessObject dataAccessObject) {
-        doctorName.setText(doctor.getLastName());
-        doctorLicense.setText("" + doctor.getLicense());
+        doctorName.setText("Dr. " + doctor.getLastName());
+        doctorLicense.setText("License # " + doctor.getLicense());
         this.doctor = doctor;
         this.dataAccessObject = dataAccessObject;
     }

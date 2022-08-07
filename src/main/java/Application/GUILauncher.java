@@ -30,7 +30,7 @@ public class GUILauncher extends Application {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Medical program");
         alert.setHeaderText("Would you like to exit the Medical program?");
-        alert.setContentText("Click yes to exit, click cancel to return");
+        alert.setContentText("Click OK to exit, click cancel to return");
         if(alert.showAndWait().get() == ButtonType.OK) {
             //Code à effectuer lorsque le programme se termine
             stage.close();
