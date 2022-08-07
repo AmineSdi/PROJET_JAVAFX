@@ -1,6 +1,8 @@
 import Model.ContactInformation.ContactInformation;
 import Model.Database.DataAccessObject;
+import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
+import Model.User.Doctor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,8 +10,9 @@ import org.junit.jupiter.api.Test;
 import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DataAccessObjectTest {
 
@@ -108,12 +111,12 @@ public class DataAccessObjectTest {
         connection.close();
     }
 
-    @AfterEach
-    public void cleanUp() throws SQLException {
-        connection = getConnection();
-        executeQuery(cleanUpQuery);
-        connection.close();
-    }
+//    @AfterEach
+//    public void cleanUp() throws SQLException {
+//        connection = getConnection();
+//        executeQuery(cleanUpQuery);
+//        connection.close();
+//    }
 
     @Test
     public void addMedicalVisitTest() throws SQLException {
@@ -139,13 +142,31 @@ public class DataAccessObjectTest {
         connection.close();
     }
 
-//    @Test
-//    public void test2() throws SQLException {
-////        System.out.println("INSERTING");
-//        String query = "INSERT into MedicalVisits(patientRamqCode, doctorLicense, visitDate, diagnosis, treatment, summary, notes) VALUES (\"ALLA60050501\", 11111, \"2022-08-01\", \"Headache\", \"Rest\", \"No neuro sx.\", \"No red flags\");";
-//        executeQuery(query);
-//        connection.close();
-//    }
+    @Test
+    public void addMedicalHistoryTest() throws SQLException {
+        connection = getConnection();
+        MedicalHistory mh = new MedicalHistory("dia", "tre",
+                "House", 11111, LocalDate.now(), LocalDate.now());
+        dataAccessObject.addMedicalHistory("ALLA60050501", mh);
+        Statement statement;
+        ResultSet resultSet;
+
+        try {
+            String selectQuery = "select * from MedicalHistories;";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(selectQuery);
+            assertEquals("ALLA60050501", resultSet.getString("patientRamqCode"));
+            assertEquals(LocalDate.now().toString(), resultSet.getString("startDate"));
+            assertEquals(LocalDate.now().toString(), resultSet.getString("endDate"));
+            assertEquals("dia", resultSet.getString("diagnosis"));
+            assertEquals("tre", resultSet.getString("treatment"));
+            assertEquals(11111, resultSet.getInt("doctorLicense"));
+        } catch ( Exception ex) {
+            ex.printStackTrace();
+        }
+        connection.close();
+    }
+
 
     private void executeQuery(String query) {
         Statement st;
