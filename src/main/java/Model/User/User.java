@@ -12,11 +12,11 @@ public abstract class User {
     //Public Methods//
     //**************//
     public User(int userId, String firstName, String lastName, String userName, String password) {
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.password = password;
+        setId(userId);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setUserName(userName);
+        setPassword(password);
     }
 
     public int getId() {
@@ -24,7 +24,10 @@ public abstract class User {
     }
 
     public void setId(int id) {
-        this.userId = id;
+        if (id >= 10000 && id <= 99999)
+            this.userId = id;
+        else
+            this.userId = 0;
     }
 
     public String getFirstName() {
@@ -32,7 +35,16 @@ public abstract class User {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z-\\s])*$";
+
+        if (firstName.matches(validFormat) && firstName.length() > 0)
+            isValid = true;
+
+        if (!isValid)
+            this.firstName = null;
+        else
+            this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -40,7 +52,16 @@ public abstract class User {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z-\\s])*$";
+
+        if (lastName.matches(validFormat) && lastName.length() > 0)
+            isValid = true;
+
+        if (!isValid)
+            this.lastName = null;
+        else
+            this.lastName = lastName;
     }
 
     public String getUserName() {
@@ -48,7 +69,16 @@ public abstract class User {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z0-9]){8}$";
+
+        if (userName.matches(validFormat))
+            isValid = true;
+
+        if (!isValid)
+            this.userName = null;
+        else
+            this.userName = userName;
     }
 
     public String getPassword() {
@@ -56,6 +86,15 @@ public abstract class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z0-9!@#$%?&]){8}$";
+
+        if (password.matches(validFormat))
+            isValid = true;
+
+        if (!isValid)
+            this.password = null;
+        else
+            this.password = password;
     }
 }
