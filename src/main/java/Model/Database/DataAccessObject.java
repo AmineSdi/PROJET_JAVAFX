@@ -251,6 +251,9 @@ public class DataAccessObject {
         return contactInformation;
     }
 
+    //**************//
+    //Private Methods//
+    //**************//
     /**
      * Gets all the medical visits from the database.
      * @param query The select query

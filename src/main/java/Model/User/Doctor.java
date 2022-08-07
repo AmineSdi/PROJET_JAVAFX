@@ -149,7 +149,6 @@ public class Doctor extends User implements Visitor {
         MedicalHistory mh = new MedicalHistory(null, null,
                                                this.firstName + " " + this.lastName, this.license,
                                                LocalDate.now(), null);
-
         return mh;
     }
 
