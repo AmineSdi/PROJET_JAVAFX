@@ -125,6 +125,7 @@ public class RamqSearchController implements Initializable {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Login Page");
         stage.show();
     }
 
@@ -145,6 +146,7 @@ public class RamqSearchController implements Initializable {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Search Results");
         stage.show();
     }
 }

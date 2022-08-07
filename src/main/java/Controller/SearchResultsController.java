@@ -273,6 +273,7 @@ public class SearchResultsController implements Initializable {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Add Visit");
         stage.show();
     }
 
@@ -292,6 +293,7 @@ public class SearchResultsController implements Initializable {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Add Medical History");
         stage.show();
     }
 
@@ -311,6 +313,7 @@ public class SearchResultsController implements Initializable {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Update History");
         stage.show();
     }
 
@@ -321,7 +324,6 @@ public class SearchResultsController implements Initializable {
      * @throws IOException
      */
     private void goToRamqSearchPage(ActionEvent event) throws IOException {
-        // Pass data to the next controller
         FXMLLoader loader = new FXMLLoader(getClass()
                                            .getResource("/Application/ramqSearch.fxml"));
         root = loader.load();
@@ -330,6 +332,7 @@ public class SearchResultsController implements Initializable {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Search Page");
         stage.show();
     }
 
