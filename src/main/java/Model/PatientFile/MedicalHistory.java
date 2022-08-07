@@ -19,11 +19,11 @@ public class MedicalHistory implements Visitable {
 
     public MedicalHistory(String diagnosis, String treatment, String doctorName, int doctorLicense,
                           LocalDate startDate, LocalDate endDate) {
-        this.diagnosis = diagnosis;
-        this.treatment = treatment;
-        this.doctorName = doctorName;
-        this.doctorLicense = doctorLicense;
-        this.startDate = startDate;
+        setDiagnosis(diagnosis);
+        setTreatment(treatment);
+        setDoctorName(doctorName);
+        setDoctorLicense(doctorLicense);
+        setStartDate(startDate);
         this.endDate = endDate;
     }
 
@@ -32,7 +32,10 @@ public class MedicalHistory implements Visitable {
     }
 
     public void setDoctorLicense(int doctorLicense) {
-        this.doctorLicense = doctorLicense;
+        if (doctorLicense >= 10000 && doctorLicense <= 99999)
+            this.doctorLicense = doctorLicense;
+        else
+            this.doctorLicense = 0;
     }
 
     public String getDiagnosis() {
@@ -40,7 +43,18 @@ public class MedicalHistory implements Visitable {
     }
 
     public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+
+        if (diagnosis != null) {
+            if (diagnosis.matches(validFormat) && diagnosis.length() > 0)
+                isValid = true;
+
+            if (!isValid)
+                this.diagnosis = null;
+            else
+                this.diagnosis = diagnosis;
+        }
     }
 
     public String getTreatment() {
@@ -48,7 +62,18 @@ public class MedicalHistory implements Visitable {
     }
 
     public void setTreatment(String treatment) {
-        this.treatment = treatment;
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z0-9-,.?'()\\s])*$";
+        if (treatment != null) {
+
+            if (treatment.matches(validFormat) && treatment.length() > 0)
+                isValid = true;
+
+            if (!isValid)
+                this.treatment = null;
+            else
+                this.treatment = treatment;
+        }
     }
 
     public String getDoctorName() {
@@ -56,7 +81,16 @@ public class MedicalHistory implements Visitable {
     }
 
     public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
+        boolean isValid = false;
+        String validFormat = "^([a-zA-Z-\\s])*$";
+
+        if (doctorName.matches(validFormat) && doctorName.length() > 0)
+            isValid = true;
+
+        if (!isValid)
+            this.doctorName = null;
+        else
+            this.doctorName = doctorName;
     }
 
     public LocalDate getStartDate() {
@@ -64,7 +98,16 @@ public class MedicalHistory implements Visitable {
     }
 
     public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+        boolean isValid = false;
+
+        LocalDate date = LocalDate.now();
+        if (startDate.equals(date))
+            isValid = true;
+
+        if (!isValid)
+            this.startDate = null;
+        else
+            this.startDate = startDate;
     }
 
     public LocalDate getEndDate() {
@@ -72,7 +115,16 @@ public class MedicalHistory implements Visitable {
     }
 
     public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
+        boolean isValid = false;
+
+        LocalDate date = LocalDate.now();
+        if (endDate.equals(date))
+            isValid = true;
+
+        if (!isValid)
+            this.endDate = null;
+        else
+            this.endDate = endDate;
     }
 
     @Override
