@@ -1,0 +1,2 @@
+public class DataAccessObjectTest {
+}

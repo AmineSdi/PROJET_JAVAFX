@@ -15,6 +15,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DataAccessObject {
+
+    public DataAccessObject(String databasePath) {
+        this.databasePath = databasePath;
+    }
+
+    private String databasePath;
+
     //**************//
     //Public Methods//
     //**************//
@@ -71,7 +78,7 @@ public class DataAccessObject {
      * @return The Start Date
      */
     public LocalDate getStartDate(String ramqCode, int doctorLicense, String diagnosis) {
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DBConnection.getInstance(databasePath).getConnection();
         Statement statement;
         ResultSet resultSet = null;
         String startDate = null;
@@ -109,7 +116,7 @@ public class DataAccessObject {
         String query = "SELECT * FROM PatientFiles WHERE ramqCode = \""
                        + ramqCode + "\" LIMIT 1";
         boolean isFound = false;
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DBConnection.getInstance(databasePath).getConnection();
         Statement statement;
         ResultSet resultSet;
         try {
@@ -127,7 +134,7 @@ public class DataAccessObject {
                            + ramqCode + "\" LIMIT 1";
         boolean isFound = false;
         HashMap<String, String> result = null;
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DBConnection.getInstance(databasePath).getConnection();
         Statement statement;
         ResultSet resultSet;
         try {
@@ -162,7 +169,7 @@ public class DataAccessObject {
                            + username + "\" AND password = \"" + password + "\"";
         boolean isFound = false;
         Doctor doctor = null;
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DBConnection.getInstance(databasePath).getConnection();
         Statement statement;
         ResultSet resultSet;
         try {
@@ -236,7 +243,7 @@ public class DataAccessObject {
         ContactInformation contactInformation = null;
         String query = "SELECT * FROM ContactInformation WHERE id = " +
                 "(SELECT contactInfoId FROM PatientFiles WHERE ramqCode = \"" + ramqCode + "\")";
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DBConnection.getInstance(databasePath).getConnection();
         Statement statement;
         ResultSet resultSet = null;
         try {
@@ -262,7 +269,7 @@ public class DataAccessObject {
         Statement statement;
         ResultSet resultSet;
         ObservableList<PatientFile> patientFiles = FXCollections.observableArrayList();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DBConnection.getInstance(databasePath).getConnection();
         try {
             statement = conn.createStatement();
             resultSet = statement.executeQuery(query);
@@ -288,7 +295,7 @@ public class DataAccessObject {
         Statement statement;
         ResultSet resultSet;
         List<MedicalVisit> visits = new ArrayList<>();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DBConnection.getInstance(databasePath).getConnection();
         try {
             statement = conn.createStatement();
             resultSet = statement.executeQuery(query);
@@ -324,7 +331,7 @@ public class DataAccessObject {
         Statement statement;
         ResultSet resultSet;
         List<MedicalHistory> histories = new ArrayList<>();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DBConnection.getInstance(databasePath).getConnection();
         try {
             statement = conn.createStatement();
             resultSet = statement.executeQuery(query);
@@ -395,7 +402,7 @@ public class DataAccessObject {
         Statement statement;
         ResultSet resultSet;
         ObservableList<MedicalVisit> visits = FXCollections.observableArrayList();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DBConnection.getInstance(databasePath).getConnection();
         try {
             statement = conn.createStatement();
             resultSet = statement.executeQuery(query);
@@ -431,7 +438,7 @@ public class DataAccessObject {
         Statement statement;
         ResultSet resultSet;
         ObservableList<MedicalHistory> historyObservableList = FXCollections.observableArrayList();
-        Connection conn = DBConnection.getInstance().getConnection();
+        Connection conn = DBConnection.getInstance(databasePath).getConnection();
         try {
             statement = conn.createStatement();
             resultSet = statement.executeQuery(query);
@@ -559,7 +566,7 @@ public class DataAccessObject {
      * @param query
      */
     private void executeQuery(String query) {
-        Connection connection = DBConnection.getInstance().getConnection();
+        Connection connection = DBConnection.getInstance(databasePath).getConnection();
         Statement st;
         try {
             st = connection.createStatement();
