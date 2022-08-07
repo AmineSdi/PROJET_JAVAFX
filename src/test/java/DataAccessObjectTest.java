@@ -1,5 +1,6 @@
 import Model.ContactInformation.ContactInformation;
 import Model.Database.DataAccessObject;
+import Model.PatientFile.MedicalHistory;
 import Model.PatientFile.MedicalVisit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +11,8 @@ import java.sql.*;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class DataAccessObjectTest {
 
@@ -138,6 +141,35 @@ public class DataAccessObjectTest {
         }
         connection.close();
     }
+
+    @Test
+    public void getStartDateTest() throws SQLException {
+        
+        MedicalHistory mh;
+        connection = getConnection();
+        mh = new MedicalHistory("dia","tre","House",11111, LocalDate.now(),null);
+        dataAccessObject.addMedicalHistory("ALLA60050501", mh);
+        LocalDate date = dataAccessObject.getStartDate("ALLA60050501", 11111, "dia");
+        assertEquals(LocalDate.now(), date);
+        connection.close();
+        
+    }
+
+    @Test void updateEndDateTest() throws SQLException {
+        
+        MedicalHistory mh;
+        connection = getConnection();
+        mh = new MedicalHistory("dia","tre","House",11111, LocalDate.now(),LocalDate.now());
+        dataAccessObject.addMedicalHistory("ALLA60050501", mh);
+        LocalDate date = mh.getEndDate();
+        assertNotNull(date);
+        connection.close();
+
+    }
+
+
+    
+
 
 //    @Test
 //    public void test2() throws SQLException {
