@@ -189,17 +189,7 @@ public class SearchResultsController implements Initializable {
         this.medicalVisit = medicalVisit;
         this.medicalHistory = medicalHistory;
         this.dataAccessObject = dataAccessObject;
-        tfRamqCode.setText(patientFile.getRamqCode());
-        tfFirstName.setText(patientFile.getFirstName());
-        tfLastName.setText(patientFile.getLastName());
-        tfGender.setText(patientFile.getGender().toString());
-        tfCity.setText(patientFile.getBirthCity());
-        tfBirthDate.setText(patientFile.getBirthDate().toString());
-        tfKnownParents.setText(patientFile.getKnownParents());
-        tfPhone.setText(patientFile.getContactInformation().getPhone());
-        tfEmail.setText(patientFile.getContactInformation().getEmail());
-        tfPostalCode.setText(patientFile.getContactInformation().getPostalCode());
-        tfStreet.setText(patientFile.getContactInformation().getStreet());
+        setTextFields();
         showPatientVisits(dataAccessObject, patientFile.getRamqCode());
         showPatientHistory(dataAccessObject, patientFile.getRamqCode());
     }
@@ -233,6 +223,42 @@ public class SearchResultsController implements Initializable {
     //**************//
     //Private Methods//
     //**************//
+
+    /**
+     * Sets the appropriate values to the text fields.
+     */
+    private void setTextFields() {
+        tfRamqCode.setText(patientFile.getRamqCode());
+        tfFirstName.setText(patientFile.getFirstName());
+        tfLastName.setText(patientFile.getLastName());
+        tfGender.setText(patientFile.getGender().toString());
+        tfCity.setText(patientFile.getBirthCity());
+        tfBirthDate.setText(patientFile.getBirthDate().toString());
+        tfKnownParents.setText(patientFile.getKnownParents());
+        tfPhone.setText(patientFile.getContactInformation().getPhone());
+        tfEmail.setText(patientFile.getContactInformation().getEmail());
+        tfPostalCode.setText(patientFile.getContactInformation().getPostalCode());
+        tfStreet.setText(patientFile.getContactInformation().getStreet());
+        setEditableToFalse();
+    }
+
+    /**
+     * Makes sure the User can't modify certain text fields.
+     */
+    private void setEditableToFalse() {
+        tfRamqCode.setEditable(false);
+        tfFirstName.setEditable(false);
+        tfLastName.setEditable(false);
+        tfGender.setEditable(false);
+        tfCity.setEditable(false);
+        tfBirthDate.setEditable(false);
+        tfKnownParents.setEditable(false);
+        tfPhone.setEditable(false);
+        tfEmail.setEditable(false);
+        tfPostalCode.setEditable(false);
+        tfStreet.setEditable(false);
+    }
+
     /**
      * Goes to the add visit page, passing any required data.
      *
