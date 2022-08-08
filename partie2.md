@@ -60,5 +60,7 @@
    Nous avons implémenté le patron `Visitor` pour la création des objets `MedicalVisit` et `MedicalHistory` lorsque l'utilisateur du système (le médecin) veut ajouter ces informations dans le dossier du patient. Dans ce patron, le `Doctor` est l'objet visiteur et le `MedicalHistory` ou le `MedicalVisit` sont les objets visités. Ceci reflète la réalité du domaine d'affaires dans lequel le médecin est la personne qui écrit les informations des visites et des antécédents dans le dossier du patient.  
    <br><br>
    <br><br>
+   2.4 Adapter  
+   Nous avons implémenté le patron `Adapter` pour la connexion à la base de données. La classe `DataAccessObject` fait office de point d'entrée unique vers cette dernière. Le but de cette classe est de centraliser toutes les connexions vers la base de données. Ainsi, il sera plus facile d'effectuer un changement de base de données. La raison est que toutes les connexions passent par `Adapter`. Aussi, les classes `SearchResultsController`, `RamqSearchController`, `LoginController` et `PatientFileBuilder` font appel à `DataAccessObject` pour convertir leurs demandes en requêtes compréhensibles par la base de données.   
 
 
