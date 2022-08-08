@@ -1,44 +1,33 @@
 @startuml
-!include _common.style
+'!include _common.style
 title Adapter class diagram
 center footer Adapter class diagram
 
-class DataAccessObject {
-    +getPatientFileInfoFromDB(RamqCode)
-    +findUsernameAndPassword(username, password)
-    +addMedicalVisit(RamqCode, medicalVisit)
-    +addMedicalHistory(RamqCode, medicalHistory)
-    -executeQuery(query)
+class Controller {
+
 }
 
-class RamqSearchController {
-    +handleBtnSearch()
+interface DataAccessObject {
+    +databaseQuery()
 }
 
-class SearchResultsController {
-    +handleBtnSaveToDB()
+class SQLiteDataAccessObject {
+    +databaseQuery()
 }
 
-class LoginController {
-    +handleBtnLogin()
+class DBAdapter {
+    -responseQuery()
+    -adaptQuery()
+    +databaseQuery()
 }
 
-
-class PatientFileBuilder {
-    +buildVisits()
-    +buildHistories()
-    +buildContactInfo()
-    -fetchPatientInfoFromDB()
+class OtherDatabaseType{
+    +otherDatabaseTypeQuery()
 }
 
-class DBConnection {
-    +getInstance()
-}
+SQLiteDataAccessObject ..|> DataAccessObject
+Controller .. DataAccessObject
+DBAdapter --> OtherDatabaseType
+DBAdapter ..|> DataAccessObject
 
-
-RamqSearchController --> DataAccessObject
-PatientFileBuilder --> DataAccessObject
-LoginController --> DataAccessObject
-SearchResultController -> DataAccessObject
-DataAccessObject -> DBConnection
 @enduml

@@ -3,30 +3,33 @@
 title Adapter sequence diagram
 center footer Adapter sequence diagram
 
-participant ": User" as D
-participant "Adapter : DOA" as DOA
-participant "DBConnection" as DBC
-database "Database" as DB
+participant ": Controller" as C
+participant "SQLiteDataAccessObject" as SQL
+participant "DBAdapter" as Adapter
+participant "OtherDatabaseType" as DB
 
-'D -> D: requestAccess()
+-->C
+activate C
+C -> SQL : databaseQuery()
+activate SQL
+C <-- SQL
+deactivate SQL
+<--C
 
-D -> DOA: request()
-activate D
-activate DOA
-DOA -> DOA: convertRequest()
-activate DBC
-DOA -> DBC: getInstance()
-DBC -> DBC:DBConnection()
-DOA <-- DBC:instance
-deactivate DBC
-DOA -> DB:DBRequest()
+
+
+--> C
+C -> Adapter: databaseQuery()
+activate Adapter
+Adapter -> Adapter : adaptQuery()
+Adapter -> DB:otherDatabaseTypeQuery()
 activate DB
-DOA <-- DB:DBResponse()
+Adapter <-- DB
 deactivate DB
-DOA -> DOA:convertResponse()
-
-D <-- DOA:response()
-deactivate DOA
-deactivate D
+Adapter -> Adapter:responseQuery()
+C <-- Adapter
+deactivate Adapter
+<--C
+deactivate C
 
 @enduml
