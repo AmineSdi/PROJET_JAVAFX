@@ -43,12 +43,6 @@ public class LoginController implements Initializable {
     private Label errorNoUserPassword;
 
     //*********************//
-    //FXML Button Variables//
-    //*********************//
-    @FXML
-    private Button btnLogin;
-
-    //*********************//
     //Handle Button Methods//
     //*********************//
     @FXML

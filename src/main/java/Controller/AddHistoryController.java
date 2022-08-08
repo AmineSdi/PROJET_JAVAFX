@@ -71,16 +71,6 @@ public class AddHistoryController implements Initializable {
 
 
     //*********************//
-    //FXML Button Variables//
-    //*********************//
-    @FXML
-    private Button btnSaveMH;
-    @FXML
-    private Button btnCancelAddMH;
-
-
-
-    //*********************//
     //Handle Button Methods//
     //*********************//
     @FXML

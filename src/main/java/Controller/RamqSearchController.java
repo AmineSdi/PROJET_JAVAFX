@@ -43,13 +43,6 @@ public class RamqSearchController implements Initializable {
     @FXML
     private Label errorNoPatient;
 
-    //*********************//
-    //FXML Button Variables//
-    //*********************//
-    @FXML
-    private Button btnLogout;
-    @FXML
-    private Button btnSearch;
 
     //*********************//
     //FXML Label Variables //

@@ -1,7 +1,7 @@
 package Model.ContactInformation;
 
 /**
- * This class models a MedicalEstablishment and its validation methods.
+ * This class models a Medical Establishment and its validation methods.
  */
 public class MedicalEstablishment {
     //VARIABLES

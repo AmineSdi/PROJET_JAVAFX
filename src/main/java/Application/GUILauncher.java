@@ -29,6 +29,7 @@ public class GUILauncher extends Application {
         loginController.setResources(new DataAccessObject("jdbc:sqlite:MedicalSystem.db"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Login");
         stage.show();
         stage.setOnCloseRequest(event -> {
             event.consume();

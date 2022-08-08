@@ -7,12 +7,6 @@ import java.time.LocalDate;
 
 public class Doctor extends User implements Visitor {
     //VARIABLES
-    /** Note : Pour faire fonctionner le patron Visiteur, on doit garder certaines informations
-     * dans la classe Doctor : diagnosis, treatment, visitSummary et notes pour le
-     * MedicalVisit, et diagnosis, treatment, endDate pour le medicalHistory... Alors on va
-     * voir si c'est ok de garder ces attributs ici en attendant une meilleure solution...
-     * Ces infos vont venir des textfields à partir du MainController...
-     * */
     private int license;
     private String specialty;
     private MedicalEstablishment medicalEstablishment;
@@ -69,16 +63,6 @@ public class Doctor extends User implements Visitor {
 
     public void setHistoryEndDate(LocalDate historyEndDate) {
         this.historyEndDate = historyEndDate;
-        /*boolean isValid = false;
-
-        LocalDate date = LocalDate.now();
-        if (historyEndDate.equals(date))
-            isValid = true;
-
-        if (!isValid)
-            this.historyEndDate = null;
-        else
-            this.historyEndDate = historyEndDate;*/
     }
 
     public void setHistoryStartDate(LocalDate historyStartDate) {

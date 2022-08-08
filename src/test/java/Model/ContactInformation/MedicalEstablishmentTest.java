@@ -1,3 +1,5 @@
+package Model.ContactInformation;
+
 import Model.ContactInformation.ContactInformation;
 import Model.ContactInformation.MedicalEstablishment;
 import org.junit.jupiter.api.BeforeEach;

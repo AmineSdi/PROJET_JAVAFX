@@ -15,12 +15,10 @@ public class MedicalHistoryTest {
 
 
     LocalDate startDate = LocalDate.now();
-    LocalDate endDate = LocalDate.now();
     LocalDate startDate1 = LocalDate.of(2020, 3, 15);
-    //LocalDate endDate1 = LocalDate.of(2020, 3, 15);
+
 
     @BeforeEach
-
     void initialize(){
         // Everything Valid
         mh1 = new MedicalHistory("He's sick", "He takes 3 pills. For 2 weeks",

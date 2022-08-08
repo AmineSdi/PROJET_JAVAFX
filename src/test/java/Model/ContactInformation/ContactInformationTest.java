@@ -1,3 +1,5 @@
+package Model.ContactInformation;
+
 import Model.ContactInformation.ContactInformation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

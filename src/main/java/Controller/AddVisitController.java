@@ -37,8 +37,7 @@ public class AddVisitController implements Initializable {
     private PatientFile patientFile;
     private MedicalVisit medicalVisit;
     private MedicalHistory medicalHistory;
-    @FXML
-    private AnchorPane AnchorPane;
+
     //*************************//
     // FXML TextField variables//
     //*************************//
@@ -63,13 +62,6 @@ public class AddVisitController implements Initializable {
     @FXML
     private ImageView errorCaution1;
 
-    //*********************//
-    //FXML Button Variables//
-    //*********************//
-    @FXML
-    private Button btnSaveMV;
-    @FXML
-    private Button btnCancelAddMV;
 
     //*********************//
     //Handle Button Methods//

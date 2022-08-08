@@ -97,17 +97,6 @@ public class SearchResultsController implements Initializable {
     @FXML
     private TableColumn<MedicalHistory, String> colEndHistory = new TableColumn<>("endDate");
 
-    //*********************//
-    //FXML Button Variables//
-    //*********************//
-    @FXML
-    private Button btnBackToSearch;
-    @FXML
-    private Button btnSaveToDB;
-    @FXML
-    private Button btnAddMedicalVisit;
-    @FXML
-    private Button btnAddMedicalHistory;
 
     //*********************//
     //Handle Button Methods//
@@ -192,6 +181,11 @@ public class SearchResultsController implements Initializable {
         showPatientHistory(dataAccessObject, patientFile.getRamqCode());
     }
 
+    /**
+     * Shows the patient visits in the form of tables.
+     * @param dao The data access object.
+     * @param ramqCode The patient's RAMQCode.
+     */
     public void showPatientVisits(DataAccessObject dao, String ramqCode) {
         this.dataAccessObject = dao;
         visitObservableList = dataAccessObject.getObservableVisitsList(ramqCode);
@@ -203,7 +197,11 @@ public class SearchResultsController implements Initializable {
         medicalVisitTableView.setItems(visitObservableList);
     }
 
-
+    /**
+     * Shows the patient history in the form of tables.
+     * @param dao The data access object.
+     * @param ramqCode The patient's RAMQCode.
+     */
     public void showPatientHistory(DataAccessObject dao, String ramqCode) {
         this.dataAccessObject = dao;
         historyObservableList = dataAccessObject.getObservableHistoryList(ramqCode);

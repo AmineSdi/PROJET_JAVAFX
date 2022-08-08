@@ -11,7 +11,6 @@ class DBConnection {
     private static DBConnection instance = null;
     private Connection connection = null;
     private DBConnection(String databasePath) {
-//        String jdbcUrl = "jdbc:sqlite:MedicalSystem.db";
         try {
             connection = DriverManager.getConnection(databasePath);
         } catch (SQLException e) {
