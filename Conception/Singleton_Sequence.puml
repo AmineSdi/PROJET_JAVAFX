@@ -4,7 +4,7 @@
 title Singleton sequence diagram
 center footer Singleton sequence diagram
 
-participant ": MainController" as C
+participant ": Controller" as C
 
 -> C:
 

@@ -46,7 +46,10 @@
    
 
 
-2. Les patrons de conceptions
+2. Les patrons de conceptions  
+   <br><br>
+   La section présente discute des patrons de conception. Les diagrammes se trouvent dans le
+   répertoire `Conception` à la racine du projet.
    <br><br>
     2.1 Singleton  
     Nous avons implémenté le Singleton pour la connexion à la base de données afin de sécuriser la connexion à la base de données. Nous avons effectivement jugé que lors du lancement de l'application, il seraient prudent d'avoir une seule instance de la connexion à la base de données. 
@@ -59,8 +62,12 @@
    2.3 Visitor  
    Nous avons implémenté le patron `Visitor` pour la création des objets `MedicalVisit` et `MedicalHistory` lorsque l'utilisateur du système (le médecin) veut ajouter ces informations dans le dossier du patient. Dans ce patron, le `Doctor` est l'objet visiteur et le `MedicalHistory` ou le `MedicalVisit` sont les objets visités. Ceci reflète la réalité du domaine d'affaires dans lequel le médecin est la personne qui écrit les informations des visites et des antécédents dans le dossier du patient.  
    <br><br>
-   <br><br>
    2.4 Adapter  
-   Nous avons implémenté le patron `Adapter` pour la connexion à la base de données. La classe `DataAccessObject` fait office de point d'entrée unique vers cette dernière. Le but de cette classe est de centraliser toutes les connexions vers la base de données. Ainsi, il sera plus facile d'effectuer un changement de base de données. La raison est que toutes les connexions passent par `Adapter`. Aussi, les classes `SearchResultsController`, `RamqSearchController`, `LoginController` et `PatientFileBuilder` font appel à `DataAccessObject` pour convertir leurs demandes en requêtes compréhensibles par la base de données.   
+   Un autre patron que nous n'avons cependant pas implémenté (en raison de la complexité de
+   devoir intégrer un autre type de bases de données dans l'application) est le
+   patron `Adapter`. Ce patron servirait à intégrer facilement un autre type de bases de
+   données (par exemple MongoDB, etc.) dans notre application. Actuellement, le type de
+   base de données est SQLite, mais avec un objet `dbAdapter` il serait facile d'intégrer
+   un autre type de base de données (`OtherDatabaseType`).    
 
 
